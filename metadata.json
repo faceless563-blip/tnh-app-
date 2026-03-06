@@ -1,0 +1,5 @@
+{
+  "name": "TANHA CHATTERJEE",
+  "description": "A premium daily planner for Tanha Chatterjee with persistent anchor tasks, streak tracking, and focus mode.",
+  "requestFramePermissions": ["notifications"]
+}

@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-handwriting: "Caveat", cursive;
+  
+  --color-navy-900: #0D1B2A;
+  --color-navy-800: #1B263B;
+  --color-warm-white: #FAFAF8;
+  --color-electric-indigo: #5C6BC0;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+  
+  h1, h2, h3, .serif {
+    @apply font-serif;
+  }
+
+  .handwriting {
+    font-family: var(--font-handwriting);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-electric-indigo/20 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-electric-indigo/40;
+}
+
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20;
+}
+
+.glass-dark {
+  @apply backdrop-blur-md bg-black/20 border border-white/10;
+}
+
+.celebration-gradient {
+  background: linear-gradient(to bottom right, #FFE4E1, #FFB6C1);
+}
+
