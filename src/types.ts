@@ -33,3 +33,32 @@ export type UserSettings = {
   hasSeenWelcomePopup: boolean;
   hasSeenTour: boolean;
 };
+
+export type CyclePhase = 'menstrual' | 'follicular' | 'ovulation' | 'luteal';
+
+export type CycleLog = {
+  date: string; // YYYY-MM-DD
+  flow?: 'none' | 'spotting' | 'light' | 'medium' | 'heavy' | 'very_heavy';
+  moods: string[];
+  symptoms: string[];
+  medication: boolean;
+  notes: string;
+  waterIntake: number; // 0-3+
+  selfCare: string[];
+};
+
+export type CycleSettings = {
+  cycleLength: number; // default 28
+  periodDuration: number; // default 5
+  lastPeriodStart: string; // YYYY-MM-DD
+  remindersEnabled: {
+    periodDue: boolean;
+    dailyLog: boolean;
+    fertileWindow: boolean;
+  };
+};
+
+export type PeriodTrackerData = {
+  logs: CycleLog[];
+  settings: CycleSettings;
+};

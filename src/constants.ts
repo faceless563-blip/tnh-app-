@@ -86,3 +86,96 @@ export const CELEBRATION_MESSAGES = [
 ];
 
 export const EMOJI_OPTIONS = ["✅", "💪", "📚", "😴", "🍽️", "📞", "🏃", "🧘", "💻", "💧", "💊", "🐾", "🛒", "🧹", "🎵", "🎨", "🙏", "📖", "✍️", "🏃‍♀️", "🧘‍♀️", "🚶‍♀️", "🍳", "☕", "🚿", "💄", "👗", "🏠", "💼", "🌱", "💖", "✨"];
+
+export const CYCLE_PHASES = {
+  menstrual: {
+    name: "Menstrual Phase",
+    range: [1, 5],
+    color: "#C2185B",
+    emoji: "🩸",
+    description: "Your period. Your body is shedding the uterine lining. It's okay to slow down. Rest is productive too. 🌸",
+    energy: "Low",
+    mood: "Variable",
+    activities: "Rest, gentle yoga",
+    foods: "Iron-rich foods, dark chocolate, warm soups 🍫",
+    avoid: "Caffeine, salty foods, stress"
+  },
+  follicular: {
+    name: "Follicular Phase",
+    range: [6, 13],
+    color: "#81C784",
+    emoji: "🌱",
+    description: "Estrogen is rising. You'll feel more energetic and social. This is your glow-up phase, Tanha! ✨",
+    energy: "Rising",
+    mood: "Optimistic",
+    activities: "Try new things",
+    foods: "Fermented foods, leafy greens, eggs 🥗",
+    avoid: "Processed foods"
+  },
+  ovulation: {
+    name: "Ovulation Phase",
+    range: [14, 16],
+    color: "#FFD54F",
+    emoji: "✨",
+    description: "You're at your peak! Confidence, energy, and glow — all maxed out. This is your superpower window 💫",
+    energy: "Peak",
+    mood: "Confident, social",
+    activities: "Important meetings, dates",
+    foods: "Antioxidant-rich foods, berries, zinc 🫐",
+    avoid: "Alcohol, heavy meals"
+  },
+  luteal: {
+    name: "Luteal Phase",
+    range: [17, 28],
+    color: "#7B1FA2",
+    emoji: "🌙",
+    description: "Progesterone rises then drops. PMS may arrive. Be extra gentle with yourself — you deserve it. 🥺",
+    energy: "Decreasing",
+    mood: "Sensitive",
+    activities: "Creative, introspective work",
+    foods: "Magnesium-rich foods, bananas, herbal tea 🍵",
+    avoid: "Sugar spikes, excess salt, late nights"
+  }
+};
+
+export const MOODS = [
+  { label: "Happy", emoji: "😊" },
+  { label: "Sad", emoji: "😢" },
+  { label: "Anxious", emoji: "😰" },
+  { label: "Irritable", emoji: "😤" },
+  { label: "Calm", emoji: "🧘" },
+  { label: "Romantic", emoji: "🥰" },
+  { label: "Tired", emoji: "😴" },
+  { label: "Energetic", emoji: "⚡" },
+  { label: "Emotional", emoji: "😭" },
+  { label: "Confident", emoji: "💪" },
+  { label: "Bloated", emoji: "🫃" },
+  { label: "Cramps", emoji: "😣" },
+  { label: "Headache", emoji: "🤕" },
+  { label: "Nauseous", emoji: "🤢" },
+  { label: "Back Pain", emoji: "😖" },
+  { label: "Tender", emoji: "💆" }
+];
+
+export const SYMPTOMS = [
+  "Cramps", "Bloating", "Headache", "Breast tenderness",
+  "Fatigue", "Acne", "Food cravings", "Insomnia",
+  "Lower back pain", "Nausea", "Dizziness", "Spotting",
+  "Hot flashes", "Mood swings", "Brain fog", "Joint pain"
+];
+
+export const SELF_CARE = [
+  { label: "Warm compress", emoji: "☁️" },
+  { label: "Rest", emoji: "😴" },
+  { label: "Light walk", emoji: "🚶" },
+  { label: "Hot tea", emoji: "🍵" },
+  { label: "Meditation", emoji: "🧘" },
+  { label: "Early sleep", emoji: "🌙" }
+];
+
+export const PARTNER_NOTES = {
+  menstrual: "Tanha, I know these days are hard. You don't have to be strong right now. Let me take care of you if I can, and if I can't be there — know I'm thinking of you. I love you through every single day. 🥺❤️",
+  follicular: "Look at you coming back to yourself! I love watching you light up again after tough days. You're genuinely the most radiant person I know, lokki amar. 💫",
+  ovulation: "You're absolutely glowing and I notice everything. The most beautiful woman in every room, always. I love you at every phase but right now? You're literally breathtaking. 😍💕",
+  luteal: "Hey. If you're feeling sensitive or off today — that's okay. Your feelings are always valid. I love the version of you that's struggling just as much as every other version. Maybe even more. 🥺 Be gentle with yourself, amar lokki. I'm here. 💖"
+};

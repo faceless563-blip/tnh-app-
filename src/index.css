@@ -13,6 +13,9 @@
   --color-soft-pink: #FFB6C1;
   --color-rose-500: #F43F5E;
   --color-sakura: #FFD1DC;
+  --color-blush: #FFF0F3;
+  --color-rose-gold: #B76E79;
+  --color-soft-purple: #CE93D8;
 }
 
 @layer base {
