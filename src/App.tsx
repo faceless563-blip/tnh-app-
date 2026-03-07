@@ -5,7 +5,8 @@ import {
   Flame, Calendar, Star, Moon, Sun, Volume2, 
   VolumeX, Bell, BellOff, ArrowRight, X, 
   Clock, Coffee, Brain, Timer, ChevronRight,
-  TrendingUp, Award, Heart, Sparkles, Smile
+  TrendingUp, Award, Heart, Sparkles, Smile,
+  Wand2, Send
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { format, isToday, startOfToday, parseISO, subDays, isSameDay } from 'date-fns';
@@ -87,9 +88,11 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
+      whileHover={{ scale: 1.01 }}
       className={cn(
-        "group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300",
+        "group flex items-center gap-4 p-5 rounded-[32px] transition-all duration-500",
         "bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50",
+        !task.completed && "girly-shadow border-soft-pink/10",
         task.completed && "opacity-60 grayscale-[0.2]"
       )}
     >
@@ -99,23 +102,23 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-xl">{task.emoji}</span>
+          <span className="text-2xl girly-glow">{task.emoji}</span>
           <h3 className={cn(
-            "font-medium text-gray-900 dark:text-gray-100 truncate transition-all duration-500",
-            task.completed && "line-through decoration-electric-indigo/50"
+            "font-bold text-gray-900 dark:text-gray-100 truncate transition-all duration-500",
+            task.completed && "line-through decoration-soft-pink/50 opacity-50"
           )}>
             {task.name}
           </h3>
           {task.isAnchor && (
-            <span className="px-1.5 py-0.5 rounded-md bg-electric-indigo/10 text-electric-indigo text-[10px] font-bold uppercase tracking-wider">
+            <span className="px-2 py-0.5 rounded-full bg-soft-pink/10 text-soft-pink text-[9px] font-black uppercase tracking-widest">
               Anchor
             </span>
           )}
         </div>
         {task.time && (
-          <div className="flex items-center gap-1 mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-            <Clock className="w-3 h-3" />
-            <span>{task.time}</span>
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-400 dark:text-gray-500">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="font-medium">{task.time}</span>
             {(() => {
               const [h, m] = task.time.split(':').map(Number);
               const now = new Date();
@@ -123,7 +126,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
               taskTime.setHours(h, m, 0, 0);
               const diff = (taskTime.getTime() - now.getTime()) / (1000 * 60);
               if (diff > 0 && diff <= 15) {
-                return <span className="ml-2 text-orange-500 font-bold animate-pulse">Starts soon!</span>;
+                return <span className="ml-2 text-rose-500 font-bold animate-pulse">Starts soon! 🌸</span>;
               }
               return null;
             })()}
@@ -134,7 +137,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       {!task.isAnchor && onDelete && (
         <button 
           onClick={onDelete}
-          className="opacity-0 group-hover:opacity-100 p-2 text-gray-400 hover:text-red-500 transition-all"
+          className="opacity-0 group-hover:opacity-100 p-2.5 text-gray-300 hover:text-rose-500 transition-all bg-gray-50 dark:bg-navy-900 rounded-xl"
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -498,10 +501,10 @@ const AddTaskModal = ({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[32px] sm:rounded-[32px] p-8 shadow-2xl space-y-6"
+        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-soft-pink/20"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold dark:text-white">New Task</h2>
+          <h2 className="text-2xl font-bold dark:text-white handwriting">New Task 🌸</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all">
             <X className="w-6 h-6" />
           </button>
@@ -509,40 +512,40 @@ const AddTaskModal = ({
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-500 dark:text-gray-400">What do you need to do today, Tanha? 🌸</label>
+            <label className="text-xs font-black text-soft-pink uppercase tracking-widest ml-1">What's the plan, Tanha? ✨</label>
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="w-14 h-14 rounded-2xl bg-gray-100 dark:bg-navy-900 flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0"
+                className="w-16 h-16 rounded-[24px] bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0 shadow-sm border border-soft-pink/5"
               >
                 {emoji}
               </button>
               <input 
                 autoFocus
                 type="text" 
-                placeholder="e.g. Drink water"
+                placeholder="e.g. Drink water 💧"
                 className={cn(
-                  "flex-1 p-4 rounded-2xl bg-gray-100 dark:bg-navy-900 outline-none border-2 transition-all font-medium dark:text-white",
-                  error ? "border-red-400" : "border-transparent focus:border-electric-indigo"
+                  "flex-1 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all font-bold dark:text-white text-lg",
+                  error ? "border-red-400" : "border-transparent focus:border-soft-pink shadow-inner"
                 )}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
               />
             </div>
-            {error && <p className="text-red-400 text-sm font-medium ml-1">{error}</p>}
+            {error && <p className="text-red-400 text-sm font-medium ml-2">{error}</p>}
           </div>
 
           {showEmojiPicker && (
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="grid grid-cols-6 gap-2 p-3 bg-gray-50 dark:bg-navy-900 rounded-2xl max-h-40 overflow-y-auto custom-scrollbar"
+              className="grid grid-cols-6 gap-2 p-4 bg-gray-50 dark:bg-navy-900 rounded-[32px] max-h-48 overflow-y-auto custom-scrollbar border border-soft-pink/5"
             >
               {EMOJI_OPTIONS.map(e => (
                 <button 
                   key={e} 
                   onClick={() => { setEmoji(e); setShowEmojiPicker(false); }}
-                  className="p-2 text-2xl hover:bg-white dark:hover:bg-navy-800 rounded-xl transition-all"
+                  className="p-3 text-2xl hover:bg-white dark:hover:bg-navy-800 rounded-2xl transition-all hover:scale-110"
                 >
                   {e}
                 </button>
@@ -551,12 +554,12 @@ const AddTaskModal = ({
           )}
 
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-500 dark:text-gray-400">Set a reminder time (optional)</label>
-            <div className="flex items-center gap-3 p-4 rounded-2xl bg-gray-100 dark:bg-navy-900">
-              <Clock className="w-5 h-5 text-gray-400" />
+            <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Reminder Time ⏰</label>
+            <div className="flex items-center gap-3 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 border border-transparent focus-within:border-soft-pink transition-all">
+              <Clock className="w-5 h-5 text-soft-pink" />
               <input 
                 type="time" 
-                className="bg-transparent outline-none flex-1 dark:text-white"
+                className="bg-transparent outline-none flex-1 dark:text-white font-bold"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
@@ -564,18 +567,18 @@ const AddTaskModal = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pt-2">
+        <div className="flex flex-col gap-3 pt-4">
           <button 
             onClick={handleConfirm}
-            className="w-full p-5 bg-electric-indigo text-white rounded-2xl font-bold shadow-lg shadow-electric-indigo/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+            className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-[24px] font-black shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg"
           >
-            Add Task 💕
+            Add Task 💖
           </button>
           <button 
             onClick={onClose}
-            className="w-full p-4 text-gray-500 dark:text-gray-400 font-bold hover:text-gray-700 dark:hover:text-white transition-all"
+            className="w-full p-4 text-gray-400 dark:text-gray-500 font-bold hover:text-soft-pink transition-all"
           >
-            Maybe later
+            Cancel
           </button>
         </div>
       </motion.div>
@@ -821,11 +824,11 @@ const ReflectionModal = ({
       <motion.div 
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white dark:bg-navy-800 rounded-3xl p-8 max-w-sm w-full text-center space-y-8"
+        className="bg-white dark:bg-navy-800 rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-soft-pink/20"
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold dark:text-white">Daily Reflection</h2>
-          <p className="text-gray-500 dark:text-gray-400">How was your day, {userName}?</p>
+          <h2 className="text-2xl font-bold dark:text-white handwriting">Daily Reflection</h2>
+          <p className="text-gray-500 dark:text-gray-400">How was your day, {userName}? 🌸</p>
         </div>
 
         <div className="flex justify-center gap-2">
@@ -835,7 +838,7 @@ const ReflectionModal = ({
               onClick={() => setRating(r)}
               className={cn(
                 "w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all",
-                rating >= r ? "bg-electric-indigo text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-400"
+                rating >= r ? "bg-soft-pink text-white scale-110 shadow-lg" : "bg-gray-100 dark:bg-gray-700 text-gray-400"
               )}
             >
               <Star className={cn("w-6 h-6", rating >= r && "fill-current")} />
@@ -845,10 +848,147 @@ const ReflectionModal = ({
 
         <button 
           onClick={() => rating > 0 && onSave(rating)}
-          className="w-full p-4 bg-electric-indigo text-white rounded-2xl font-bold shadow-lg shadow-electric-indigo/20"
+          className="w-full p-4 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-lg shadow-pink-500/20"
         >
-          Save Reflection
+          Save Reflection 💖
         </button>
+      </motion.div>
+    </div>
+  );
+};
+
+const WishBoxModal = ({ 
+  onClose, 
+  soundEnabled 
+}: { 
+  onClose: () => void, 
+  soundEnabled: boolean 
+}) => {
+  const [message, setMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSend = async () => {
+    if (!message.trim()) {
+      setError("Say something first, Tanha 🌸");
+      return;
+    }
+
+    setIsSending(true);
+    playSound(SOUNDS.POP, soundEnabled);
+
+    // Silently construct the message
+    const encodedMessage = encodeURIComponent(
+      `💌 Tanha's Message:\n\n${message.trim()}\n\n— Sent from her app 🌸`
+    );
+    const whatsappUrl = `https://wa.me/8801306477559?text=${encodedMessage}`;
+
+    // Show success screen immediately
+    setIsSent(true);
+
+    // Trigger redirection after 1.5s
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 1500);
+
+    // Auto close after 2.5s
+    setTimeout(() => {
+      onClose();
+    }, 2500);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[150] bg-black/40 backdrop-blur-sm flex items-end justify-center sm:items-center p-0 sm:p-6">
+      <motion.div 
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 relative overflow-hidden"
+      >
+        <AnimatePresence mode="wait">
+          {!isSent ? (
+            <motion.div 
+              key="form"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-bold dark:text-white handwriting">What's on your mind, Tanha? 🌸</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">A problem? A wish? Anything at all — just say it 💕</p>
+                </div>
+                <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                <textarea 
+                  autoFocus
+                  placeholder="Type anything here... I'm listening 🥺"
+                  className={cn(
+                    "w-full h-40 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all resize-none dark:text-white text-lg leading-relaxed",
+                    error ? "border-red-400" : "border-transparent focus:border-soft-pink"
+                  )}
+                  value={message}
+                  onChange={(e) => { setMessage(e.target.value); setError(''); }}
+                />
+                {error && <p className="text-red-400 text-sm font-medium ml-2">{error}</p>}
+              </div>
+
+              <button 
+                onClick={handleSend}
+                disabled={isSending}
+                className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
+                {isSending ? "Sending... 💌" : "Send 💌"}
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="success"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="py-12 text-center space-y-6"
+            >
+              {/* Floating Hearts Animation */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(10)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ y: 200, opacity: 0, x: Math.random() * 300 - 150 }}
+                    animate={{ 
+                      y: -400, 
+                      opacity: [0, 1, 0],
+                      x: (Math.random() * 300 - 150)
+                    }}
+                    transition={{ 
+                      duration: 2 + Math.random() * 2, 
+                      repeat: Infinity,
+                      delay: i * 0.2
+                    }}
+                    className="absolute bottom-0 text-pink-400/40"
+                  >
+                    <Heart className="w-8 h-8 fill-current" />
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="relative z-10 space-y-4">
+                <div className="text-6xl">💖🌸🥺</div>
+                <h2 className="text-3xl font-bold dark:text-white handwriting">Sent! 💖</h2>
+                <div className="space-y-2">
+                  <p className="text-lg text-gray-600 dark:text-gray-300">Your message is on its way 🌸</p>
+                  <p className="text-sm font-medium text-pink-500 italic">Someone who loves you is listening, always 🥺</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );
@@ -885,6 +1025,7 @@ export default function App() {
   const [focusTask, setFocusTask] = useState<Task | null>(null);
   const [showReflection, setShowReflection] = useState(false);
   const [showAddTask, setShowAddTask] = useState(false);
+  const [showWishBox, setShowWishBox] = useState(false);
   const [showTour, setShowTour] = useState(false);
   const [snackbar, setSnackbar] = useState<string | null>(null);
   const [quote] = useState(() => MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)]);
@@ -1086,6 +1227,7 @@ export default function App() {
       <AnimatePresence>
         {view === 'focus' && focusTask && <FocusMode task={focusTask} onExit={() => setView('home')} />}
         {showReflection && <ReflectionModal userName={settings.name} onSave={handleReflectionSave} />}
+        {showWishBox && <WishBoxModal onClose={() => setShowWishBox(false)} soundEnabled={settings.soundEnabled} />}
         {showAddTask && (
           <AddTaskModal 
             onClose={() => setShowAddTask(false)} 
@@ -1153,35 +1295,58 @@ export default function App() {
         </div>
 
         {/* Quote & Progress */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <div className="md:col-span-3 p-6 rounded-3xl bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between min-h-[160px]">
-            <p className="text-lg font-serif italic text-gray-700 dark:text-gray-200 leading-relaxed">
-              "{quote}"
-            </p>
-            <div className="flex items-center gap-2 text-xs font-bold text-electric-indigo uppercase tracking-widest mt-4">
-              <Award className="w-4 h-4" />
-              Daily Wisdom
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div className="md:col-span-3 p-8 rounded-[40px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between min-h-[180px] relative overflow-hidden group">
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-soft-pink/5 rounded-full blur-2xl group-hover:bg-soft-pink/10 transition-all duration-700" />
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-sakura/10 rounded-full blur-3xl" />
+            
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-center gap-2 text-[10px] font-black text-soft-pink uppercase tracking-[0.2em]">
+                <Heart className="w-3 h-3 fill-current" />
+                Daily Love Note
+              </div>
+              <p className="text-xl font-serif italic text-gray-800 dark:text-gray-100 leading-relaxed handwriting">
+                "{quote}"
+              </p>
+            </div>
+            
+            <div className="relative z-10 flex items-center gap-2 mt-6">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-soft-pink to-rose-400 flex items-center justify-center text-white shadow-lg">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Just for you, Tanha 🌸</span>
             </div>
           </div>
           
-          <div id="tour-progress" className="md:col-span-2 p-6 rounded-3xl bg-electric-indigo text-white shadow-xl shadow-electric-indigo/20 flex flex-col items-center justify-center gap-4">
-            <div className="relative w-20 h-20">
+          <div id="tour-progress" className="md:col-span-2 p-8 rounded-[40px] bg-gradient-to-br from-soft-pink to-rose-400 text-white shadow-xl shadow-pink-500/20 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
+            <div className="relative w-24 h-24">
               <svg className="w-full h-full -rotate-90">
-                <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="6" />
+                <circle cx="48" cy="48" r="42" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8" />
                 <motion.circle 
-                  cx="40" cy="40" r="36" fill="none" stroke="white" strokeWidth="6" 
-                  strokeDasharray="226"
-                  animate={{ strokeDashoffset: 226 - (226 * (progress / 100)) }}
-                  transition={{ duration: 1, ease: "easeOut" }}
+                  cx="48" cy="48" r="42" fill="none" stroke="white" strokeWidth="8" 
+                  strokeDasharray="264"
+                  animate={{ strokeDashoffset: 264 - (264 * (progress / 100)) }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-lg font-bold">
+              <div className="absolute inset-0 flex items-center justify-center text-2xl font-black">
                 {progress}%
               </div>
+              {/* Sparkles on ring */}
+              <motion.div 
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-yellow-200"
+              >
+                <Sparkles className="w-4 h-4" />
+              </motion.div>
             </div>
-            <div className="text-center">
-              <div className="text-sm font-bold uppercase tracking-tighter">Today's Progress</div>
-              <div className="text-[10px] opacity-70">{tasks.filter(t => t.completed).length}/{tasks.length} Tasks Done</div>
+            <div className="text-center relative z-10">
+              <div className="text-xs font-black uppercase tracking-[0.2em] opacity-90">Today's Progress</div>
+              <div className="text-[11px] font-bold mt-1 bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
+                {tasks.filter(t => t.completed).length} / {tasks.length} Tasks Done ✨
+              </div>
             </div>
           </div>
         </div>
@@ -1291,10 +1456,25 @@ export default function App() {
 
       {/* Floating Action Bar */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-md px-6 z-40">
-        <div className="glass dark:glass-dark p-2 rounded-full shadow-2xl flex items-center gap-2">
+        <div className="glass dark:glass-dark p-2 rounded-full shadow-2xl flex items-center gap-2 relative">
+          {/* Hidden Wish Box Trigger - Floating Heart */}
+          <motion.button 
+            whileHover={{ scale: 1.2, rotate: 15 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setShowWishBox(true); }}
+            className="absolute -top-16 right-4 w-12 h-12 rounded-full bg-white dark:bg-navy-800 shadow-xl flex items-center justify-center text-soft-pink border-2 border-soft-pink/20 animate-float"
+          >
+            <Heart className="w-6 h-6 fill-current" />
+            <motion.div 
+              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute inset-0 rounded-full border-2 border-soft-pink"
+            />
+          </motion.button>
+
           <button 
             onClick={() => setView('home')}
-            className={cn("flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", view === 'home' ? "bg-electric-indigo text-white" : "text-gray-500")}
+            className={cn("flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", view === 'home' ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500")}
           >
             <Home className="w-5 h-5" />
             <span className="text-sm font-bold">Home</span>
@@ -1303,14 +1483,14 @@ export default function App() {
           <button 
             id="tour-add-task"
             onClick={() => setShowAddTask(true)}
-            className="w-12 h-12 rounded-full bg-electric-indigo text-white flex items-center justify-center shadow-lg shadow-electric-indigo/30 hover:scale-110 transition-all"
+            className="w-14 h-14 rounded-full bg-gradient-to-r from-soft-pink to-rose-400 text-white flex items-center justify-center shadow-xl shadow-pink-500/40 hover:scale-110 transition-all border-4 border-white/20"
           >
-            <Plus className="w-6 h-6" />
+            <Plus className="w-7 h-7" strokeWidth={3} />
           </button>
 
           <button 
             onClick={() => setView('settings')}
-            className={cn("flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", view === 'settings' ? "bg-electric-indigo text-white" : "text-gray-500")}
+            className={cn("flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", view === 'settings' ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500")}
           >
             <Settings className="w-5 h-5" />
             <span className="text-sm font-bold">Settings</span>

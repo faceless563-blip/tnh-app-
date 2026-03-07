@@ -8,8 +8,11 @@
   
   --color-navy-900: #0D1B2A;
   --color-navy-800: #1B263B;
-  --color-warm-white: #FAFAF8;
-  --color-electric-indigo: #5C6BC0;
+  --color-warm-white: #FFF9FA;
+  --color-electric-indigo: #8E94F2;
+  --color-soft-pink: #FFB6C1;
+  --color-rose-500: #F43F5E;
+  --color-sakura: #FFD1DC;
 }
 
 @layer base {
@@ -34,10 +37,10 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-electric-indigo/20 rounded-full;
+  @apply bg-soft-pink/40 rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-electric-indigo/40;
+  @apply bg-soft-pink/60;
 }
 
 .glass {
@@ -51,4 +54,31 @@
 .celebration-gradient {
   background: linear-gradient(to bottom right, #FFE4E1, #FFB6C1);
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.girly-shadow {
+  box-shadow: 0 10px 25px -5px rgba(255, 182, 193, 0.4), 0 8px 10px -6px rgba(255, 182, 193, 0.4);
+}
+
+.girly-glow {
+  filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.6));
+}
+
 
