@@ -7,7 +7,7 @@ import {
   Clock, Coffee, Brain, Timer, ChevronRight,
   TrendingUp, Award, Heart, Sparkles, Smile,
   Wand2, Send, Droplets, Thermometer, Activity, 
-  Info, ChevronLeft
+  Info, ChevronLeft, Grid
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { 
@@ -25,12 +25,20 @@ import { twMerge } from 'tailwind-merge';
 
 // --- Types & Constants ---
 import { 
+  HairCareTracker, ImportantDatesCalendar, ShoppingList, 
+  SelfCareTracker, MoreMenu 
+} from './components/ExtraFeatures';
+import { NewFeaturesPopup } from './components/NewFeaturesPopup';
+import { 
   Task, AnchorTaskTemplate, UserSettings, DailyReflection,
-  CycleLog, CycleSettings, PeriodTrackerData, CyclePhase 
+  CycleLog, CycleSettings, PeriodTrackerData, CyclePhase,
+  HairCareLog, HairCareSettings, ImportantDate, ShoppingItem,
+  DailySelfCareLog
 } from './types';
 import { 
   MOTIVATIONAL_QUOTES, KEYWORD_EMOJI_MAP, CELEBRATION_MESSAGES, EMOJI_OPTIONS,
-  CYCLE_PHASES, MOODS, SYMPTOMS, SELF_CARE, PARTNER_NOTES
+  CYCLE_PHASES, MOODS, SYMPTOMS, SELF_CARE, PARTNER_NOTES,
+  HAIR_CARE_MESSAGES, BATH_CELEBRATION, SELF_CARE_COMPLETE
 } from './constants';
 
 function cn(...inputs: ClassValue[]) {
@@ -132,7 +140,10 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
             <Clock className="w-3.5 h-3.5" />
             <span className="font-medium">{task.time}</span>
             {(() => {
+              if (!task.time || typeof task.time !== 'string' || !task.time.includes(':')) return null;
               const [h, m] = task.time.split(':').map(Number);
+              if (isNaN(h) || isNaN(m)) return null;
+              
               const now = new Date();
               const taskTime = new Date();
               taskTime.setHours(h, m, 0, 0);
@@ -809,7 +820,7 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
           </div>
 
           <p className="text-lg md:text-xl text-rose-100/80 font-serif italic leading-relaxed mb-8">
-            "You asked me for a period tracker... so I built one. Inside your app. Just for you. Because you deserve everything, amar lokki 💖"
+            "I know how much your cycle affects your energy and mood, Tanha. So I built this little space just for you. It's here to support you every day, to help us understand your body better, and to remind you that you're cared for in every phase. Because you deserve to feel supported, always, amar lokki 💖"
           </p>
           
           <div className="flex flex-col items-center gap-6">
@@ -843,27 +854,27 @@ const PeriodTrackerTour = ({ onComplete, soundEnabled }: { onComplete: () => voi
   const steps = [
     {
       id: 'tour-cycle-wheel',
-      message: "This is your Cycle Wheel 🌸 It shows exactly where you are in your month — Menstrual, Follicular, Ovulation, or Luteal. It's like a compass for your body ✨"
+      message: "This is your Cycle Wheel, Tanha 🌸 It's a map of your body's rhythm. Whether you're feeling high energy or need a little rest, this will help us understand why ✨"
     },
     {
       id: 'tour-log-button',
-      message: "Every day you can log how you're feeling here 🥺 Your flow, your mood, your symptoms — the more you log, the smarter your predictions become 💪"
+      message: "Whenever you feel a certain way, tell me here 🥺 Your moods, your energy, your symptoms — the more I know, the better I can support you, amar lokki 💪"
     },
     {
       id: 'tour-calendar',
-      message: "Your whole cycle history lives here 📅 Color coded, beautiful, and completely private — only you can see this 💌"
+      message: "Your whole cycle history lives here 📅 It's a record of your journey, and it's here to help us see the patterns of your beautiful life — completely private, just for you 💌"
     },
     {
       id: 'tour-phase-guide',
-      message: "I added a full guide to every phase ✨ What to eat, how to feel, what to expect — because you deserve to understand your own body completely 💕"
+      message: "I've put together a guide for every phase of your cycle ✨ From what to eat to how to rest — I want you to have everything you need to feel amazing, always 💕"
     },
     {
       id: 'tour-partner-notes',
-      message: "And my favorite part 🥺 I wrote you a little note for every phase — because no matter where you are in your month, I want you to know exactly how I feel about you 💖"
+      message: "My favorite part... 🥺 I've written a special note for you for every phase. No matter what day it is, I want you to feel my love wrapped around you 💖"
     },
     {
       id: 'tour-final',
-      message: "That's your Health Space, Tanha 🌸\n\nI built this because I want you to feel supported, understood, and cared for — even when I'm not right next to you.\n\nYou are so loved. 🥺💖"
+      message: "This is your space, Tanha 🌸\n\nI built this because your health and happiness mean the world to me. I want to support you through every high and every low.\n\nYou are so loved, amar lokki. 🥺💖"
     }
   ];
 
@@ -1676,7 +1687,7 @@ const StartTrackingSheet = ({
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 01</span>
                   <h2 className="text-3xl font-bold dark:text-white handwriting">When did it start? 🌸</h2>
-                  <p className="text-gray-500 text-sm">Tell me the first day of your last period 💕</p>
+                  <p className="text-gray-500 text-sm">I want to make sure the predictions are perfect for you, amar lokki. Tell me the first day of your last cycle 💕</p>
                 </div>
 
                 <div className="relative group">
@@ -1696,8 +1707,8 @@ const StartTrackingSheet = ({
               <div className="space-y-8">
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 02</span>
-                  <h2 className="text-3xl font-bold dark:text-white handwriting">Your Rhythm 🗓️</h2>
-                  <p className="text-gray-500 text-sm">How many days are usually between your periods?</p>
+                  <h2 className="text-3xl font-bold dark:text-white handwriting">Your Beautiful Rhythm 🗓️</h2>
+                  <p className="text-gray-500 text-sm">Every body is unique, Tanha. How many days does your cycle usually last? This helps me know when to be extra gentle with you 💕</p>
                 </div>
 
                 <div className="space-y-6">
@@ -1726,7 +1737,7 @@ const StartTrackingSheet = ({
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 03</span>
                   <h2 className="text-3xl font-bold dark:text-white handwriting">The Duration 🩸</h2>
-                  <p className="text-gray-500 text-sm">How many days does your period typically last?</p>
+                  <p className="text-gray-500 text-sm">And how many days does your period usually last? I'll use this to help you prepare for those days, amar lokki 💖</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
@@ -1848,7 +1859,7 @@ const PeriodTracker = ({
               animate={{ opacity: 1, y: 0 }}
               className="text-[10px] font-black tracking-[0.4em] text-rose-400 uppercase block"
             >
-              Welcome to your space
+              A space built with love for you
             </motion.span>
             <motion.h1 
               initial={{ opacity: 0, scale: 0.9 }}
@@ -1867,19 +1878,19 @@ const PeriodTracker = ({
           {[
             { 
               title: "Smart Predictions", 
-              desc: "Know exactly when your period is coming with AI-powered tracking.",
+              desc: "Never be caught off guard again. I'll help you stay ahead of your cycle so you can plan your best days, amar lokki.",
               icon: "🗓️",
               color: "bg-rose-50 dark:bg-rose-900/10"
             },
             { 
               title: "Mood & Symptoms", 
-              desc: "Understand your body's patterns and how they affect your day.",
+              desc: "Your moods and energy levels matter. Let's track them so we can take better care of you when you need it most.",
               icon: "✨",
               color: "bg-soft-pink/10 dark:bg-soft-pink/5"
             },
             { 
               title: "Partner Notes", 
-              desc: "Special messages from your husband tailored to your cycle phase.",
+              desc: "I've written a little something for you for every single phase — a reminder of how much I love you, no matter the day.",
               icon: "💌",
               color: "bg-purple-50 dark:bg-purple-900/10"
             }
@@ -1907,8 +1918,8 @@ const PeriodTracker = ({
             className="space-y-8 max-w-md"
           >
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold dark:text-white handwriting">Ready to begin? 🌸</h2>
-              <p className="text-gray-500">It only takes a minute to set up your personalized cycle tracker.</p>
+              <h2 className="text-2xl font-bold dark:text-white handwriting">Let's look after you, Tanha 🌸</h2>
+              <p className="text-gray-500">By tracking your cycle, we can better understand your needs and make sure you're always feeling your best. Let's start this journey together, amar lokki 💕</p>
             </div>
             
             <button 
@@ -2219,8 +2230,37 @@ export default function App() {
     };
   });
 
-  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle'>('home');
-  const [activeTab, setActiveTab] = useState<'day' | 'cycle'>('day');
+  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more'>('home');
+  const [activeTab, setActiveTab] = useState<'day' | 'cycle' | 'more'>('day');
+  
+  const [hairCareLogs, setHairCareLogs] = useState<HairCareLog[]>(() => {
+    const saved = localStorage.getItem('hair_care_logs');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [hairCareSettings, setHairCareSettings] = useState<HairCareSettings>(() => {
+    const saved = localStorage.getItem('hair_care_settings');
+    return saved ? JSON.parse(saved) : { shampooTarget: 2, oilTarget: 3 };
+  });
+
+  const [importantDates, setImportantDates] = useState<ImportantDate[]>(() => {
+    const saved = localStorage.getItem('important_dates');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: '1', title: "Our Special Day 💑", date: format(addDays(new Date(), 3), 'yyyy-MM-dd'), category: 'anniversary', notes: '', repeat: 'yearly' },
+      { id: '2', title: "Tanha's Birthday 🎂", date: format(addMonths(new Date(), 1), 'yyyy-MM-dd'), category: 'birthday', notes: '', repeat: 'yearly' }
+    ];
+  });
+
+  const [shoppingList, setShoppingList] = useState<ShoppingItem[]>(() => {
+    const saved = localStorage.getItem('shopping_list');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [selfCareLogs, setSelfCareLogs] = useState<DailySelfCareLog[]>(() => {
+    const saved = localStorage.getItem('self_care_logs');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showCycleReveal, setShowCycleReveal] = useState(false);
   const [showCycleTour, setShowCycleTour] = useState(false);
   const [snackbar, setSnackbar] = useState<string | null>(null);
@@ -2229,6 +2269,7 @@ export default function App() {
   const [showAddTask, setShowAddTask] = useState(false);
   const [showWishBox, setShowWishBox] = useState(false);
   const [showTour, setShowTour] = useState(false);
+  const [showNewFeaturesPopup, setShowNewFeaturesPopup] = useState(false);
   const [quote] = useState(() => MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)]);
   
   const [celebration, setCelebration] = useState<{ message: string, isFinale: boolean } | null>(null);
@@ -2250,6 +2291,18 @@ export default function App() {
       return () => clearTimeout(timer);
     }
   }, [settings.onboarded, settings.periodTrackerRevealShown]);
+
+  useEffect(() => {
+    if (settings.onboarded) {
+      const hasSeenNewFeatures = localStorage.getItem('new_features_v2_shown');
+      if (!hasSeenNewFeatures) {
+        const timer = setTimeout(() => {
+          setShowNewFeaturesPopup(true);
+        }, 1000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [settings.onboarded]);
 
   const weeklyData = useMemo(() => {
     return Array.from({ length: 7 }).map((_, i) => {
@@ -2276,6 +2329,26 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('anchor_cycle_data', JSON.stringify(cycleData));
   }, [cycleData]);
+
+  useEffect(() => {
+    localStorage.setItem('hair_care_logs', JSON.stringify(hairCareLogs));
+  }, [hairCareLogs]);
+
+  useEffect(() => {
+    localStorage.setItem('hair_care_settings', JSON.stringify(hairCareSettings));
+  }, [hairCareSettings]);
+
+  useEffect(() => {
+    localStorage.setItem('important_dates', JSON.stringify(importantDates));
+  }, [importantDates]);
+
+  useEffect(() => {
+    localStorage.setItem('shopping_list', JSON.stringify(shoppingList));
+  }, [shoppingList]);
+
+  useEffect(() => {
+    localStorage.setItem('self_care_logs', JSON.stringify(selfCareLogs));
+  }, [selfCareLogs]);
 
   // Midnight Reset Logic
   useEffect(() => {
@@ -2374,6 +2447,100 @@ export default function App() {
     } else {
       playSound(SOUNDS.CLICK, settings.soundEnabled);
     }
+  };
+
+  // --- Hair Care Handlers ---
+  const handleHairCareLog = (type: 'shampoo' | 'oil') => {
+    const newLog: HairCareLog = {
+      id: Math.random().toString(36).substr(2, 9),
+      timestamp: new Date().toISOString(),
+      type
+    };
+    setHairCareLogs(prev => [...prev, newLog]);
+    
+    const msg = HAIR_CARE_MESSAGES[type];
+    setCelebration({ message: msg, isFinale: false });
+    playSound(SOUNDS.SUCCESS, settings.soundEnabled);
+    confetti({ particleCount: 40, spread: 50, origin: { y: 0.8 } });
+  };
+
+  const handleDeleteHairCareLog = (id: string) => {
+    setHairCareLogs(prev => prev.filter(l => l.id !== id));
+  };
+
+  // --- Important Dates Handlers ---
+  const handleAddImportantDate = (date: Omit<ImportantDate, 'id'>) => {
+    const newDate: ImportantDate = {
+      ...date,
+      id: Math.random().toString(36).substr(2, 9)
+    };
+    setImportantDates(prev => [...prev, newDate]);
+    setSnackbar("Date saved! I'll help you remember, Tanha 🌸");
+  };
+
+  const handleDeleteImportantDate = (id: string) => {
+    setImportantDates(prev => prev.filter(d => d.id !== id));
+  };
+
+  // --- Shopping List Handlers ---
+  const handleAddShoppingItem = (item: Omit<ShoppingItem, 'id'>) => {
+    const newItem: ShoppingItem = {
+      ...item,
+      id: Math.random().toString(36).substr(2, 9)
+    };
+    setShoppingList(prev => [...prev, newItem]);
+    setSnackbar("Added to your list, Tanha! 🛒💕");
+  };
+
+  const handleToggleShoppingItem = (id: string) => {
+    setShoppingList(prev => prev.map(i => i.id === id ? { ...i, bought: !i.bought } : i));
+    playSound(SOUNDS.CLICK, settings.soundEnabled);
+  };
+
+  const handleDeleteShoppingItem = (id: string) => {
+    setShoppingList(prev => prev.filter(i => i.id !== id));
+  };
+
+  const handleClearBoughtShoppingItems = () => {
+    setShoppingList(prev => prev.filter(i => !i.bought));
+    setSnackbar("Cleared bought items! 🛍️");
+  };
+
+  // --- Self Care Handlers ---
+  const handleLogSelfCare = (checklist: string[], notes: string) => {
+    const todayStr = format(new Date(), 'yyyy-MM-dd');
+    setSelfCareLogs(prev => {
+      const existing = prev.find(l => l.date === todayStr);
+      if (existing) {
+        const updated = prev.map(l => l.date === todayStr ? { ...l, checklist, notes } : l);
+        // Check if just completed all
+        if (checklist.length === 5 && existing.checklist.length < 5) {
+          setCelebration({ message: SELF_CARE_COMPLETE[Math.floor(Math.random() * SELF_CARE_COMPLETE.length)], isFinale: true });
+          confetti({ particleCount: 100, spread: 70 });
+        }
+        return updated;
+      }
+      return [...prev, { date: todayStr, checklist, notes }];
+    });
+  };
+
+  const [bathLogs, setBathLogs] = useState<string[]>(() => {
+    const saved = localStorage.getItem('bath_logs');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('bath_logs', JSON.stringify(bathLogs));
+  }, [bathLogs]);
+
+  const handleLogBath = () => {
+    const todayStr = format(new Date(), 'yyyy-MM-dd');
+    if (bathLogs.includes(todayStr)) return;
+    
+    setBathLogs(prev => [...prev, todayStr]);
+    setCelebration({ message: BATH_CELEBRATION[Math.floor(Math.random() * BATH_CELEBRATION.length)], isFinale: false });
+    playSound(SOUNDS.SUCCESS, settings.soundEnabled);
+    confetti({ particleCount: 60, spread: 60, colors: ['#60A5FA', '#3B82F6', '#FFFFFF'] });
   };
 
   const addTask = (name: string, emoji: string, time?: string) => {
@@ -2595,118 +2762,170 @@ export default function App() {
       {/* Main Content */}
       <main className={cn(
         "max-w-2xl mx-auto py-8 px-6 pb-32 space-y-10",
-        activeTab === 'cycle' && "bg-[#FFF0F3] dark:bg-navy-900 min-h-screen"
+        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare') && "bg-[#FFF0F3] dark:bg-navy-900 min-h-screen"
       )}>
-        {activeTab === 'day' ? (
-          <>
-            {/* Weekly Summary Card (Swipeable feel) */}
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-electric-indigo" />
-                  Weekly Momentum
-                </h2>
-              </div>
-              <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 h-48">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={weeklyData}>
-                    <XAxis 
-                      dataKey="name" 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fill: settings.darkMode ? '#8E9299' : '#6B7280', fontSize: 12 }} 
-                    />
-                    <Tooltip 
-                      cursor={{ fill: 'transparent' }}
-                      content={({ active, payload }) => {
-                        if (active && payload && payload.length) {
-                          return (
-                            <div className="bg-navy-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
-                              {payload[0].value}% Complete
-                            </div>
-                          );
-                        }
-                        return null;
-                      }}
-                    />
-                    <Bar dataKey="rate" radius={[6, 6, 6, 6]} barSize={24}>
-                      {weeklyData.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={isSameDay(parseISO(entry.fullDate), new Date()) ? '#5C6BC0' : (settings.darkMode ? '#2C3E50' : '#E5E7EB')} 
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </section>
+        {view === 'home' ? (
+          activeTab === 'day' ? (
+            <>
+              {/* Weekly Summary Card (Swipeable feel) */}
+              <section className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-electric-indigo" />
+                    Weekly Momentum
+                  </h2>
+                </div>
+                <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 h-48">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={weeklyData}>
+                      <XAxis 
+                        dataKey="name" 
+                        axisLine={false} 
+                        tickLine={false} 
+                        tick={{ fill: settings.darkMode ? '#8E9299' : '#6B7280', fontSize: 12 }} 
+                      />
+                      <Tooltip 
+                        cursor={{ fill: 'transparent' }}
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            return (
+                              <div className="bg-navy-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                {payload[0].value}% Complete
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Bar dataKey="rate" radius={[6, 6, 6, 6]} barSize={24}>
+                        {weeklyData.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={isSameDay(parseISO(entry.fullDate), new Date()) ? '#5C6BC0' : (settings.darkMode ? '#2C3E50' : '#E5E7EB')} 
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </section>
 
-            {/* Anchor Tasks */}
-            <section id="tour-anchors" className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  <Award className="w-5 h-5 text-electric-indigo" />
-                  Anchor Tasks
-                </h2>
-              </div>
-              <div className="space-y-3">
-                {tasks.filter(t => t.isAnchor).map(task => (
-                  <motion.div key={task.id} className="relative">
-                    <TaskCard 
-                      task={task} 
-                      onToggle={() => handleTaskToggle(task.id)} 
-                    />
-                    <button 
-                      onClick={() => { setFocusTask(task); setView('focus'); }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-electric-indigo hover:text-white transition-all"
-                    >
-                      <Timer className="w-4 h-4" />
-                    </button>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            {/* Today's Tasks */}
-            <section id="tour-today" className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-electric-indigo" />
-                  Today's Tasks
-                </h2>
-              </div>
-              <div className="space-y-3">
-                <AnimatePresence mode="popLayout">
-                  {tasks.filter(t => !t.isAnchor).map(task => (
-                    <motion.div key={task.id}>
+              {/* Anchor Tasks */}
+              <section id="tour-anchors" className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    <Award className="w-5 h-5 text-electric-indigo" />
+                    Anchor Tasks
+                  </h2>
+                </div>
+                <div className="space-y-3">
+                  {tasks.filter(t => t.isAnchor).map(task => (
+                    <motion.div key={task.id} className="relative">
                       <TaskCard 
                         task={task} 
                         onToggle={() => handleTaskToggle(task.id)} 
-                        onDelete={() => deleteTask(task.id)}
                       />
+                      <button 
+                        onClick={() => { setFocusTask(task); setView('focus'); }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-electric-indigo hover:text-white transition-all"
+                      >
+                        <Timer className="w-4 h-4" />
+                      </button>
                     </motion.div>
                   ))}
-                </AnimatePresence>
-                
-                {tasks.filter(t => !t.isAnchor).length === 0 && (
-                  <div className="p-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl">
-                    <p className="text-gray-400 text-sm">No extra tasks for today. Add one below!</p>
-                  </div>
-                )}
-              </div>
-            </section>
-          </>
+                </div>
+              </section>
+
+              {/* Today's Tasks */}
+              <section id="tour-today" className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-electric-indigo" />
+                    Today's Tasks
+                  </h2>
+                </div>
+                <div className="space-y-3">
+                  <AnimatePresence mode="popLayout">
+                    {tasks.filter(t => !t.isAnchor).map(task => (
+                      <motion.div key={task.id}>
+                        <TaskCard 
+                          task={task} 
+                          onToggle={() => handleTaskToggle(task.id)} 
+                          onDelete={() => deleteTask(task.id)}
+                        />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                  
+                  {tasks.filter(t => !t.isAnchor).length === 0 && (
+                    <div className="p-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl">
+                      <p className="text-gray-400 text-sm">No extra tasks for today. Add one below!</p>
+                    </div>
+                  )}
+                </div>
+              </section>
+            </>
+          ) : activeTab === 'cycle' ? (
+            <PeriodTracker 
+              data={cycleData} 
+              onUpdate={setCycleData} 
+              setSnackbar={setSnackbar}
+              onInitialize={() => {
+                setSnackbar("Your cycle tracker is ready, Tanha! 💕🌸");
+                setTimeout(() => setShowCycleTour(true), 1000);
+              }}
+            />
+          ) : (
+            <MoreMenu onNavigate={(v) => {
+              if (v === 'wishbox') setShowWishBox(true);
+              else if (v === 'cycle') setActiveTab('cycle');
+              else setView(v as any);
+            }} />
+          )
         ) : (
-          <PeriodTracker 
-            data={cycleData} 
-            onUpdate={setCycleData} 
-            setSnackbar={setSnackbar}
-            onInitialize={() => {
-              setSnackbar("Your cycle tracker is ready, Tanha! 💕🌸");
-              setTimeout(() => setShowCycleTour(true), 1000);
-            }}
-          />
+          <div className="space-y-6">
+            <button 
+              onClick={() => setView('home')}
+              className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-soft-pink transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" /> Back to Home
+            </button>
+            
+            {view === 'hair' && (
+              <HairCareTracker 
+                logs={hairCareLogs} 
+                settings={hairCareSettings} 
+                onLog={handleHairCareLog} 
+                onUpdateSettings={setHairCareSettings}
+                onDeleteLog={handleDeleteHairCareLog}
+              />
+            )}
+            {view === 'dates' && (
+              <ImportantDatesCalendar 
+                dates={importantDates} 
+                onAdd={handleAddImportantDate} 
+                onDelete={handleDeleteImportantDate} 
+              />
+            )}
+            {view === 'shopping' && (
+              <ShoppingList 
+                items={shoppingList} 
+                onAdd={handleAddShoppingItem} 
+                onToggle={handleToggleShoppingItem} 
+                onDelete={handleDeleteShoppingItem} 
+                onClearBought={handleClearBoughtShoppingItems}
+                setSnackbar={setSnackbar}
+              />
+            )}
+            {view === 'selfcare' && (
+              <SelfCareTracker 
+                logs={selfCareLogs} 
+                onLog={handleLogSelfCare} 
+                onLogBath={handleLogBath}
+                bathLogs={bathLogs}
+              />
+            )}
+          </div>
         )}
       </main>
 
@@ -2729,10 +2948,10 @@ export default function App() {
           </motion.button>
 
           <button 
-            onClick={() => setActiveTab('day')}
+            onClick={() => { setView('home'); setActiveTab('day'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              activeTab === 'day' ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'day' && view === 'home') ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
             )}
           >
             <Home className="w-5 h-5" />
@@ -2748,14 +2967,14 @@ export default function App() {
           </button>
 
           <button 
-            onClick={() => setActiveTab('cycle')}
+            onClick={() => { setView('home'); setActiveTab('more'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              activeTab === 'cycle' ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'more' && view === 'home') ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
             )}
           >
-            <Smile className="w-5 h-5" />
-            <span className="text-sm font-bold">My Cycle</span>
+            <Grid className="w-5 h-5" />
+            <span className="text-sm font-bold">More</span>
           </button>
         </div>
       </div>
@@ -2942,6 +3161,12 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <NewFeaturesPopup 
+        isOpen={showNewFeaturesPopup} 
+        onClose={() => setShowNewFeaturesPopup(false)} 
+        onOpenWishBox={() => setShowWishBox(true)} 
+      />
     </div>
   );
 }

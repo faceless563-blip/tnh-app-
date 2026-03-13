@@ -6,21 +6,37 @@
   --font-serif: "Playfair Display", serif;
   --font-handwriting: "Caveat", cursive;
   
-  --color-navy-900: #0D1B2A;
-  --color-navy-800: #1B263B;
-  --color-warm-white: #FFF9FA;
-  --color-electric-indigo: #8E94F2;
+  /* Base Palette - Warm & Feminine */
+  --color-warm-white: #FDFAF7;
+  --color-rose-gold: #B76E79;
+  --color-soft-mauve: #D4A5A5;
+  --color-dusty-rose: #C48B9F;
+  --color-deep-plum: #1A0A0F;
+  --color-plum-card: #2D1520;
+  --color-rose-card: #FFF5F7;
+  
+  /* Text Colors */
+  --color-text-primary: #3D2C2C;
+  --color-text-secondary: #8B6F6F;
+  --color-text-dark-primary: #F5E6E8;
+  --color-text-dark-secondary: #C9A0A8;
+
+  /* Legacy/Support colors (updated to match theme) */
   --color-soft-pink: #FFB6C1;
-  --color-rose-500: #F43F5E;
+  --color-rose-500: #B76E79;
   --color-sakura: #FFD1DC;
   --color-blush: #FFF0F3;
-  --color-rose-gold: #B76E79;
-  --color-soft-purple: #CE93D8;
+  --color-soft-purple: #D1C4E9;
 }
 
 @layer base {
   body {
-    @apply font-sans antialiased;
+    @apply font-sans antialiased text-text-primary bg-warm-white;
+    transition: background-color 2s ease;
+  }
+  
+  .dark body {
+    @apply text-text-dark-primary bg-deep-plum;
   }
   
   h1, h2, h3, .serif {
@@ -40,22 +56,28 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-soft-pink/40 rounded-full;
+  @apply bg-rose-gold/40 rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-soft-pink/60;
+  @apply bg-rose-gold/60;
 }
 
 .glass {
-  @apply backdrop-blur-md bg-white/10 border border-white/20;
+  @apply backdrop-blur-md bg-white/20 border border-white/30;
 }
 
 .glass-dark {
-  @apply backdrop-blur-md bg-black/20 border border-white/10;
+  @apply backdrop-blur-md bg-black/30 border border-white/10;
 }
 
 .celebration-gradient {
-  background: linear-gradient(to bottom right, #FFE4E1, #FFB6C1);
+  background: linear-gradient(to bottom right, #FCE4EC, #F48FB1);
+}
+
+.dynamic-bg {
+  transition: background 2s ease, color 1.5s ease;
+  min-height: 100vh;
+  width: 100%;
 }
 
 @keyframes float {
@@ -77,11 +99,11 @@
 }
 
 .girly-shadow {
-  box-shadow: 0 10px 25px -5px rgba(255, 182, 193, 0.4), 0 8px 10px -6px rgba(255, 182, 193, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(183, 110, 121, 0.2), 0 8px 10px -6px rgba(183, 110, 121, 0.2);
 }
 
 .girly-glow {
-  filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.6));
+  filter: drop-shadow(0 0 8px rgba(183, 110, 121, 0.4));
 }
 
 

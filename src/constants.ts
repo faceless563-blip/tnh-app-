@@ -179,3 +179,39 @@ export const PARTNER_NOTES = {
   ovulation: "You're absolutely glowing and I notice everything. The most beautiful woman in every room, always. I love you at every phase but right now? You're literally breathtaking. 😍💕",
   luteal: "Hey. If you're feeling sensitive or off today — that's okay. Your feelings are always valid. I love the version of you that's struggling just as much as every other version. Maybe even more. 🥺 Be gentle with yourself, amar lokki. I'm here. 💖"
 };
+
+export const SHOPPING_CATEGORIES = [
+  { id: 'groceries', label: 'Groceries', emoji: '🥦' },
+  { id: 'beauty', label: 'Beauty & Personal Care', emoji: '💄' },
+  { id: 'clothing', label: 'Clothing', emoji: '👗' },
+  { id: 'home', label: 'Home & Kitchen', emoji: '🏠' },
+  { id: 'health', label: 'Health & Medicine', emoji: '💊' },
+  { id: 'other', label: 'Other', emoji: '📦' }
+];
+
+export const DATE_CATEGORIES = [
+  { id: 'anniversary', label: 'Anniversary / Relationship', emoji: '💖', color: 'bg-rose-400' },
+  { id: 'birthday', label: 'Birthday', emoji: '🎂', color: 'bg-amber-400' },
+  { id: 'appointment', label: 'Appointment', emoji: '🏥', color: 'bg-emerald-400' },
+  { id: 'milestone', label: 'Personal Milestone', emoji: '🌟', color: 'bg-purple-400' },
+  { id: 'other', label: 'Other / Custom', emoji: '📝', color: 'bg-fuchsia-400' }
+];
+
+export const DEFAULT_SELF_CARE_CHECKLIST = [
+  "Moisturizer applied",
+  "Face wash done",
+  "Nails checked",
+  "Brushed teeth (morning)",
+  "Brushed teeth (night)",
+  "Sunscreen applied",
+  "Vitamins / medicine taken",
+  "Drank enough water"
+];
+
+export const HAIR_CARE_MESSAGES = {
+  shampoo: "Hair wash done! You're going to smell amazing 🧴✨",
+  oil: "Oil applied! Your hair is going to be so healthy, lokki 🫙💕"
+};
+
+export const BATH_CELEBRATION = "Squeaky clean and glowing, lokki amar! I love you so much 🛁✨💕";
+export const SELF_CARE_COMPLETE = "Full self care day, Tanha!! You took such good care of yourself today and I am SO proud of you 🥺💖✨";
