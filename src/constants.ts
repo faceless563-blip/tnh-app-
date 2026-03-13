@@ -215,3 +215,37 @@ export const HAIR_CARE_MESSAGES = {
 
 export const BATH_CELEBRATION = "Squeaky clean and glowing, lokki amar! I love you so much 🛁✨💕";
 export const SELF_CARE_COMPLETE = "Full self care day, Tanha!! You took such good care of yourself today and I am SO proud of you 🥺💖✨";
+
+export const DIARY_PROMPTS = [
+  "What made you smile today, Tanha? 🌸",
+  "What are you grateful for right now? 💕",
+  "How are you really feeling today? 🥺",
+  "What's been on your mind lately? 🌙",
+  "Describe today in 3 words 💬",
+  "What do you wish someone knew about you? 💌",
+  "What made today different from yesterday? ✨",
+  "Write about someone you love today 💖",
+  "What are you looking forward to? 🌟",
+  "What would you tell yourself 1 year ago? 🕊️",
+  "What is something you are proud of lately? 💪",
+  "If today was a color, what would it be and why? 🎨"
+];
+
+export const DIARY_MOODS = ["😊", "😢", "😰", "😤", "🧘", "🥰", "😴", "⚡", "😭", "💪", "🥺", "😌", "🤩", "😔"];
+
+export const DIARY_WEATHER = [
+  { id: 'sunny', emoji: '☀️', label: 'Sunny' },
+  { id: 'cloudy', emoji: '🌤️', label: 'Cloudy' },
+  { id: 'rainy', emoji: '🌧️', label: 'Rainy' },
+  { id: 'stormy', emoji: '⛈️', label: 'Stormy' },
+  { id: 'night', emoji: '🌙', label: 'Night' }
+];
+
+export const DIARY_TYPES = [
+  { id: 'normal', label: 'Normal Entry 📝' },
+  { id: 'gratitude', label: 'Gratitude List 🙏' },
+  { id: 'dear_diary', label: 'Dear Diary Letter 💌' },
+  { id: 'dream', label: 'Dream Journal 🌙' },
+  { id: 'letter_to_him', label: 'Letter to Him 💕' },
+  { id: 'rant', label: 'Rant (private) 😤' }
+];

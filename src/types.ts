@@ -109,3 +109,32 @@ export type DailySelfCareLog = {
   bathLogged: boolean;
   checklist: SelfCareItem[];
 };
+
+export type DiaryType = 'normal' | 'gratitude' | 'dear_diary' | 'dream' | 'letter_to_him' | 'rant';
+export type WeatherType = 'sunny' | 'cloudy' | 'rainy' | 'stormy' | 'night';
+
+export type DiaryEntry = {
+  id: string;
+  date: string;
+  title: string;
+  body: string;
+  mood: string;
+  weather: WeatherType | '';
+  type: DiaryType;
+  tags: string[];
+  photos: string[];
+  isLocked: boolean;
+  isFavorite: boolean;
+  wordCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DiarySettings = {
+  pin: string | null;
+  useBiometric: boolean;
+  reminderTime: string | null;
+  autoSave: boolean;
+  defaultType: DiaryType;
+  fontSize: 'small' | 'medium' | 'large';
+};

@@ -6,7 +6,7 @@ import {
   ChevronLeft, ChevronRight, MoreHorizontal, 
   AlertCircle, Share2, Filter, Star, Bath, 
   CheckSquare, Square, Info, Settings as SettingsIcon,
-  Flame, TrendingUp, Gift, PartyPopper, Bell
+  Flame, TrendingUp, Gift, PartyPopper, Bell, Book
 } from 'lucide-react';
 import { 
   format, addDays, subDays, startOfWeek, endOfWeek, 
@@ -121,7 +121,7 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
         {/* Shampoo Card */}
         <motion.div 
           whileHover={{ y: -5 }}
-          className="p-6 rounded-[32px] bg-gradient-to-br from-blue-50 to-pink-50 dark:from-blue-900/20 dark:to-pink-900/20 border border-white/50 dark:border-white/5 shadow-sm relative overflow-hidden group"
+          className="p-6 rounded-[32px] bg-gradient-to-br from-blue-50 to-sky-50 dark:from-blue-900/20 dark:to-sky-900/20 border border-white/50 dark:border-white/5 shadow-sm relative overflow-hidden group"
         >
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-125 transition-transform duration-500">
             <Droplets className="w-12 h-12 text-blue-500" />
@@ -285,7 +285,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
         <h2 className="text-2xl font-bold serif italic">Important Dates 📅</h2>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="p-2 rounded-full bg-soft-pink text-white shadow-lg hover:scale-110 transition-all"
+          className="p-2 rounded-full bg-blue-300 text-white shadow-lg hover:scale-110 transition-all"
         >
           <Plus className="w-6 h-6" />
         </button>
@@ -312,7 +312,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                 <p className="text-[10px] text-gray-400">{format(parseISO(d.date), 'MMMM do')}</p>
               </div>
               <div className="pt-2 border-t border-gray-50 dark:border-gray-700/50">
-                <span className="text-xs font-black text-soft-pink">
+                <span className="text-xs font-black text-blue-300">
                   {daysLeft === 0 ? "Today! 🌸" : `${daysLeft} days left`}
                 </span>
               </div>
@@ -350,7 +350,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                 key={dateStr}
                 className={cn(
                   "aspect-square rounded-2xl flex flex-col items-center justify-center relative transition-all",
-                  isTodayDate ? "bg-soft-pink text-white shadow-lg shadow-pink-500/20" : "hover:bg-gray-50 dark:hover:bg-white/5"
+                  isTodayDate ? "bg-blue-300 text-white shadow-lg shadow-sky-500/20" : "hover:bg-gray-50 dark:hover:bg-white/5"
                 )}
               >
                 <span className={cn("text-xs font-bold", !isTodayDate && "text-gray-600 dark:text-gray-300")}>
@@ -450,7 +450,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                         className={cn(
                           "p-3 rounded-xl flex flex-col items-center gap-1 transition-all border-2",
                           newDate.category === cat.id 
-                            ? "bg-soft-pink/10 border-soft-pink text-soft-pink" 
+                            ? "bg-blue-300/10 border-blue-300 text-blue-300" 
                             : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
                         )}
                       >
@@ -464,7 +464,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
 
               <button 
                 onClick={handleAdd}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-soft-pink to-rose-400 text-white font-bold shadow-lg shadow-pink-500/20"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-300 to-blue-400 text-white font-bold shadow-lg shadow-sky-500/20"
               >
                 Save Date 💖
               </button>
@@ -542,7 +542,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
           </button>
           <button 
             onClick={() => setShowAdd(!showAdd)}
-            className="p-2 rounded-xl bg-soft-pink text-white shadow-lg hover:scale-110 transition-all"
+            className="p-2 rounded-xl bg-blue-300 text-white shadow-lg hover:scale-110 transition-all"
           >
             <Plus className={cn("w-5 h-5 transition-transform", showAdd && "rotate-45")} />
           </button>
@@ -557,7 +557,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-6 shadow-xl shadow-pink-500/5 mx-2">
+            <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-6 shadow-xl shadow-sky-500/5 mx-2">
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <input 
@@ -565,7 +565,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     placeholder="What do we need, Tanha? 🌸"
                     value={newItem.name}
                     onChange={e => setNewItem({ ...newItem, name: e.target.value })}
-                    className="flex-1 p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-none font-bold text-sm focus:ring-2 focus:ring-soft-pink/20 transition-all"
+                    className="flex-1 p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-none font-bold text-sm focus:ring-2 focus:ring-blue-300/20 transition-all"
                   />
                   <div className="flex items-center bg-gray-50 dark:bg-navy-900 rounded-2xl px-2 gap-2">
                     <button 
@@ -594,7 +594,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                           className={cn(
                             "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all border-2",
                             newItem.category === cat.id 
-                              ? "bg-soft-pink text-white border-soft-pink shadow-md shadow-pink-500/20" 
+                              ? "bg-blue-300 text-white border-blue-300 shadow-md shadow-sky-500/20" 
                               : "bg-gray-50 dark:bg-navy-900 text-gray-400 border-transparent hover:border-gray-200 dark:hover:border-gray-700"
                           )}
                         >
@@ -612,7 +612,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       className={cn(
                         "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all", 
                         newItem.priority === 'normal' 
-                          ? "bg-soft-pink text-white shadow-sm" 
+                          ? "bg-blue-300 text-white shadow-sm" 
                           : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                       )}
                     >
@@ -623,7 +623,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       className={cn(
                         "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all", 
                         newItem.priority === 'urgent' 
-                          ? "bg-rose-600 text-white shadow-sm" 
+                          ? "bg-blue-600 text-white shadow-sm" 
                           : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                       )}
                     >
@@ -632,7 +632,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                   </div>
                   <button 
                     onClick={handleAdd}
-                    className="px-8 py-3 rounded-2xl bg-gradient-to-r from-soft-pink to-rose-400 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-pink-500/20 hover:scale-105 active:scale-95 transition-all"
+                    className="px-8 py-3 rounded-2xl bg-gradient-to-r from-blue-300 to-blue-400 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
                   >
                     Add Item
                   </button>
@@ -647,7 +647,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
         {groupedItems.map(cat => (
           <div key={cat.id} className="space-y-4">
             <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-soft-pink" />
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-300" />
               <span>{cat.emoji}</span>
               {cat.label}
             </h3>
@@ -664,7 +664,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     "p-5 rounded-[28px] bg-white dark:bg-navy-800 border transition-all flex items-center justify-between group relative overflow-hidden",
                     item.bought 
                       ? "opacity-50 border-transparent bg-gray-50/50 dark:bg-navy-900/50" 
-                      : "border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:border-soft-pink/20"
+                      : "border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:border-blue-300/20"
                   )}
                 >
                   <div className="flex items-center gap-4 relative z-10">
@@ -673,8 +673,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       className={cn(
                         "w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all",
                         item.bought 
-                          ? "bg-soft-pink border-soft-pink text-white" 
-                          : "border-gray-200 dark:border-gray-700 hover:border-soft-pink"
+                          ? "bg-blue-300 border-blue-300 text-white" 
+                          : "border-gray-200 dark:border-gray-700 hover:border-blue-300"
                       )}
                     >
                       {item.bought && <CheckCircle2 className="w-5 h-5" />}
@@ -686,7 +686,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       )}>
                         {item.name}
                         {item.priority === 'urgent' && (
-                          <span className="ml-2 text-[8px] bg-rose-600 text-white px-2 py-0.5 rounded-full uppercase font-black tracking-tighter">Urgent</span>
+                          <span className="ml-2 text-[8px] bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase font-black tracking-tighter">Urgent</span>
                         )}
                       </p>
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Qty: {item.quantity}</p>
@@ -742,7 +742,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
 
         {items.length === 0 && (
           <div className="p-20 text-center border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-[48px] space-y-6 mx-2">
-            <div className="w-20 h-20 bg-soft-pink/10 rounded-full flex items-center justify-center mx-auto text-soft-pink">
+            <div className="w-20 h-20 bg-blue-300/10 rounded-full flex items-center justify-center mx-auto text-blue-300">
               <ShoppingBag className="w-10 h-10" />
             </div>
             <div className="space-y-2">
@@ -764,7 +764,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
               className="w-full max-w-xs bg-white dark:bg-navy-800 rounded-[40px] p-8 space-y-6 shadow-2xl"
             >
               <div className="text-center space-y-2">
-                <div className="w-16 h-16 bg-soft-pink/10 rounded-full flex items-center justify-center mx-auto text-soft-pink mb-4">
+                <div className="w-16 h-16 bg-blue-300/10 rounded-full flex items-center justify-center mx-auto text-blue-300 mb-4">
                   <Trash2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold serif italic">Clear bought items, Tanha? 🛒</h3>
@@ -776,7 +776,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     onClearBought();
                     setShowConfirmClear(false);
                   }}
-                  className="w-full py-4 rounded-2xl bg-soft-pink text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-pink-500/20"
+                  className="w-full py-4 rounded-2xl bg-blue-300 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-sky-500/20"
                 >
                   Yes, clear
                 </button>
@@ -898,14 +898,14 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
         <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-2">
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Weekly Score</p>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-soft-pink">{weeklyScore}%</span>
+            <span className="text-3xl font-black text-blue-300">{weeklyScore}%</span>
             <TrendingUp className="w-4 h-4 text-green-500" />
           </div>
           <div className="h-1.5 w-full bg-gray-100 dark:bg-navy-900 rounded-full overflow-hidden">
             <motion.div 
               initial={{ width: 0 }}
               animate={{ width: `${weeklyScore}%` }}
-              className="h-full bg-soft-pink"
+              className="h-full bg-blue-300"
             />
           </div>
         </div>
@@ -955,7 +955,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
             setNotes(e.target.value);
             onLog(checklist, e.target.value);
           }}
-          className="w-full p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 font-medium text-sm min-h-[120px] focus:ring-2 focus:ring-soft-pink/20 transition-all"
+          className="w-full p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 font-medium text-sm min-h-[120px] focus:ring-2 focus:ring-blue-300/20 transition-all"
         />
       </section>
     </div>
@@ -965,22 +965,23 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
 // --- More Menu (Grid) ---
 
 interface MoreMenuProps {
-  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox') => void;
+  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox' | 'diary') => void;
 }
 
 export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
   const menuItems = [
-    { id: 'cycle', name: 'My Cycle', icon: Droplets, color: 'bg-pink-500', label: '🌸' },
-    { id: 'hair', name: 'Hair Care', icon: Sparkles, color: 'bg-blue-500', label: '💆' },
-    { id: 'dates', name: 'Important Dates', icon: CalendarIcon, color: 'bg-indigo-500', label: '📅' },
-    { id: 'shopping', name: 'Shopping List', icon: ShoppingBag, color: 'bg-amber-500', label: '🛍️' },
-    { id: 'selfcare', name: 'Self Care', icon: Heart, color: 'bg-rose-500', label: '✨' },
-    { id: 'wishbox', name: 'Wish Box', icon: Gift, color: 'bg-purple-500', label: '🎁' },
+    { id: 'cycle', name: 'My Cycle', icon: Heart, color: 'bg-[#6E9BB7]', emoji: '🌸' },
+    { id: 'hair', name: 'Hair Care', icon: Droplets, color: 'bg-[#A5C2D4]', emoji: '💆' },
+    { id: 'wishbox', name: 'Wish Box', icon: Sparkles, color: 'bg-[#8BAAC4]', emoji: '🪄' },
+    { id: 'dates', name: 'Important Dates', icon: CalendarIcon, color: 'bg-[#93B8D8]', emoji: '📅' },
+    { id: 'shopping', name: 'Shopping List', icon: ShoppingBag, color: 'bg-[#91C8FF]', emoji: '🛒' },
+    { id: 'selfcare', name: 'Self Care', icon: Bath, color: 'bg-[#8FB1F4]', emoji: '🛁' },
+    { id: 'diary', name: 'My Diary', icon: Book, color: 'bg-[#1E8CE9]', emoji: '📖' },
   ];
 
   return (
-    <div className="space-y-8 pb-20">
-      <h2 className="text-2xl font-bold serif italic">Explore More 🌸</h2>
+    <div className="space-y-8 pb-[100px] min-h-screen -mx-6 -mt-6 px-6 pt-12 bg-gradient-to-br from-[#F0F8FF] via-[#E4F0FF] to-[#E8F4FF] dark:from-[#0F172A] dark:via-[#020617] dark:to-[#0F172A]">
+      <h2 className="text-[32px] font-dancing text-[#6E9BB7] pt-5">Explore More 🌸</h2>
       <div className="grid grid-cols-2 gap-4">
         {menuItems.map((item, index) => (
           <motion.button
@@ -991,7 +992,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
             whileHover={{ scale: 1.02, y: -5 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onNavigate(item.id as any)}
-            className="p-6 rounded-[32px] bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 shadow-sm flex flex-col items-center gap-4 group"
+            className="p-6 rounded-[20px] bg-white/85 dark:bg-navy-800/85 border border-[#C4CCE8]/50 shadow-[0_4px_8px_rgba(110,155,183,0.15)] flex flex-col items-center gap-4 group"
           >
             <div className={cn(
               "w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:rotate-12",
@@ -1000,16 +1001,15 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
               <item.icon className="w-7 h-7" />
             </div>
             <div className="text-center">
-              <p className="font-bold text-sm">{item.name}</p>
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">{item.label} Space</p>
+              <p className="font-medium text-[13px] text-[#1E293B] dark:text-[#E2E8F0] font-sans">{item.emoji} {item.name}</p>
             </div>
           </motion.button>
         ))}
       </div>
       
-      <div className="p-8 rounded-[40px] bg-gradient-to-br from-soft-pink/10 to-rose-400/10 border border-soft-pink/20 text-center space-y-2">
-        <p className="text-sm font-serif italic text-soft-pink">"You deserve all the love in the world, Tanha."</p>
-        <p className="text-[10px] font-black uppercase tracking-widest text-soft-pink/60">Always remember that 💖</p>
+      <div className="p-8 rounded-[40px] bg-gradient-to-br from-blue-300/10 to-blue-400/10 border border-blue-300/20 text-center space-y-2">
+        <p className="text-sm font-serif italic text-blue-300">"You deserve all the love in the world, Tanha."</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-blue-300/60">Always remember that 💖</p>
       </div>
     </div>
   );

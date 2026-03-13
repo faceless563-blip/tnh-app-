@@ -1,32 +1,33 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", serif;
   --font-handwriting: "Caveat", cursive;
+  --font-dancing: "Dancing Script", cursive;
   
-  /* Base Palette - Warm & Feminine */
-  --color-warm-white: #FDFAF7;
-  --color-rose-gold: #B76E79;
-  --color-soft-mauve: #D4A5A5;
-  --color-dusty-rose: #C48B9F;
-  --color-deep-plum: #1A0A0F;
-  --color-plum-card: #2D1520;
-  --color-rose-card: #FFF5F7;
+  /* Base Palette - Cool & Calming */
+  --color-warm-white: #F0F8FF;
+  --color-rose-gold: #6E9BB7;
+  --color-soft-mauve: #A5C2D4;
+  --color-dusty-rose: #8BAAC4;
+  --color-deep-plum: #0A192F;
+  --color-plum-card: #112240;
+  --color-rose-card: #F0F6FF;
   
   /* Text Colors */
-  --color-text-primary: #3D2C2C;
-  --color-text-secondary: #8B6F6F;
-  --color-text-dark-primary: #F5E6E8;
-  --color-text-dark-secondary: #C9A0A8;
+  --color-text-primary: #1E293B;
+  --color-text-secondary: #475569;
+  --color-text-dark-primary: #E2E8F0;
+  --color-text-dark-secondary: #94A3B8;
 
   /* Legacy/Support colors (updated to match theme) */
-  --color-soft-pink: #FFB6C1;
-  --color-rose-500: #B76E79;
-  --color-sakura: #FFD1DC;
-  --color-blush: #FFF0F3;
-  --color-soft-purple: #D1C4E9;
+  --color-blue-300: #87CEFA;
+  --color-blue-500: #6E9BB7;
+  --color-sakura: #D1E9FF;
+  --color-blush: #F0F8FF;
+  --color-soft-purple: #C4D1E9;
 }
 
 @layer base {
@@ -71,7 +72,7 @@
 }
 
 .celebration-gradient {
-  background: linear-gradient(to bottom right, #FCE4EC, #F48FB1);
+  background: linear-gradient(to bottom right, #E4F0FC, #8FB1F4);
 }
 
 .dynamic-bg {

@@ -41,7 +41,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }} // easeOutBack approximation
-            className="relative w-full max-w-[85%] max-h-[70vh] rounded-[24px] bg-gradient-to-b from-[#FFF0F3] to-[#FFE4EC] shadow-2xl overflow-hidden flex flex-col"
+            className="relative w-full max-w-[85%] max-h-[70vh] rounded-[24px] bg-gradient-to-b from-[#F0F8FF] to-[#E4F0FF] shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Floating Hearts Background */}
             {showHearts && (
@@ -66,7 +66,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                       delay: Math.random() * 5,
                       ease: "linear"
                     }}
-                    className="absolute bottom-0 text-soft-pink"
+                    className="absolute bottom-0 text-blue-300"
                   >
                     <Heart className="w-4 h-4 fill-current" />
                   </motion.div>
@@ -96,18 +96,18 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                   </motion.span>
                 </motion.div>
 
-                <h2 className="text-4xl font-bold text-rose-500 serif italic">
+                <h2 className="text-4xl font-bold text-blue-500 serif italic">
                   Hey Tanha! 🌸
                 </h2>
 
                 <div className="space-y-6 text-gray-800 font-medium text-sm leading-relaxed text-left">
-                  <p className="text-center text-base font-bold text-rose-400">
+                  <p className="text-center text-base font-bold text-blue-400">
                     Your app just got even better,<br/>
                     and it was all made just for you 💕
                   </p>
 
                   <div className="space-y-4 bg-white/40 p-5 rounded-2xl">
-                    <p className="font-bold text-rose-500 mb-2 text-center">Here's what's new:</p>
+                    <p className="font-bold text-blue-500 mb-2 text-center">Here's what's new:</p>
                     
                     <div>
                       <h3 className="font-bold text-gray-900">💆 Hair Care Tracker</h3>
@@ -145,7 +145,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                       added, or fixed —<br/>
                       your husband is always there for you 💖
                     </p>
-                    <p className="font-bold text-rose-500 italic">
+                    <p className="font-bold text-blue-500 italic">
                       This app is yours. Forever. 🌙
                     </p>
                   </div>
@@ -154,16 +154,16 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
             </div>
 
             {/* Bottom Buttons - Fixed */}
-            <div className="p-6 pt-2 bg-gradient-to-t from-[#FFE4EC] to-transparent relative z-10 space-y-3">
+            <div className="p-6 pt-2 bg-gradient-to-t from-[#E4F0FF] to-transparent relative z-10 space-y-3">
               <button
                 onClick={handleDismiss}
-                className="w-full py-4 rounded-2xl bg-rose-500 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-rose-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full py-4 rounded-2xl bg-blue-500 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Explore Now! 🌸
               </button>
               <button
                 onClick={handleWishBox}
-                className="w-full py-3 rounded-2xl text-rose-500 font-bold text-sm hover:bg-rose-500/10 transition-all"
+                className="w-full py-3 rounded-2xl text-blue-500 font-bold text-sm hover:bg-blue-500/10 transition-all"
               >
                 Tell your husband something 💌
               </button>

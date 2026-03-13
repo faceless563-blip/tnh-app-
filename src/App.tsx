@@ -29,11 +29,12 @@ import {
   SelfCareTracker, MoreMenu 
 } from './components/ExtraFeatures';
 import { NewFeaturesPopup } from './components/NewFeaturesPopup';
+import { Diary } from './components/diary/Diary';
 import { 
   Task, AnchorTaskTemplate, UserSettings, DailyReflection,
   CycleLog, CycleSettings, PeriodTrackerData, CyclePhase,
   HairCareLog, HairCareSettings, ImportantDate, ShoppingItem,
-  DailySelfCareLog
+  DailySelfCareLog, DiaryEntry, DiarySettings
 } from './types';
 import { 
   MOTIVATIONAL_QUOTES, KEYWORD_EMOJI_MAP, CELEBRATION_MESSAGES, EMOJI_OPTIONS,
@@ -112,7 +113,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       className={cn(
         "group flex items-center gap-4 p-5 rounded-[32px] transition-all duration-500",
         "bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50",
-        !task.completed && "girly-shadow border-soft-pink/10",
+        !task.completed && "girly-shadow border-blue-300/10",
         task.completed && "opacity-60 grayscale-[0.2]"
       )}
     >
@@ -125,12 +126,12 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
           <span className="text-2xl girly-glow">{task.emoji}</span>
           <h3 className={cn(
             "font-bold text-gray-900 dark:text-gray-100 truncate transition-all duration-500",
-            task.completed && "line-through decoration-soft-pink/50 opacity-50"
+            task.completed && "line-through decoration-blue-300/50 opacity-50"
           )}>
             {task.name}
           </h3>
           {task.isAnchor && (
-            <span className="px-2 py-0.5 rounded-full bg-soft-pink/10 text-soft-pink text-[9px] font-black uppercase tracking-widest">
+            <span className="px-2 py-0.5 rounded-full bg-blue-300/10 text-blue-300 text-[9px] font-black uppercase tracking-widest">
               Anchor
             </span>
           )}
@@ -149,7 +150,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
               taskTime.setHours(h, m, 0, 0);
               const diff = (taskTime.getTime() - now.getTime()) / (1000 * 60);
               if (diff > 0 && diff <= 15) {
-                return <span className="ml-2 text-rose-500 font-bold animate-pulse">Starts soon! 🌸</span>;
+                return <span className="ml-2 text-blue-500 font-bold animate-pulse">Starts soon! 🌸</span>;
               }
               return null;
             })()}
@@ -160,7 +161,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       {!task.isAnchor && onDelete && (
         <button 
           onClick={onDelete}
-          className="opacity-0 group-hover:opacity-100 p-2.5 text-gray-300 hover:text-rose-500 transition-all bg-gray-50 dark:bg-navy-900 rounded-xl"
+          className="opacity-0 group-hover:opacity-100 p-2.5 text-gray-300 hover:text-blue-500 transition-all bg-gray-50 dark:bg-navy-900 rounded-xl"
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -238,7 +239,7 @@ const CelebrationPopup = ({
 
         <button
           onClick={onDismiss}
-          className="px-8 py-3 bg-white/80 hover:bg-white text-pink-600 rounded-full font-bold shadow-sm transition-all flex items-center gap-2 mx-auto"
+          className="px-8 py-3 bg-white/80 hover:bg-white text-sky-600 rounded-full font-bold shadow-sm transition-all flex items-center gap-2 mx-auto"
         >
           {isFinale ? "I love you too! 💖" : "💖 Yay!"}
         </button>
@@ -249,7 +250,7 @@ const CelebrationPopup = ({
           <motion.div
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-full h-full border-4 border-pink-300/30 rounded-[50px]"
+            className="w-full h-full border-4 border-sky-300/30 rounded-[50px]"
           />
         </div>
       )}
@@ -452,7 +453,7 @@ const WelcomePopup = ({ onDismiss, soundEnabled }: { onDismiss: () => void, soun
                 repeat: Infinity,
                 delay: i * 0.5
               }}
-              className="absolute bottom-0 text-pink-400/40"
+              className="absolute bottom-0 text-sky-400/40"
             >
               <Heart className="w-10 h-10 fill-current" />
             </motion.div>
@@ -468,13 +469,13 @@ const WelcomePopup = ({ onDismiss, soundEnabled }: { onDismiss: () => void, soun
             <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
               Someone who loves you very much made this just for you 🥺💌
               <br />
-              <span className="font-bold text-pink-500">Now go be the amazing person you already are 💖</span>
+              <span className="font-bold text-sky-500">Now go be the amazing person you already are 💖</span>
             </p>
           </div>
 
           <button 
             onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); onDismiss(); }}
-            className="w-full p-5 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+            className="w-full p-5 bg-gradient-to-r from-sky-400 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
           >
             Aww, thank you! 🥰
           </button>
@@ -524,7 +525,7 @@ const AddTaskModal = ({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-soft-pink/20"
+        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-blue-300/20"
       >
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold dark:text-white handwriting">New Task 🌸</h2>
@@ -535,11 +536,11 @@ const AddTaskModal = ({
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-black text-soft-pink uppercase tracking-widest ml-1">What's the plan, Tanha? ✨</label>
+            <label className="text-xs font-black text-blue-300 uppercase tracking-widest ml-1">What's the plan, Tanha? ✨</label>
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="w-16 h-16 rounded-[24px] bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0 shadow-sm border border-soft-pink/5"
+                className="w-16 h-16 rounded-[24px] bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0 shadow-sm border border-blue-300/5"
               >
                 {emoji}
               </button>
@@ -549,7 +550,7 @@ const AddTaskModal = ({
                 placeholder="e.g. Drink water 💧"
                 className={cn(
                   "flex-1 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all font-bold dark:text-white text-lg",
-                  error ? "border-red-400" : "border-transparent focus:border-soft-pink shadow-inner"
+                  error ? "border-red-400" : "border-transparent focus:border-blue-300 shadow-inner"
                 )}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
@@ -562,7 +563,7 @@ const AddTaskModal = ({
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="grid grid-cols-6 gap-2 p-4 bg-gray-50 dark:bg-navy-900 rounded-[32px] max-h-48 overflow-y-auto custom-scrollbar border border-soft-pink/5"
+              className="grid grid-cols-6 gap-2 p-4 bg-gray-50 dark:bg-navy-900 rounded-[32px] max-h-48 overflow-y-auto custom-scrollbar border border-blue-300/5"
             >
               {EMOJI_OPTIONS.map(e => (
                 <button 
@@ -578,8 +579,8 @@ const AddTaskModal = ({
 
           <div className="space-y-2">
             <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Reminder Time ⏰</label>
-            <div className="flex items-center gap-3 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 border border-transparent focus-within:border-soft-pink transition-all">
-              <Clock className="w-5 h-5 text-soft-pink" />
+            <div className="flex items-center gap-3 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 border border-transparent focus-within:border-blue-300 transition-all">
+              <Clock className="w-5 h-5 text-blue-300" />
               <input 
                 type="time" 
                 className="bg-transparent outline-none flex-1 dark:text-white font-bold"
@@ -593,13 +594,13 @@ const AddTaskModal = ({
         <div className="flex flex-col gap-3 pt-4">
           <button 
             onClick={handleConfirm}
-            className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-[24px] font-black shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg"
+            className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-[24px] font-black shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg"
           >
             Add Task 💖
           </button>
           <button 
             onClick={onClose}
-            className="w-full p-4 text-gray-400 dark:text-gray-500 font-bold hover:text-soft-pink transition-all"
+            className="w-full p-4 text-gray-400 dark:text-gray-500 font-bold hover:text-blue-300 transition-all"
           >
             Cancel
           </button>
@@ -753,12 +754,12 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] bg-[#0a0502] flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[300] bg-[#020617] flex items-center justify-center overflow-hidden"
     >
       {/* Atmospheric Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-rose-900/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-soft-pink/10 blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-900/20 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-300/10 blur-[120px]" />
         <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] rounded-full bg-purple-900/10 blur-[100px]" />
       </div>
 
@@ -783,7 +784,7 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute text-rose-200/20"
+            className="absolute text-blue-200/20"
           >
             {i % 3 === 0 ? <Heart className="w-6 h-6 fill-current" /> : i % 3 === 1 ? "🌸" : "✨"}
           </motion.div>
@@ -802,10 +803,10 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
           transition={{ delay: 0.8, duration: 1.2 }}
           className="mb-12"
         >
-          <span className="text-xs font-black tracking-[0.3em] text-rose-400 uppercase mb-4 block">A Special Addition</span>
+          <span className="text-xs font-black tracking-[0.3em] text-blue-400 uppercase mb-4 block">A Special Addition</span>
           <h1 className="text-6xl md:text-8xl font-display text-white leading-none tracking-tighter uppercase italic">
             For My <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-soft-pink">Lokki Bou</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-300">Lokki Bou</span>
           </h1>
         </motion.div>
 
@@ -815,11 +816,11 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
           transition={{ delay: 1.5, duration: 1 }}
           className="max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 md:p-12 shadow-2xl relative"
         >
-          <div className="absolute -top-6 -left-6 w-12 h-12 bg-rose-500 rounded-full flex items-center justify-center text-white shadow-lg rotate-[-12deg]">
+          <div className="absolute -top-6 -left-6 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg rotate-[-12deg]">
             <Heart className="w-6 h-6 fill-current" />
           </div>
 
-          <p className="text-lg md:text-xl text-rose-100/80 font-serif italic leading-relaxed mb-8">
+          <p className="text-lg md:text-xl text-blue-100/80 font-serif italic leading-relaxed mb-8">
             "I know how much your cycle affects your energy and mood, Tanha. So I built this little space just for you. It's here to support you every day, to help us understand your body better, and to remind you that you're cared for in every phase. Because you deserve to feel supported, always, amar lokki 💖"
           </p>
           
@@ -830,7 +831,7 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
             >
               <span className="relative z-10">Enter My Cycle 🌸</span>
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-rose-200 to-soft-pink opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute inset-0 bg-gradient-to-r from-blue-200 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity"
               />
             </button>
             
@@ -983,7 +984,7 @@ const PeriodTrackerTour = ({ onComplete, soundEnabled }: { onComplete: () => voi
               </span>
               <button 
                 onClick={handleNext}
-                className="px-6 py-2 bg-soft-pink text-white rounded-full font-bold text-sm shadow-lg shadow-pink-500/20 hover:scale-105 active:scale-95 transition-all"
+                className="px-6 py-2 bg-blue-300 text-white rounded-full font-bold text-sm shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
               >
                 {step === steps.length - 1 ? "Thank you 🥺💖" : "Next 💕"}
               </button>
@@ -1095,7 +1096,7 @@ const ReflectionModal = ({
       <motion.div 
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white dark:bg-navy-800 rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-soft-pink/20"
+        className="bg-white dark:bg-navy-800 rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-blue-300/20"
       >
         <div className="space-y-2">
           <h2 className="text-2xl font-bold dark:text-white handwriting">Daily Reflection</h2>
@@ -1109,7 +1110,7 @@ const ReflectionModal = ({
               onClick={() => setRating(r)}
               className={cn(
                 "w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all",
-                rating >= r ? "bg-soft-pink text-white scale-110 shadow-lg" : "bg-gray-100 dark:bg-gray-700 text-gray-400"
+                rating >= r ? "bg-blue-300 text-white scale-110 shadow-lg" : "bg-gray-100 dark:bg-gray-700 text-gray-400"
               )}
             >
               <Star className={cn("w-6 h-6", rating >= r && "fill-current")} />
@@ -1119,7 +1120,7 @@ const ReflectionModal = ({
 
         <button 
           onClick={() => rating > 0 && onSave(rating)}
-          className="w-full p-4 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-lg shadow-pink-500/20"
+          className="w-full p-4 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-lg shadow-sky-500/20"
         >
           Save Reflection 💖
         </button>
@@ -1203,7 +1204,7 @@ const WishBoxModal = ({
                   placeholder="Type anything here... I'm listening 🥺"
                   className={cn(
                     "w-full h-40 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all resize-none dark:text-white text-lg leading-relaxed",
-                    error ? "border-red-400" : "border-transparent focus:border-soft-pink"
+                    error ? "border-red-400" : "border-transparent focus:border-blue-300"
                   )}
                   value={message}
                   onChange={(e) => { setMessage(e.target.value); setError(''); }}
@@ -1214,7 +1215,7 @@ const WishBoxModal = ({
               <button 
                 onClick={handleSend}
                 disabled={isSending}
-                className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
                 {isSending ? "Sending... 💌" : "Send 💌"}
               </button>
@@ -1242,7 +1243,7 @@ const WishBoxModal = ({
                       repeat: Infinity,
                       delay: i * 0.2
                     }}
-                    className="absolute bottom-0 text-pink-400/40"
+                    className="absolute bottom-0 text-sky-400/40"
                   >
                     <Heart className="w-8 h-8 fill-current" />
                   </motion.div>
@@ -1254,7 +1255,7 @@ const WishBoxModal = ({
                 <h2 className="text-3xl font-bold dark:text-white handwriting">Sent! 💖</h2>
                 <div className="space-y-2">
                   <p className="text-lg text-gray-600 dark:text-gray-300">Your message is on its way 🌸</p>
-                  <p className="text-sm font-medium text-pink-500 italic">Someone who loves you is listening, always 🥺</p>
+                  <p className="text-sm font-medium text-sky-500 italic">Someone who loves you is listening, always 🥺</p>
                 </div>
               </div>
             </motion.div>
@@ -1403,7 +1404,7 @@ const LogSheet = ({
                 className={cn(
                   "p-3 rounded-2xl text-[10px] font-bold transition-all border-2",
                   flow === f 
-                    ? "bg-soft-pink border-soft-pink text-white shadow-lg" 
+                    ? "bg-blue-300 border-blue-300 text-white shadow-lg" 
                     : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
                 )}
               >
@@ -1425,7 +1426,7 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   moods.includes(m.label)
-                    ? "bg-soft-pink/10 border-soft-pink text-soft-pink"
+                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
                     : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
                 )}
               >
@@ -1446,7 +1447,7 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   symptoms.includes(s)
-                    ? "bg-soft-pink/10 border-soft-pink text-soft-pink"
+                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
                     : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
                 )}
               >
@@ -1464,7 +1465,7 @@ const LogSheet = ({
               onClick={() => setMedication(!medication)}
               className={cn(
                 "w-full p-4 rounded-2xl font-bold flex items-center justify-between transition-all border-2",
-                medication ? "bg-soft-pink border-soft-pink text-white" : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
+                medication ? "bg-blue-300 border-blue-300 text-white" : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
               )}
             >
               <span>Pain relief today?</span>
@@ -1474,13 +1475,13 @@ const LogSheet = ({
           <div className="space-y-4">
             <label className="text-xs font-black text-gray-400 uppercase tracking-widest">💧 Water Intake</label>
             <div className="p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 space-y-2">
-              <div className="flex justify-between text-xs font-bold text-soft-pink">
+              <div className="flex justify-between text-xs font-bold text-blue-300">
                 <span>{water} Liters</span>
                 <span>3L+</span>
               </div>
               <input 
                 type="range" min="0" max="3" step="0.5"
-                className="w-full accent-soft-pink"
+                className="w-full accent-blue-300"
                 value={water}
                 onChange={(e) => setWater(parseFloat(e.target.value))}
               />
@@ -1498,7 +1499,7 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   selfCare.includes(sc.label)
-                    ? "bg-soft-pink/10 border-soft-pink text-soft-pink"
+                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
                     : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
                 )}
               >
@@ -1512,7 +1513,7 @@ const LogSheet = ({
           <label className="text-xs font-black text-gray-400 uppercase tracking-widest">🌸 Anything else, Tanha?</label>
           <textarea 
             placeholder="How are you feeling today? Tell me everything..."
-            className="w-full h-32 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 border-transparent focus:border-soft-pink transition-all resize-none dark:text-white"
+            className="w-full h-32 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 border-transparent focus:border-blue-300 transition-all resize-none dark:text-white"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
@@ -1520,7 +1521,7 @@ const LogSheet = ({
 
         <button 
           onClick={handleSave}
-          className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           Logged 💕
         </button>
@@ -1596,16 +1597,16 @@ const CalendarView = ({
               className={cn(
                 "aspect-square rounded-xl flex flex-col items-center justify-center relative transition-all",
                 !isCurrentMonth && "opacity-20",
-                isTodayDate && "ring-2 ring-soft-pink ring-offset-2 dark:ring-offset-navy-900"
+                isTodayDate && "ring-2 ring-blue-300 ring-offset-2 dark:ring-offset-navy-900"
               )}
             >
-              <span className={cn("text-sm font-bold", isTodayDate ? "text-soft-pink" : "text-gray-600 dark:text-gray-300")}>
+              <span className={cn("text-sm font-bold", isTodayDate ? "text-blue-300" : "text-gray-600 dark:text-gray-300")}>
                 {format(day, 'd')}
               </span>
               <div className={cn(
                 "w-1.5 h-1.5 rounded-full mt-1",
-                type === 'period' && "bg-rose-600",
-                type === 'predicted' && "bg-rose-300",
+                type === 'period' && "bg-blue-600",
+                type === 'predicted' && "bg-blue-300",
                 type === 'ovulation' && "bg-yellow-400",
                 type === 'fertile' && "bg-green-400",
                 type === 'pms' && "bg-purple-400",
@@ -1617,8 +1618,8 @@ const CalendarView = ({
       </div>
 
       <div className="flex flex-wrap gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest justify-center">
-        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-rose-600" /> Logged</div>
-        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-rose-300" /> Predicted</div>
+        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-600" /> Logged</div>
+        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-300" /> Predicted</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-yellow-400" /> Ovulation</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-green-400" /> Fertile</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-purple-400" /> PMS</div>
@@ -1669,7 +1670,7 @@ const StartTrackingSheet = ({
           <motion.div 
             initial={{ width: "33.33%" }}
             animate={{ width: `${(step / 3) * 100}%` }}
-            className="h-full bg-rose-500"
+            className="h-full bg-blue-500"
           />
         </div>
 
@@ -1685,7 +1686,7 @@ const StartTrackingSheet = ({
             {step === 1 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 01</span>
+                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 01</span>
                   <h2 className="text-3xl font-bold dark:text-white handwriting">When did it start? 🌸</h2>
                   <p className="text-gray-500 text-sm">I want to make sure the predictions are perfect for you, amar lokki. Tell me the first day of your last cycle 💕</p>
                 </div>
@@ -1694,11 +1695,11 @@ const StartTrackingSheet = ({
                   <input 
                     type="date" 
                     max={format(new Date(), 'yyyy-MM-dd')}
-                    className="w-full p-6 rounded-[28px] bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-rose-400 outline-none font-bold dark:text-white text-xl transition-all text-center"
+                    className="w-full p-6 rounded-[28px] bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-400 outline-none font-bold dark:text-white text-xl transition-all text-center"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                   />
-                  <Calendar className="absolute right-8 top-1/2 -translate-y-1/2 w-6 h-6 text-rose-400 pointer-events-none opacity-50 group-focus-within:opacity-100 transition-opacity" />
+                  <Calendar className="absolute right-8 top-1/2 -translate-y-1/2 w-6 h-6 text-blue-400 pointer-events-none opacity-50 group-focus-within:opacity-100 transition-opacity" />
                 </div>
               </div>
             )}
@@ -1706,20 +1707,20 @@ const StartTrackingSheet = ({
             {step === 2 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 02</span>
+                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 02</span>
                   <h2 className="text-3xl font-bold dark:text-white handwriting">Your Beautiful Rhythm 🗓️</h2>
                   <p className="text-gray-500 text-sm">Every body is unique, Tanha. How many days does your cycle usually last? This helps me know when to be extra gentle with you 💕</p>
                 </div>
 
                 <div className="space-y-6">
                   <div className="flex justify-center">
-                    <span className="text-6xl font-black text-rose-500">{cycleLength}</span>
+                    <span className="text-6xl font-black text-blue-500">{cycleLength}</span>
                     <span className="text-xl font-bold text-gray-400 mt-auto mb-2 ml-2">days</span>
                   </div>
                   
                   <input 
                     type="range" min="21" max="35" 
-                    className="w-full h-3 bg-gray-100 dark:bg-navy-900 rounded-full appearance-none cursor-pointer accent-rose-500"
+                    className="w-full h-3 bg-gray-100 dark:bg-navy-900 rounded-full appearance-none cursor-pointer accent-blue-500"
                     value={cycleLength}
                     onChange={(e) => setCycleLength(parseInt(e.target.value))}
                   />
@@ -1735,7 +1736,7 @@ const StartTrackingSheet = ({
             {step === 3 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-rose-400 uppercase">Step 03</span>
+                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 03</span>
                   <h2 className="text-3xl font-bold dark:text-white handwriting">The Duration 🩸</h2>
                   <p className="text-gray-500 text-sm">And how many days does your period usually last? I'll use this to help you prepare for those days, amar lokki 💖</p>
                 </div>
@@ -1748,7 +1749,7 @@ const StartTrackingSheet = ({
                       className={cn(
                         "h-16 rounded-2xl font-black text-xl transition-all border-2",
                         periodDuration === d 
-                          ? "bg-rose-500 border-rose-500 text-white shadow-xl shadow-rose-500/20 scale-105" 
+                          ? "bg-blue-500 border-blue-500 text-white shadow-xl shadow-blue-500/20 scale-105" 
                           : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400 hover:bg-gray-100"
                       )}
                     >
@@ -1773,7 +1774,7 @@ const StartTrackingSheet = ({
           ) : (
             <button 
               onClick={onClose}
-              className="flex-1 p-5 text-gray-400 font-bold hover:text-rose-500 transition-all"
+              className="flex-1 p-5 text-gray-400 font-bold hover:text-blue-500 transition-all"
             >
               Cancel
             </button>
@@ -1781,7 +1782,7 @@ const StartTrackingSheet = ({
 
           <button 
             onClick={step === 3 ? handleConfirm : nextStep}
-            className="flex-[2] p-5 bg-rose-500 text-white rounded-[24px] font-black shadow-xl shadow-rose-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex-[2] p-5 bg-blue-500 text-white rounded-[24px] font-black shadow-xl shadow-blue-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             {step === 3 ? "Complete 💕" : "Next Step"}
           </button>
@@ -1822,13 +1823,13 @@ const PeriodTracker = ({
   }, [cycleDay]);
 
   const statusInfo = useMemo(() => {
-    if (currentPhase === 'menstrual') return { text: "Period is here 🩸", color: "text-rose-600" };
+    if (currentPhase === 'menstrual') return { text: "Period is here 🩸", color: "text-blue-600" };
     if (currentPhase === 'ovulation') return { text: "You're likely ovulating today ✨", color: "text-yellow-500" };
     if (cycleDay >= 12 && cycleDay <= 16) return { text: `Fertile window: next ${16 - cycleDay + 1} days 🌱`, color: "text-green-500" };
     if (cycleDay >= 24) return { text: "PMS zone — be gentle with yourself 🌙", color: "text-purple-500" };
     
     const daysToPeriod = data.settings.cycleLength - cycleDay + 1;
-    return { text: `Period expected in ${daysToPeriod} days 🔴`, color: "text-rose-400" };
+    return { text: `Period expected in ${daysToPeriod} days 🔴`, color: "text-blue-400" };
   }, [currentPhase, cycleDay, data.settings.cycleLength]);
 
   const handleSaveLog = (log: CycleLog) => {
@@ -1847,17 +1848,17 @@ const PeriodTracker = ({
     return (
       <div className="min-h-[80vh] flex flex-col">
         {/* Editorial Header */}
-        <section className="relative h-[40vh] flex items-center justify-center overflow-hidden rounded-[40px] bg-[#FFF0F3] dark:bg-navy-900/50 mb-12">
+        <section className="relative h-[40vh] flex items-center justify-center overflow-hidden rounded-[40px] bg-[#F0F8FF] dark:bg-navy-900/50 mb-12">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-rose-200/30 blur-[80px]" />
-            <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-soft-pink/20 blur-[80px]" />
+            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-200/30 blur-[80px]" />
+            <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-300/20 blur-[80px]" />
           </div>
           
           <div className="relative z-10 text-center space-y-4 px-6">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[10px] font-black tracking-[0.4em] text-rose-400 uppercase block"
+              className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase block"
             >
               A space built with love for you
             </motion.span>
@@ -1868,7 +1869,7 @@ const PeriodTracker = ({
               className="text-5xl md:text-7xl font-display text-gray-900 dark:text-white uppercase leading-none"
             >
               Tanha's <br />
-              <span className="italic font-serif text-rose-500">Health Space</span>
+              <span className="italic font-serif text-blue-500">Health Space</span>
             </motion.h1>
           </div>
         </section>
@@ -1880,13 +1881,13 @@ const PeriodTracker = ({
               title: "Smart Predictions", 
               desc: "Never be caught off guard again. I'll help you stay ahead of your cycle so you can plan your best days, amar lokki.",
               icon: "🗓️",
-              color: "bg-rose-50 dark:bg-rose-900/10"
+              color: "bg-blue-50 dark:bg-blue-900/10"
             },
             { 
               title: "Mood & Symptoms", 
               desc: "Your moods and energy levels matter. Let's track them so we can take better care of you when you need it most.",
               icon: "✨",
-              color: "bg-soft-pink/10 dark:bg-soft-pink/5"
+              color: "bg-blue-300/10 dark:bg-blue-300/5"
             },
             { 
               title: "Partner Notes", 
@@ -1924,10 +1925,10 @@ const PeriodTracker = ({
             
             <button 
               onClick={() => setShowStartTracking(true)}
-              className="group relative w-full p-6 bg-rose-500 text-white rounded-[24px] font-black text-xl shadow-2xl shadow-rose-500/30 overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="group relative w-full p-6 bg-blue-500 text-white rounded-[24px] font-black text-xl shadow-2xl shadow-blue-500/30 overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="relative z-10">Start Tracking 🌸</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-soft-pink opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           </motion.div>
         </div>
@@ -1969,7 +1970,7 @@ const PeriodTracker = ({
               setSelectedDate(new Date());
               setShowLog(true);
             }}
-            className="p-4 bg-soft-pink text-white rounded-2xl font-bold shadow-lg shadow-pink-500/20 hover:scale-105 active:scale-95 transition-all"
+            className="p-4 bg-blue-300 text-white rounded-2xl font-bold shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
           >
             Log Today 🌸
           </button>
@@ -1983,7 +1984,7 @@ const PeriodTracker = ({
           <div className="text-lg font-bold dark:text-white">
             {format(addDays(parseISO(data.settings.lastPeriodStart), data.settings.cycleLength), 'MMM do')}
           </div>
-          <div className="text-sm text-soft-pink font-medium">
+          <div className="text-sm text-blue-300 font-medium">
             {data.settings.cycleLength - cycleDay + 1} days away
           </div>
         </div>
@@ -1998,11 +1999,11 @@ const PeriodTracker = ({
 
       {/* Partner Notes */}
       <section className="px-6" id="tour-partner-notes">
-        <div className="p-8 rounded-[40px] bg-gradient-to-br from-soft-pink/5 to-rose-400/5 border-2 border-soft-pink/10 space-y-4 relative overflow-hidden">
-          <div className="absolute top-4 right-6 text-soft-pink/20">
+        <div className="p-8 rounded-[40px] bg-gradient-to-br from-blue-300/5 to-blue-400/5 border-2 border-blue-300/10 space-y-4 relative overflow-hidden">
+          <div className="absolute top-4 right-6 text-blue-300/20">
             <Heart className="w-12 h-12 fill-current" />
           </div>
-          <div className="flex items-center gap-2 text-[10px] font-black text-soft-pink uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-2 text-[10px] font-black text-blue-300 uppercase tracking-[0.2em]">
             <Heart className="w-3 h-3 fill-current" />
             From him 💌
           </div>
@@ -2029,7 +2030,7 @@ const PeriodTracker = ({
       {/* Phase Guide */}
       <section className="px-6 space-y-4" id="tour-phase-guide">
         <h3 className="text-xl font-bold flex items-center gap-2 px-2">
-          <Info className="w-5 h-5 text-soft-pink" />
+          <Info className="w-5 h-5 text-blue-300" />
           Know Your Cycle, Tanha 💕
         </h3>
         <div className="flex gap-4 overflow-x-auto pb-4 px-2 custom-scrollbar snap-x">
@@ -2040,7 +2041,7 @@ const PeriodTracker = ({
               onClick={() => setExpandedPhase(expandedPhase === key ? null : key)}
               className={cn(
                 "min-w-[280px] p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-4 snap-center cursor-pointer transition-all",
-                expandedPhase === key && "ring-2 ring-soft-pink/30"
+                expandedPhase === key && "ring-2 ring-blue-300/30"
               )}
             >
               <div className="flex items-center justify-between">
@@ -2093,10 +2094,10 @@ const PeriodTracker = ({
         <button 
           id="tour-cycle-settings"
           onClick={() => setShowSettings(true)}
-          className="w-full p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex items-center justify-between group hover:border-soft-pink/30 transition-all"
+          className="w-full p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex items-center justify-between group hover:border-blue-300/30 transition-all"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-soft-pink group-hover:bg-soft-pink group-hover:text-white transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-blue-300 group-hover:bg-blue-300 group-hover:text-white transition-all">
               <Settings className="w-6 h-6" />
             </div>
             <div className="text-left">
@@ -2104,7 +2105,7 @@ const PeriodTracker = ({
               <div className="text-lg font-bold dark:text-white">Cycle Settings 🌸</div>
             </div>
           </div>
-          <ChevronRight className="w-6 h-6 text-gray-300 group-hover:text-soft-pink transition-all" />
+          <ChevronRight className="w-6 h-6 text-gray-300 group-hover:text-blue-300 transition-all" />
         </button>
       </section>
 
@@ -2139,7 +2140,7 @@ const PeriodTracker = ({
                   <input 
                     type="date" 
                     max={format(new Date(), 'yyyy-MM-dd')}
-                    className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-soft-pink outline-none font-bold dark:text-white"
+                    className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
                     value={data.settings.lastPeriodStart}
                     onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, lastPeriodStart: e.target.value } })}
                   />
@@ -2149,7 +2150,7 @@ const PeriodTracker = ({
                     <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Cycle Length</label>
                     <input 
                       type="number" min="21" max="35"
-                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-soft-pink outline-none font-bold dark:text-white"
+                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
                       value={data.settings.cycleLength}
                       onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, cycleLength: parseInt(e.target.value) || 28 } })}
                     />
@@ -2158,7 +2159,7 @@ const PeriodTracker = ({
                     <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Period Duration</label>
                     <input 
                       type="number" min="2" max="10"
-                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-soft-pink outline-none font-bold dark:text-white"
+                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
                       value={data.settings.periodDuration}
                       onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, periodDuration: parseInt(e.target.value) || 5 } })}
                     />
@@ -2171,7 +2172,7 @@ const PeriodTracker = ({
                   setShowSettings(false);
                   setSnackbar("Settings saved, Tanha 💕");
                 }}
-                className="w-full p-5 bg-gradient-to-r from-soft-pink to-rose-400 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Save Settings 💕
               </button>
@@ -2230,7 +2231,7 @@ export default function App() {
     };
   });
 
-  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more'>('home');
+  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more' | 'diary'>('home');
   const [activeTab, setActiveTab] = useState<'day' | 'cycle' | 'more'>('day');
   
   const [hairCareLogs, setHairCareLogs] = useState<HairCareLog[]>(() => {
@@ -2261,6 +2262,24 @@ export default function App() {
     const saved = localStorage.getItem('self_care_logs');
     return saved ? JSON.parse(saved) : [];
   });
+
+  const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(() => {
+    const saved = localStorage.getItem('diary_entries');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [diarySettings, setDiarySettings] = useState<DiarySettings>(() => {
+    const saved = localStorage.getItem('diary_settings');
+    return saved ? JSON.parse(saved) : {
+      pin: null,
+      useBiometric: false,
+      reminderTime: null,
+      autoSave: true,
+      defaultType: 'normal',
+      fontSize: 'medium'
+    };
+  });
+
   const [showCycleReveal, setShowCycleReveal] = useState(false);
   const [showCycleTour, setShowCycleTour] = useState(false);
   const [snackbar, setSnackbar] = useState<string | null>(null);
@@ -2350,6 +2369,14 @@ export default function App() {
     localStorage.setItem('self_care_logs', JSON.stringify(selfCareLogs));
   }, [selfCareLogs]);
 
+  useEffect(() => {
+    localStorage.setItem('diary_entries', JSON.stringify(diaryEntries));
+  }, [diaryEntries]);
+
+  useEffect(() => {
+    localStorage.setItem('diary_settings', JSON.stringify(diarySettings));
+  }, [diarySettings]);
+
   // Midnight Reset Logic
   useEffect(() => {
     const checkReset = () => {
@@ -2417,7 +2444,7 @@ export default function App() {
           particleCount: 200,
           spread: 100,
           origin: { y: 0.5 },
-          colors: ['#FFB6C1', '#5C6BC0', '#FAFAF8']
+          colors: ['#87CEFA', '#5C6BC0', '#FAFAF8']
         });
         setCelebration({ 
           message: "ALLLL DONE!! Amar lokki completed everything today! I love you to the moon and back, forever and always 🌙💖✨", 
@@ -2704,11 +2731,11 @@ export default function App() {
         {/* Quote & Progress */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
           <div className="md:col-span-3 p-8 rounded-[40px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between min-h-[180px] relative overflow-hidden group">
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-soft-pink/5 rounded-full blur-2xl group-hover:bg-soft-pink/10 transition-all duration-700" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-300/5 rounded-full blur-2xl group-hover:bg-blue-300/10 transition-all duration-700" />
             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-sakura/10 rounded-full blur-3xl" />
             
             <div className="relative z-10 space-y-4">
-              <div className="flex items-center gap-2 text-[10px] font-black text-soft-pink uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-2 text-[10px] font-black text-blue-300 uppercase tracking-[0.2em]">
                 <Heart className="w-3 h-3 fill-current" />
                 Daily Love Note
               </div>
@@ -2718,14 +2745,14 @@ export default function App() {
             </div>
             
             <div className="relative z-10 flex items-center gap-2 mt-6">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-soft-pink to-rose-400 flex items-center justify-center text-white shadow-lg">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-300 to-blue-400 flex items-center justify-center text-white shadow-lg">
                 <Sparkles className="w-4 h-4" />
               </div>
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Just for you, Tanha 🌸</span>
             </div>
           </div>
           
-          <div id="tour-progress" className="md:col-span-2 p-8 rounded-[40px] bg-gradient-to-br from-soft-pink to-rose-400 text-white shadow-xl shadow-pink-500/20 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
+          <div id="tour-progress" className="md:col-span-2 p-8 rounded-[40px] bg-gradient-to-br from-blue-300 to-blue-400 text-white shadow-xl shadow-sky-500/20 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
             <div className="relative w-24 h-24">
               <svg className="w-full h-full -rotate-90">
@@ -2762,7 +2789,7 @@ export default function App() {
       {/* Main Content */}
       <main className={cn(
         "max-w-2xl mx-auto py-8 px-6 pb-32 space-y-10",
-        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare') && "bg-[#FFF0F3] dark:bg-navy-900 min-h-screen"
+        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare') && "bg-[#F0F8FF] dark:bg-navy-900 min-h-screen"
       )}>
         {view === 'home' ? (
           activeTab === 'day' ? (
@@ -2886,7 +2913,7 @@ export default function App() {
           <div className="space-y-6">
             <button 
               onClick={() => setView('home')}
-              className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-soft-pink transition-colors"
+              className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-300 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" /> Back to Home
             </button>
@@ -2925,6 +2952,16 @@ export default function App() {
                 bathLogs={bathLogs}
               />
             )}
+            {view === 'diary' && (
+              <Diary 
+                entries={diaryEntries}
+                settings={diarySettings}
+                onUpdateEntries={setDiaryEntries}
+                onUpdateSettings={setDiarySettings}
+                setSnackbar={setSnackbar}
+                onOpenWishBox={() => setShowWishBox(true)}
+              />
+            )}
           </div>
         )}
       </main>
@@ -2937,13 +2974,13 @@ export default function App() {
             whileHover={{ scale: 1.2, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setShowWishBox(true); }}
-            className="absolute -top-16 right-4 w-12 h-12 rounded-full bg-white dark:bg-navy-800 shadow-xl flex items-center justify-center text-soft-pink border-2 border-soft-pink/20 animate-float"
+            className="absolute -top-16 right-4 w-12 h-12 rounded-full bg-white dark:bg-navy-800 shadow-xl flex items-center justify-center text-blue-300 border-2 border-blue-300/20 animate-float"
           >
             <Heart className="w-6 h-6 fill-current" />
             <motion.div 
               animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute inset-0 rounded-full border-2 border-soft-pink"
+              className="absolute inset-0 rounded-full border-2 border-blue-300"
             />
           </motion.button>
 
@@ -2951,7 +2988,7 @@ export default function App() {
             onClick={() => { setView('home'); setActiveTab('day'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              (activeTab === 'day' && view === 'home') ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'day' && view === 'home') ? "bg-gradient-to-r from-blue-300 to-blue-400 text-white shadow-lg" : "text-gray-500"
             )}
           >
             <Home className="w-5 h-5" />
@@ -2961,7 +2998,7 @@ export default function App() {
           <button 
             id="tour-add-task"
             onClick={() => setShowAddTask(true)}
-            className="w-14 h-14 rounded-full bg-gradient-to-r from-soft-pink to-rose-400 text-white flex items-center justify-center shadow-xl shadow-pink-500/40 hover:scale-110 transition-all border-4 border-white/20"
+            className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-300 to-blue-400 text-white flex items-center justify-center shadow-xl shadow-sky-500/40 hover:scale-110 transition-all border-4 border-white/20"
           >
             <Plus className="w-7 h-7" strokeWidth={3} />
           </button>
@@ -2970,7 +3007,7 @@ export default function App() {
             onClick={() => { setView('home'); setActiveTab('more'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              (activeTab === 'more' && view === 'home') ? "bg-gradient-to-r from-soft-pink to-rose-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'more' && view === 'home') ? "bg-gradient-to-r from-blue-300 to-blue-400 text-white shadow-lg" : "text-gray-500"
             )}
           >
             <Grid className="w-5 h-5" />
@@ -3051,7 +3088,7 @@ export default function App() {
                 <div className="p-2 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 divide-y divide-gray-100 dark:divide-gray-700">
                   <div className="flex items-center justify-between p-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-pink-500/10 text-pink-500">
+                      <div className="p-2 rounded-xl bg-sky-500/10 text-sky-500">
                         <Droplets className="w-5 h-5" />
                       </div>
                       <span className="font-medium">Cycle Reminders</span>
@@ -3067,7 +3104,7 @@ export default function App() {
                           } 
                         } 
                       }))}
-                      className={cn("w-12 h-6 rounded-full transition-all relative", cycleData.settings.remindersEnabled.periodDue ? "bg-soft-pink" : "bg-gray-200")}
+                      className={cn("w-12 h-6 rounded-full transition-all relative", cycleData.settings.remindersEnabled.periodDue ? "bg-blue-300" : "bg-gray-200")}
                     >
                       <div className={cn("absolute top-1 w-4 h-4 rounded-full bg-white transition-all", cycleData.settings.remindersEnabled.periodDue ? "right-1" : "left-1")} />
                     </button>
@@ -3079,7 +3116,7 @@ export default function App() {
                         setView('home');
                         setActiveTab('cycle');
                       }}
-                      className="w-full p-4 rounded-2xl bg-soft-pink/10 text-soft-pink font-bold flex items-center justify-center gap-2 hover:bg-soft-pink/20 transition-all"
+                      className="w-full p-4 rounded-2xl bg-blue-300/10 text-blue-300 font-bold flex items-center justify-center gap-2 hover:bg-blue-300/20 transition-all"
                     >
                       Take the tour again 🌸
                     </button>
@@ -3102,7 +3139,7 @@ export default function App() {
                           setSnackbar("Cycle data cleared 🌸");
                         }
                       }}
-                      className="w-full p-4 rounded-2xl bg-rose-50 dark:bg-rose-500/10 text-rose-500 font-bold hover:bg-rose-100 transition-all"
+                      className="w-full p-4 rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-500 font-bold hover:bg-blue-100 transition-all"
                     >
                       Clear Cycle Data 🗑️
                     </button>
