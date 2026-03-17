@@ -7,27 +7,31 @@
   --font-handwriting: "Caveat", cursive;
   --font-dancing: "Dancing Script", cursive;
   
-  /* Base Palette - Cool & Calming */
-  --color-warm-white: #F0F8FF;
-  --color-rose-gold: #6E9BB7;
-  --color-soft-mauve: #A5C2D4;
-  --color-dusty-rose: #8BAAC4;
-  --color-deep-plum: #0A192F;
-  --color-plum-card: #112240;
-  --color-rose-card: #F0F6FF;
+  /* Base Palette - Warm & Romantic */
+  --color-warm-white: #FFFEF7;
+  --color-rose-gold: #B76E79;
+  --color-soft-mauve: #E8C4CC;
+  --color-dusty-rose: #8B6F6F;
+  --color-deep-plum: #2C1810;
+  --color-plum-card: #3D2C2C;
+  --color-rose-card: #FDFAF7;
   
   /* Text Colors */
-  --color-text-primary: #1E293B;
-  --color-text-secondary: #475569;
-  --color-text-dark-primary: #E2E8F0;
-  --color-text-dark-secondary: #94A3B8;
+  --color-text-primary: #2C1810;
+  --color-text-secondary: #8B6F6F;
+  --color-text-dark-primary: #FFFFFF;
+  --color-text-dark-secondary: rgba(255, 255, 255, 0.85);
 
   /* Legacy/Support colors (updated to match theme) */
-  --color-blue-300: #87CEFA;
-  --color-blue-500: #6E9BB7;
-  --color-sakura: #D1E9FF;
-  --color-blush: #F0F8FF;
-  --color-soft-purple: #C4D1E9;
+  --color-rose-300: #F48FB1;
+  --color-rose-500: #C2185B;
+  --color-sakura: #FCE4EC;
+  --color-blush: #FFE4EC;
+  --color-soft-purple: #CE93D8;
+  
+  /* Accent Colors */
+  --color-accent: #8B3A52;
+  --color-accent-light: #F48FB1;
 }
 
 @layer base {

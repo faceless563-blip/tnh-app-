@@ -6,7 +6,7 @@ import {
   ChevronLeft, ChevronRight, MoreHorizontal, 
   AlertCircle, Share2, Filter, Star, Bath, 
   CheckSquare, Square, Info, Settings as SettingsIcon,
-  Flame, TrendingUp, Gift, PartyPopper, Bell, Book
+  Flame, TrendingUp, Gift, PartyPopper, Bell, Book, Film
 } from 'lucide-react';
 import { 
   format, addDays, subDays, startOfWeek, endOfWeek, 
@@ -81,7 +81,7 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
         <h2 className="text-2xl font-bold serif italic">Tanha's Hair Care 🌸</h2>
         <button 
           onClick={() => setShowSettings(!showSettings)}
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-all"
+          className="p-2 rounded-full hover:bg-rose-card dark:hover:bg-white/10 transition-all"
         >
           <SettingsIcon className="w-5 h-5" />
         </button>
@@ -91,26 +91,26 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-4"
+          className="p-6 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 space-y-4"
         >
-          <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Weekly Targets</h3>
+          <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Weekly Targets</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-500">Shampoo Target</label>
+              <label className="text-xs font-medium text-text-secondary">Shampoo Target</label>
               <input 
                 type="number" 
                 value={settings.shampooTarget}
                 onChange={(e) => onUpdateSettings({ ...settings, shampooTarget: parseInt(e.target.value) || 1 })}
-                className="w-full p-3 rounded-xl bg-gray-50 dark:bg-navy-900 border-none font-bold"
+                className="w-full p-3 rounded-xl bg-rose-card dark:bg-deep-plum border-none font-bold"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-500">Oil Target</label>
+              <label className="text-xs font-medium text-text-secondary">Oil Target</label>
               <input 
                 type="number" 
                 value={settings.oilTarget}
                 onChange={(e) => onUpdateSettings({ ...settings, oilTarget: parseInt(e.target.value) || 1 })}
-                className="w-full p-3 rounded-xl bg-gray-50 dark:bg-navy-900 border-none font-bold"
+                className="w-full p-3 rounded-xl bg-rose-card dark:bg-deep-plum border-none font-bold"
               />
             </div>
           </div>
@@ -121,35 +121,35 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
         {/* Shampoo Card */}
         <motion.div 
           whileHover={{ y: -5 }}
-          className="p-6 rounded-[32px] bg-gradient-to-br from-blue-50 to-sky-50 dark:from-blue-900/20 dark:to-sky-900/20 border border-white/50 dark:border-white/5 shadow-sm relative overflow-hidden group"
+          className="p-6 rounded-[32px] bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 border border-white/50 dark:border-white/5 shadow-sm relative overflow-hidden group"
         >
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-125 transition-transform duration-500">
-            <Droplets className="w-12 h-12 text-blue-500" />
+            <Droplets className="w-12 h-12 text-accent" />
           </div>
           <div className="space-y-4 relative z-10">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black uppercase tracking-widest text-blue-500/60">Shampoo</span>
+              <span className="text-xs font-black uppercase tracking-widest text-accent/60">Shampoo</span>
               <button 
                 onClick={() => onLog('shampoo')}
-                className="w-10 h-10 rounded-full bg-white dark:bg-navy-800 shadow-md flex items-center justify-center text-blue-500 hover:scale-110 active:scale-95 transition-all"
+                className="w-10 h-10 rounded-full bg-white dark:bg-plum-card shadow-md flex items-center justify-center text-accent hover:scale-110 active:scale-95 transition-all"
               >
                 <Plus className="w-6 h-6" />
               </button>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-5xl font-black text-blue-600">{shampooCount}</span>
-              <span className="text-sm font-bold text-blue-400">/ {settings.shampooTarget}</span>
+              <span className="text-5xl font-black text-accent">{shampooCount}</span>
+              <span className="text-sm font-bold text-accent">/ {settings.shampooTarget}</span>
             </div>
             <div className="space-y-2">
-              <div className="flex justify-between text-[10px] font-bold text-blue-400 uppercase">
+              <div className="flex justify-between text-[10px] font-bold text-accent uppercase">
                 <span>Last: {getDaysAgo(lastShampoo?.timestamp)}</span>
                 <span>{Math.round(shampooProgress)}%</span>
               </div>
-              <div className="h-2 w-full bg-blue-200/30 rounded-full overflow-hidden">
+              <div className="h-2 w-full bg-rose-gold/30/30 rounded-full overflow-hidden">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: `${shampooProgress}%` }}
-                  className="h-full bg-blue-500"
+                  className="h-full bg-accent"
                 />
               </div>
             </div>
@@ -169,7 +169,7 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
               <span className="text-xs font-black uppercase tracking-widest text-amber-600/60">Hair Oil</span>
               <button 
                 onClick={() => onLog('oil')}
-                className="w-10 h-10 rounded-full bg-white dark:bg-navy-800 shadow-md flex items-center justify-center text-amber-600 hover:scale-110 active:scale-95 transition-all"
+                className="w-10 h-10 rounded-full bg-white dark:bg-plum-card shadow-md flex items-center justify-center text-amber-600 hover:scale-110 active:scale-95 transition-all"
               >
                 <Plus className="w-6 h-6" />
               </button>
@@ -197,33 +197,33 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
 
       {/* History */}
       <section className="space-y-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Recent Logs</h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Recent Logs</h3>
         <div className="space-y-3">
           {logs.slice().sort((a, b) => b.timestamp.localeCompare(a.timestamp)).slice(0, 5).map(log => (
-            <div key={log.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50">
+            <div key={log.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50">
               <div className="flex items-center gap-3">
                 <div className={cn(
                   "p-2 rounded-xl",
-                  log.type === 'shampoo' ? "bg-blue-500/10 text-blue-500" : "bg-amber-500/10 text-amber-500"
+                  log.type === 'shampoo' ? "bg-accent/10 text-accent" : "bg-amber-500/10 text-amber-500"
                 )}>
                   {log.type === 'shampoo' ? <Droplets className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
                 </div>
                 <div>
                   <p className="font-bold text-sm capitalize">{log.type} Applied</p>
-                  <p className="text-[10px] text-gray-400">{format(parseISO(log.timestamp), 'MMM do, h:mm a')}</p>
+                  <p className="text-[10px] text-text-secondary">{format(parseISO(log.timestamp), 'MMM do, h:mm a')}</p>
                 </div>
               </div>
               <button 
                 onClick={() => onDeleteLog(log.id)}
-                className="p-2 text-gray-300 hover:text-red-500 transition-colors"
+                className="p-2 text-text-secondary hover:text-red-500 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
           ))}
           {logs.length === 0 && (
-            <div className="p-12 text-center border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-3xl">
-              <p className="text-gray-400 text-sm italic">No hair care logs yet. Start your journey to healthy hair, Tanha! 🌸✨</p>
+            <div className="p-12 text-center border-2 border-dashed border-rose-gold/10 dark:border-white/5 rounded-3xl">
+              <p className="text-text-secondary text-sm italic">No hair care logs yet. Start your journey to healthy hair, Tanha! 🌸✨</p>
             </div>
           )}
         </div>
@@ -285,7 +285,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
         <h2 className="text-2xl font-bold serif italic">Important Dates 📅</h2>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="p-2 rounded-full bg-blue-300 text-white shadow-lg hover:scale-110 transition-all"
+          className="p-2 rounded-full bg-accent-light text-white shadow-lg hover:scale-110 transition-all"
         >
           <Plus className="w-6 h-6" />
         </button>
@@ -299,7 +299,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
             <motion.div 
               key={d.id}
               whileHover={{ y: -5 }}
-              className="min-w-[200px] p-5 rounded-3xl bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-3"
+              className="min-w-[200px] p-5 rounded-3xl bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-3"
             >
               <div className={cn(
                 "w-10 h-10 rounded-2xl flex items-center justify-center",
@@ -309,10 +309,10 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
               </div>
               <div>
                 <p className="font-bold text-sm truncate">{d.title}</p>
-                <p className="text-[10px] text-gray-400">{format(parseISO(d.date), 'MMMM do')}</p>
+                <p className="text-[10px] text-text-secondary">{format(parseISO(d.date), 'MMMM do')}</p>
               </div>
-              <div className="pt-2 border-t border-gray-50 dark:border-gray-700/50">
-                <span className="text-xs font-black text-blue-300">
+              <div className="pt-2 border-t border-rose-gold/5 dark:border-white/10/50">
+                <span className="text-xs font-black text-accent-light">
                   {daysLeft === 0 ? "Today! 🌸" : `${daysLeft} days left`}
                 </span>
               </div>
@@ -320,25 +320,25 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
           );
         })}
         {upcomingDates.length === 0 && (
-          <div className="w-full p-8 text-center bg-gray-50 dark:bg-navy-800/50 rounded-3xl border-2 border-dashed border-gray-100 dark:border-gray-800">
-            <p className="text-xs text-gray-400 italic">No upcoming dates soon. Add one to start the countdown! ✨</p>
+          <div className="w-full p-8 text-center bg-rose-card dark:bg-plum-card/50 rounded-3xl border-2 border-dashed border-rose-gold/10 dark:border-white/5">
+            <p className="text-xs text-text-secondary italic">No upcoming dates soon. Add one to start the countdown! ✨</p>
           </div>
         )}
       </div>
 
       {/* Calendar View */}
-      <div className="p-6 rounded-[40px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-6">
+      <div className="p-6 rounded-[40px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-bold serif italic text-xl">{format(currentMonth, 'MMMM yyyy')}</h3>
           <div className="flex gap-2">
-            <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10"><ChevronLeft className="w-5 h-5" /></button>
-            <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10"><ChevronRight className="w-5 h-5" /></button>
+            <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-rose-card dark:hover:bg-white/10"><ChevronLeft className="w-5 h-5" /></button>
+            <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-rose-card dark:hover:bg-white/10"><ChevronRight className="w-5 h-5" /></button>
           </div>
         </div>
 
         <div className="grid grid-cols-7 gap-2">
           {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
-            <div key={i} className="text-center text-[10px] font-black text-gray-300 uppercase">{d}</div>
+            <div key={i} className="text-center text-[10px] font-black text-text-secondary uppercase">{d}</div>
           ))}
           {days.map(day => {
             const dateStr = format(day, 'yyyy-MM-dd');
@@ -350,10 +350,10 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                 key={dateStr}
                 className={cn(
                   "aspect-square rounded-2xl flex flex-col items-center justify-center relative transition-all",
-                  isTodayDate ? "bg-blue-300 text-white shadow-lg shadow-sky-500/20" : "hover:bg-gray-50 dark:hover:bg-white/5"
+                  isTodayDate ? "bg-accent-light text-white shadow-lg shadow-accent/20" : "hover:bg-rose-card dark:hover:bg-white/5"
                 )}
               >
-                <span className={cn("text-xs font-bold", !isTodayDate && "text-gray-600 dark:text-gray-300")}>
+                <span className={cn("text-xs font-bold", !isTodayDate && "text-text-primary dark:text-text-secondary")}>
                   {format(day, 'd')}
                 </span>
                 <div className="flex gap-0.5 mt-1">
@@ -362,7 +362,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                       key={d.id} 
                       className={cn(
                         "w-1 h-1 rounded-full",
-                        isTodayDate ? "bg-white" : (DATE_CATEGORIES.find(c => c.id === d.category)?.color.replace('text-', 'bg-') || 'bg-gray-400')
+                        isTodayDate ? "bg-white" : (DATE_CATEGORIES.find(c => c.id === d.category)?.color.replace('text-', 'bg-') || 'bg-rose-gold/40')
                       )} 
                     />
                   ))}
@@ -375,10 +375,10 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
 
       {/* List View */}
       <section className="space-y-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">All Dates</h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">All Dates</h3>
         <div className="space-y-3">
           {dates.slice().sort((a, b) => a.date.localeCompare(b.date)).map(d => (
-            <div key={d.id} className="p-4 rounded-2xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+            <div key={d.id} className="p-4 rounded-2xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className={cn(
                   "p-2 rounded-xl",
@@ -388,10 +388,10 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                 </div>
                 <div>
                   <p className="font-bold text-sm">{d.title}</p>
-                  <p className="text-[10px] text-gray-400">{format(parseISO(d.date), 'MMMM do, yyyy')}</p>
+                  <p className="text-[10px] text-text-secondary">{format(parseISO(d.date), 'MMMM do, yyyy')}</p>
                 </div>
               </div>
-              <button onClick={() => onDelete(d.id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors">
+              <button onClick={() => onDelete(d.id)} className="p-2 text-text-secondary hover:text-red-500 transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -408,40 +408,40 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowAddModal(false)}
-              className="absolute inset-0 bg-navy-900/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-deep-plum/60 backdrop-blur-sm"
             />
             <motion.div 
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="relative w-full max-w-sm bg-white dark:bg-navy-800 rounded-[40px] p-8 shadow-2xl space-y-6"
+              className="relative w-full max-w-sm bg-white dark:bg-plum-card rounded-[40px] p-8 shadow-2xl space-y-6"
             >
               <h3 className="text-xl font-bold serif italic">Add Important Date 🌸</h3>
               
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Event Title</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Event Title</label>
                   <input 
                     type="text" 
                     placeholder="e.g. Anniversary 💑"
                     value={newDate.title}
                     onChange={e => setNewDate({ ...newDate, title: e.target.value })}
-                    className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-none font-bold"
+                    className="w-full p-4 rounded-2xl bg-rose-card dark:bg-deep-plum border-none font-bold"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Date</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Date</label>
                   <input 
                     type="date" 
                     value={newDate.date}
                     onChange={e => setNewDate({ ...newDate, date: e.target.value })}
-                    className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-none font-bold"
+                    className="w-full p-4 rounded-2xl bg-rose-card dark:bg-deep-plum border-none font-bold"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Category</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Category</label>
                   <div className="grid grid-cols-3 gap-2">
                     {DATE_CATEGORIES.map(cat => (
                       <button 
@@ -450,8 +450,8 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
                         className={cn(
                           "p-3 rounded-xl flex flex-col items-center gap-1 transition-all border-2",
                           newDate.category === cat.id 
-                            ? "bg-blue-300/10 border-blue-300 text-blue-300" 
-                            : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
+                            ? "bg-accent-light/10 border-accent-light text-accent-light" 
+                            : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
                         )}
                       >
                         <span className="text-lg">{cat.emoji}</span>
@@ -464,7 +464,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
 
               <button 
                 onClick={handleAdd}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-300 to-blue-400 text-white font-bold shadow-lg shadow-sky-500/20"
+                className="w-full py-4 rounded-2xl bg-rose-gold text-white font-bold shadow-lg shadow-accent/20"
               >
                 Save Date 💖
               </button>
@@ -535,14 +535,14 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
         <div className="flex gap-2">
           <button 
             onClick={() => setShowConfirmClear(true)}
-            className="p-2 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-500 hover:text-red-500 transition-all"
+            className="p-2 rounded-xl bg-rose-card dark:bg-white/5 text-text-secondary hover:text-red-500 transition-all"
             title="Clear bought items"
           >
             <Trash2 className="w-5 h-5" />
           </button>
           <button 
             onClick={() => setShowAdd(!showAdd)}
-            className="p-2 rounded-xl bg-blue-300 text-white shadow-lg hover:scale-110 transition-all"
+            className="p-2 rounded-xl bg-accent-light text-white shadow-lg hover:scale-110 transition-all"
           >
             <Plus className={cn("w-5 h-5 transition-transform", showAdd && "rotate-45")} />
           </button>
@@ -557,7 +557,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-6 shadow-xl shadow-sky-500/5 mx-2">
+            <div className="p-6 rounded-[32px] bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 space-y-6 shadow-xl shadow-accent/5 mx-2">
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <input 
@@ -565,19 +565,19 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     placeholder="What do we need, Tanha? 🌸"
                     value={newItem.name}
                     onChange={e => setNewItem({ ...newItem, name: e.target.value })}
-                    className="flex-1 p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-none font-bold text-sm focus:ring-2 focus:ring-blue-300/20 transition-all"
+                    className="flex-1 p-4 rounded-2xl bg-warm-white dark:bg-deep-plum text-text-primary dark:text-text-dark-primary border-none font-bold text-sm focus:ring-2 focus:ring-[#B76E79]/20 transition-all"
                   />
-                  <div className="flex items-center bg-gray-50 dark:bg-navy-900 rounded-2xl px-2 gap-2">
+                  <div className="flex items-center bg-warm-white dark:bg-deep-plum rounded-2xl px-2 gap-2 text-text-primary dark:text-text-dark-primary">
                     <button 
                       onClick={() => handleUpdateQuantity(-1)}
-                      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
+                      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-rose-card/80 dark:hover:bg-white/10 transition-colors"
                     >
                       <Minus className="w-4 h-4" />
                     </button>
                     <span className="w-6 text-center font-black text-sm">{newItem.quantity}</span>
                     <button 
                       onClick={() => handleUpdateQuantity(1)}
-                      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
+                      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-rose-card/80 dark:hover:bg-white/10 transition-colors"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
@@ -594,8 +594,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                           className={cn(
                             "px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all border-2",
                             newItem.category === cat.id 
-                              ? "bg-blue-300 text-white border-blue-300 shadow-md shadow-sky-500/20" 
-                              : "bg-gray-50 dark:bg-navy-900 text-gray-400 border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+                              ? "bg-accent-light text-white border-accent-light shadow-md shadow-accent/20" 
+                              : "bg-rose-card dark:bg-deep-plum text-text-secondary border-transparent hover:border-rose-gold/20 dark:hover:border-white/10"
                           )}
                         >
                           {cat.emoji} {cat.label}
@@ -606,14 +606,14 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <div className="flex gap-2 p-1 bg-gray-50 dark:bg-navy-900 rounded-xl">
+                  <div className="flex gap-2 p-1 bg-rose-card dark:bg-deep-plum rounded-xl">
                     <button 
                       onClick={() => setNewItem({ ...newItem, priority: 'normal' })}
                       className={cn(
                         "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all", 
                         newItem.priority === 'normal' 
-                          ? "bg-blue-300 text-white shadow-sm" 
-                          : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                          ? "bg-accent-light text-white shadow-sm" 
+                          : "text-text-secondary hover:text-text-primary dark:hover:text-text-dark-primary"
                       )}
                     >
                       Normal
@@ -623,8 +623,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       className={cn(
                         "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all", 
                         newItem.priority === 'urgent' 
-                          ? "bg-blue-600 text-white shadow-sm" 
-                          : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                          ? "bg-accent text-white shadow-sm" 
+                          : "text-text-secondary hover:text-text-primary dark:hover:text-text-dark-primary"
                       )}
                     >
                       Urgent 🔥
@@ -632,7 +632,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                   </div>
                   <button 
                     onClick={handleAdd}
-                    className="px-8 py-3 rounded-2xl bg-gradient-to-r from-blue-300 to-blue-400 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
+                    className="px-8 py-3 rounded-2xl bg-rose-gold text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-accent/20 hover:scale-105 active:scale-95 transition-all"
                   >
                     Add Item
                   </button>
@@ -646,8 +646,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
       <div className="space-y-8">
         {groupedItems.map(cat => (
           <div key={cat.id} className="space-y-4">
-            <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-300" />
+            <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-text-secondary flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-light" />
               <span>{cat.emoji}</span>
               {cat.label}
             </h3>
@@ -661,10 +661,10 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     setEditingItem(item);
                   }}
                   className={cn(
-                    "p-5 rounded-[28px] bg-white dark:bg-navy-800 border transition-all flex items-center justify-between group relative overflow-hidden",
+                    "p-5 rounded-[28px] bg-white dark:bg-plum-card border transition-all flex items-center justify-between group relative overflow-hidden",
                     item.bought 
-                      ? "opacity-50 border-transparent bg-gray-50/50 dark:bg-navy-900/50" 
-                      : "border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:border-blue-300/20"
+                      ? "opacity-50 border-transparent bg-rose-card/50 dark:bg-deep-plum/50" 
+                      : "border-rose-gold/10 dark:border-white/10/50 shadow-sm hover:shadow-md hover:border-accent-light/20"
                   )}
                 >
                   <div className="flex items-center gap-4 relative z-10">
@@ -673,8 +673,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                       className={cn(
                         "w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all",
                         item.bought 
-                          ? "bg-blue-300 border-blue-300 text-white" 
-                          : "border-gray-200 dark:border-gray-700 hover:border-blue-300"
+                          ? "bg-accent-light border-accent-light text-white" 
+                          : "border-rose-gold/20 dark:border-white/10 hover:border-accent-light"
                       )}
                     >
                       {item.bought && <CheckCircle2 className="w-5 h-5" />}
@@ -682,14 +682,14 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     <div>
                       <p className={cn(
                         "font-black text-sm tracking-tight transition-all", 
-                        item.bought ? "line-through text-gray-400" : "text-gray-800 dark:text-gray-100"
+                        item.bought ? "line-through text-text-secondary" : "text-text-primary dark:text-text-dark-primary"
                       )}>
                         {item.name}
                         {item.priority === 'urgent' && (
-                          <span className="ml-2 text-[8px] bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase font-black tracking-tighter">Urgent</span>
+                          <span className="ml-2 text-[8px] bg-accent text-white px-2 py-0.5 rounded-full uppercase font-black tracking-tighter">Urgent</span>
                         )}
                       </p>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Qty: {item.quantity}</p>
+                      <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mt-0.5">Qty: {item.quantity}</p>
                     </div>
                   </div>
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all relative z-10">
@@ -708,7 +708,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-white/90 dark:bg-navy-800/90 backdrop-blur-sm z-20 flex items-center justify-center gap-4"
+                        className="absolute inset-0 bg-white/90 dark:bg-plum-card/90 backdrop-blur-sm z-20 flex items-center justify-center gap-4"
                       >
                         <button 
                           onClick={() => {
@@ -724,9 +724,9 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                         </button>
                         <button 
                           onClick={() => setEditingItem(null)}
-                          className="flex flex-col items-center gap-1 text-gray-500"
+                          className="flex flex-col items-center gap-1 text-text-secondary"
                         >
-                          <div className="w-12 h-12 rounded-2xl bg-gray-500/10 flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-2xl bg-rose-card/10 flex items-center justify-center">
                             <Plus className="w-6 h-6 rotate-45" />
                           </div>
                           <span className="text-[10px] font-black uppercase">Cancel</span>
@@ -741,13 +741,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
         ))}
 
         {items.length === 0 && (
-          <div className="p-20 text-center border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-[48px] space-y-6 mx-2">
-            <div className="w-20 h-20 bg-blue-300/10 rounded-full flex items-center justify-center mx-auto text-blue-300">
+          <div className="p-20 text-center border-2 border-dashed border-rose-gold/10 dark:border-white/5 rounded-[48px] space-y-6 mx-2">
+            <div className="w-20 h-20 bg-accent-light/10 rounded-full flex items-center justify-center mx-auto text-accent-light">
               <ShoppingBag className="w-10 h-10" />
             </div>
             <div className="space-y-2">
-              <p className="text-gray-800 dark:text-gray-200 font-bold">The list is empty!</p>
-              <p className="text-gray-400 text-xs italic">What should we get today, Tanha? 🌸🛍️</p>
+              <p className="text-text-primary dark:text-text-dark-primary font-bold">The list is empty!</p>
+              <p className="text-text-secondary text-xs italic">What should we get today, Tanha? 🌸🛍️</p>
             </div>
           </div>
         )}
@@ -761,14 +761,14 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full max-w-xs bg-white dark:bg-navy-800 rounded-[40px] p-8 space-y-6 shadow-2xl"
+              className="w-full max-w-xs bg-white dark:bg-plum-card rounded-[40px] p-8 space-y-6 shadow-2xl"
             >
               <div className="text-center space-y-2">
-                <div className="w-16 h-16 bg-blue-300/10 rounded-full flex items-center justify-center mx-auto text-blue-300 mb-4">
+                <div className="w-16 h-16 bg-accent-light/10 rounded-full flex items-center justify-center mx-auto text-accent-light mb-4">
                   <Trash2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold serif italic">Clear bought items, Tanha? 🛒</h3>
-                <p className="text-gray-400 text-sm">This will remove all items you've already picked up.</p>
+                <p className="text-text-secondary text-sm">This will remove all items you've already picked up.</p>
               </div>
               <div className="space-y-3">
                 <button 
@@ -776,13 +776,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                     onClearBought();
                     setShowConfirmClear(false);
                   }}
-                  className="w-full py-4 rounded-2xl bg-blue-300 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-sky-500/20"
+                  className="w-full py-4 rounded-2xl bg-accent-light text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-accent/20"
                 >
                   Yes, clear
                 </button>
                 <button 
                   onClick={() => setShowConfirmClear(false)}
-                  className="w-full py-4 rounded-2xl bg-gray-100 dark:bg-white/5 text-gray-500 font-black text-sm uppercase tracking-widest"
+                  className="w-full py-4 rounded-2xl bg-rose-card dark:bg-white/5 text-text-secondary font-black text-sm uppercase tracking-widest"
                 >
                   Keep them
                 </button>
@@ -859,8 +859,8 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
         className={cn(
           "p-8 rounded-[40px] relative overflow-hidden transition-all duration-500",
           hasBathedToday 
-            ? "bg-gradient-to-br from-blue-400 to-indigo-500 text-white shadow-xl shadow-blue-500/20" 
-            : "bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 shadow-sm"
+            ? "bg-gradient-to-br from-rose-gold to-fuchsia-500 text-white shadow-xl shadow-accent/20" 
+            : "bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 shadow-sm"
         )}
       >
         <div className="absolute top-0 right-0 p-6 opacity-10">
@@ -869,7 +869,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
         <div className="relative z-10 space-y-6">
           <div className="space-y-2">
             <h3 className="text-xl font-bold serif italic">Daily Bath Log 🛁</h3>
-            <p className={cn("text-sm", hasBathedToday ? "text-blue-50" : "text-gray-400")}>
+            <p className={cn("text-sm", hasBathedToday ? "text-rose-50" : "text-text-secondary")}>
               {hasBathedToday 
                 ? "You're all fresh and clean, Tanha! 🌸✨" 
                 : "Have you had your bath today, lokki? 🚿"}
@@ -879,7 +879,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
           {!hasBathedToday ? (
             <button 
               onClick={onLogBath}
-              className="w-full py-4 rounded-2xl bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 hover:bg-blue-600 transition-all"
+              className="w-full py-4 rounded-2xl bg-accent text-white font-bold shadow-lg shadow-accent/20 flex items-center justify-center gap-2 hover:bg-accent transition-all"
             >
               <Droplets className="w-5 h-5" />
               I've had my bath! 🚿
@@ -895,33 +895,33 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
 
       {/* Weekly Score */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Weekly Score</p>
+        <div className="p-6 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 space-y-2">
+          <p className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Weekly Score</p>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-blue-300">{weeklyScore}%</span>
+            <span className="text-3xl font-black text-accent-light">{weeklyScore}%</span>
             <TrendingUp className="w-4 h-4 text-green-500" />
           </div>
-          <div className="h-1.5 w-full bg-gray-100 dark:bg-navy-900 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-rose-card dark:bg-deep-plum rounded-full overflow-hidden">
             <motion.div 
               initial={{ width: 0 }}
               animate={{ width: `${weeklyScore}%` }}
-              className="h-full bg-blue-300"
+              className="h-full bg-accent-light"
             />
           </div>
         </div>
-        <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Completed Today</p>
+        <div className="p-6 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 space-y-2">
+          <p className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Completed Today</p>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-indigo-500">{checklist.length}</span>
-            <span className="text-xs font-bold text-gray-400">/ {DEFAULT_SELF_CARE_CHECKLIST.length}</span>
+            <span className="text-3xl font-black text-fuchsia-500">{checklist.length}</span>
+            <span className="text-xs font-bold text-text-secondary">/ {DEFAULT_SELF_CARE_CHECKLIST.length}</span>
           </div>
-          <p className="text-[10px] text-gray-400 italic">Keep it up, lokki! 💕</p>
+          <p className="text-[10px] text-text-secondary italic">Keep it up, lokki! 💕</p>
         </div>
       </div>
 
       {/* Checklist */}
       <section className="space-y-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Self Care Checklist</h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Self Care Checklist</h3>
         <div className="grid grid-cols-1 gap-3">
           {DEFAULT_SELF_CARE_CHECKLIST.map(item => (
             <button 
@@ -930,15 +930,15 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
               className={cn(
                 "p-4 rounded-2xl border transition-all flex items-center justify-between group",
                 checklist.includes(item)
-                  ? "bg-indigo-500/5 border-indigo-500/20 text-indigo-600"
-                  : "bg-white dark:bg-navy-800 border-gray-100 dark:border-gray-700/50 text-gray-600 dark:text-gray-300"
+                  ? "bg-fuchsia-500/5 border-fuchsia-500/20 text-fuchsia-600"
+                  : "bg-white dark:bg-plum-card border-rose-gold/10 dark:border-white/10/50 text-text-primary dark:text-text-secondary"
               )}
             >
               <span className="font-bold text-sm">{item}</span>
               {checklist.includes(item) ? (
                 <CheckSquare className="w-5 h-5" />
               ) : (
-                <Square className="w-5 h-5 text-gray-200 dark:text-gray-700" />
+                <Square className="w-5 h-5 text-text-dark-primary dark:text-text-primary" />
               )}
             </button>
           ))}
@@ -947,7 +947,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
 
       {/* Notes */}
       <section className="space-y-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Self Care Notes</h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Self Care Notes</h3>
         <textarea 
           placeholder="How are you feeling today, Tanha? 🌸"
           value={notes}
@@ -955,7 +955,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
             setNotes(e.target.value);
             onLog(checklist, e.target.value);
           }}
-          className="w-full p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 font-medium text-sm min-h-[120px] focus:ring-2 focus:ring-blue-300/20 transition-all"
+          className="w-full p-6 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 font-medium text-sm min-h-[120px] focus:ring-2 focus:ring-accent-light/20 transition-all"
         />
       </section>
     </div>
@@ -965,23 +965,24 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
 // --- More Menu (Grid) ---
 
 interface MoreMenuProps {
-  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox' | 'diary') => void;
+  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox' | 'diary' | 'watchworld') => void;
 }
 
 export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
   const menuItems = [
-    { id: 'cycle', name: 'My Cycle', icon: Heart, color: 'bg-[#6E9BB7]', emoji: '🌸' },
-    { id: 'hair', name: 'Hair Care', icon: Droplets, color: 'bg-[#A5C2D4]', emoji: '💆' },
-    { id: 'wishbox', name: 'Wish Box', icon: Sparkles, color: 'bg-[#8BAAC4]', emoji: '🪄' },
-    { id: 'dates', name: 'Important Dates', icon: CalendarIcon, color: 'bg-[#93B8D8]', emoji: '📅' },
-    { id: 'shopping', name: 'Shopping List', icon: ShoppingBag, color: 'bg-[#91C8FF]', emoji: '🛒' },
-    { id: 'selfcare', name: 'Self Care', icon: Bath, color: 'bg-[#8FB1F4]', emoji: '🛁' },
-    { id: 'diary', name: 'My Diary', icon: Book, color: 'bg-[#1E8CE9]', emoji: '📖' },
+    { id: 'cycle', name: 'My Cycle', icon: Heart, color: 'bg-[#B76E79]', emoji: '🌸' },
+    { id: 'hair', name: 'Hair Care', icon: Droplets, color: 'bg-accent', emoji: '💆' },
+    { id: 'wishbox', name: 'Wish Box', icon: Sparkles, color: 'bg-[#E8C4CC]', emoji: '🪄' },
+    { id: 'dates', name: 'Important Dates', icon: CalendarIcon, color: 'bg-[#8B6F6F]', emoji: '📅' },
+    { id: 'shopping', name: 'Shopping List', icon: ShoppingBag, color: 'bg-[#F48FB1]', emoji: '🛒' },
+    { id: 'selfcare', name: 'Self Care', icon: Bath, color: 'bg-[#CE93D8]', emoji: '🛁' },
+    { id: 'diary', name: 'My Diary', icon: Book, color: 'bg-[#8B3A52]', emoji: '📖' },
+    { id: 'watchworld', name: 'Watch World', icon: Film, color: 'bg-accent', emoji: '🎬' },
   ];
 
   return (
-    <div className="space-y-8 pb-[100px] min-h-screen -mx-6 -mt-6 px-6 pt-12 bg-gradient-to-br from-[#F0F8FF] via-[#E4F0FF] to-[#E8F4FF] dark:from-[#0F172A] dark:via-[#020617] dark:to-[#0F172A]">
-      <h2 className="text-[32px] font-dancing text-[#6E9BB7] pt-5">Explore More 🌸</h2>
+    <div className="space-y-8 pb-[100px] min-h-screen -mx-6 -mt-6 px-6 pt-12 bg-gradient-to-br from-[#FFE4EC] via-[#FCE4EC] to-[#FDFAF7] dark:from-[#2C1810] dark:via-[#3D2C2C] dark:to-[#1A1114]">
+      <h2 className="text-[32px] font-dancing text-[#B76E79] pt-5">Explore More 🌸</h2>
       <div className="grid grid-cols-2 gap-4">
         {menuItems.map((item, index) => (
           <motion.button
@@ -992,7 +993,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
             whileHover={{ scale: 1.02, y: -5 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onNavigate(item.id as any)}
-            className="p-6 rounded-[20px] bg-white/85 dark:bg-navy-800/85 border border-[#C4CCE8]/50 shadow-[0_4px_8px_rgba(110,155,183,0.15)] flex flex-col items-center gap-4 group"
+            className="p-6 rounded-[20px] bg-white/90 dark:bg-plum-card/90 border border-white/50 shadow-sm flex flex-col items-center gap-4 group"
           >
             <div className={cn(
               "w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:rotate-12",
@@ -1001,15 +1002,15 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
               <item.icon className="w-7 h-7" />
             </div>
             <div className="text-center">
-              <p className="font-medium text-[13px] text-[#1E293B] dark:text-[#E2E8F0] font-sans">{item.emoji} {item.name}</p>
+              <p className="font-bold text-[13px] text-[#2C1810] dark:text-text-dark-primary font-sans">{item.emoji} {item.name}</p>
             </div>
           </motion.button>
         ))}
       </div>
       
-      <div className="p-8 rounded-[40px] bg-gradient-to-br from-blue-300/10 to-blue-400/10 border border-blue-300/20 text-center space-y-2">
-        <p className="text-sm font-serif italic text-blue-300">"You deserve all the love in the world, Tanha."</p>
-        <p className="text-[10px] font-black uppercase tracking-widest text-blue-300/60">Always remember that 💖</p>
+      <div className="p-8 rounded-[40px] bg-white dark:bg-plum-card border border-rose-gold/20 text-center space-y-2">
+        <p className="text-sm font-serif italic text-text-primary dark:text-text-dark-primary">"You deserve all the love in the world, Tanha."</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Always remember that 💖</p>
       </div>
     </div>
   );

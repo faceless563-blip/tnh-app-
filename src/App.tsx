@@ -30,6 +30,7 @@ import {
 } from './components/ExtraFeatures';
 import { NewFeaturesPopup } from './components/NewFeaturesPopup';
 import { Diary } from './components/diary/Diary';
+import { WatchWorld } from './components/watch/WatchWorld';
 import { 
   Task, AnchorTaskTemplate, UserSettings, DailyReflection,
   CycleLog, CycleSettings, PeriodTrackerData, CyclePhase,
@@ -77,7 +78,7 @@ const AnimatedCheckbox = ({ checked, onToggle }: { checked: boolean, onToggle: (
       onClick={onToggle}
       className={cn(
         "relative w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center overflow-hidden",
-        checked ? "bg-electric-indigo border-electric-indigo" : "border-gray-300 dark:border-gray-600 bg-transparent"
+        checked ? "bg-rose-gold border-rose-gold" : "border-rose-gold/30 dark:border-white/20 bg-transparent"
       )}
     >
       <AnimatePresence>
@@ -112,8 +113,8 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       whileHover={{ scale: 1.01 }}
       className={cn(
         "group flex items-center gap-4 p-5 rounded-[32px] transition-all duration-500",
-        "bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50",
-        !task.completed && "girly-shadow border-blue-300/10",
+        "bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50",
+        !task.completed && "girly-shadow border-accent-light/10",
         task.completed && "opacity-60 grayscale-[0.2]"
       )}
     >
@@ -125,19 +126,19 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
         <div className="flex items-center gap-2">
           <span className="text-2xl girly-glow">{task.emoji}</span>
           <h3 className={cn(
-            "font-bold text-gray-900 dark:text-gray-100 truncate transition-all duration-500",
-            task.completed && "line-through decoration-blue-300/50 opacity-50"
+            "font-bold text-text-primary dark:text-text-dark-primary truncate transition-all duration-500",
+            task.completed && "text-text-secondary line-through"
           )}>
             {task.name}
           </h3>
           {task.isAnchor && (
-            <span className="px-2 py-0.5 rounded-full bg-blue-300/10 text-blue-300 text-[9px] font-black uppercase tracking-widest">
+            <span className="px-2 py-0.5 rounded-full bg-accent-light/10 text-accent text-[9px] font-black uppercase tracking-widest">
               Anchor
             </span>
           )}
         </div>
         {task.time && (
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-400 dark:text-gray-500">
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-text-secondary dark:text-text-secondary">
             <Clock className="w-3.5 h-3.5" />
             <span className="font-medium">{task.time}</span>
             {(() => {
@@ -150,7 +151,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
               taskTime.setHours(h, m, 0, 0);
               const diff = (taskTime.getTime() - now.getTime()) / (1000 * 60);
               if (diff > 0 && diff <= 15) {
-                return <span className="ml-2 text-blue-500 font-bold animate-pulse">Starts soon! 🌸</span>;
+                return <span className="ml-2 text-rose-gold font-bold animate-pulse">Starts soon! 🌸</span>;
               }
               return null;
             })()}
@@ -161,7 +162,7 @@ const TaskCard = ({ task, onToggle, onDelete }: TaskCardProps) => {
       {!task.isAnchor && onDelete && (
         <button 
           onClick={onDelete}
-          className="opacity-0 group-hover:opacity-100 p-2.5 text-gray-300 hover:text-blue-500 transition-all bg-gray-50 dark:bg-navy-900 rounded-xl"
+          className="opacity-0 group-hover:opacity-100 p-2.5 text-text-secondary hover:text-rose-gold transition-all bg-rose-card dark:bg-deep-plum rounded-xl"
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -231,7 +232,7 @@ const CelebrationPopup = ({
         </motion.div>
         
         <h2 className={cn(
-          "text-3xl font-bold text-gray-800 leading-tight handwriting",
+          "text-3xl font-bold text-text-primary leading-tight handwriting",
           isFinale ? "text-4xl" : "text-3xl"
         )}>
           {message}
@@ -239,7 +240,7 @@ const CelebrationPopup = ({
 
         <button
           onClick={onDismiss}
-          className="px-8 py-3 bg-white/80 hover:bg-white text-sky-600 rounded-full font-bold shadow-sm transition-all flex items-center gap-2 mx-auto"
+          className="px-8 py-3 bg-white/80 hover:bg-white text-pink-600 rounded-full font-bold shadow-sm transition-all flex items-center gap-2 mx-auto"
         >
           {isFinale ? "I love you too! 💖" : "💖 Yay!"}
         </button>
@@ -250,7 +251,7 @@ const CelebrationPopup = ({
           <motion.div
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-full h-full border-4 border-sky-300/30 rounded-[50px]"
+            className="w-full h-full border-4 border-pink-300/30 rounded-[50px]"
           />
         </div>
       )}
@@ -294,7 +295,7 @@ const Onboarding = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-warm-white dark:bg-navy-900 flex items-center justify-center p-6 overflow-y-auto text-gray-900 dark:text-white">
+    <div className="fixed inset-0 z-50 bg-warm-white dark:bg-deep-plum flex items-center justify-center p-6 overflow-y-auto text-text-primary dark:text-text-dark-primary">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -302,17 +303,17 @@ const Onboarding = ({
       >
         {step === 1 && (
           <div className="space-y-8 text-center">
-            <div className="w-24 h-24 bg-electric-indigo rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-electric-indigo/30 rotate-12">
+            <div className="w-24 h-24 bg-rose-gold rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-rose-gold/30 rotate-12">
               <Flame className="w-12 h-12 text-white" />
             </div>
             <div className="space-y-2">
               <h1 className="text-4xl font-bold">Hey Tanha! 🌸</h1>
-              <p className="text-gray-500 dark:text-gray-400">This app is made just for you, with love 💖</p>
+              <p className="text-text-secondary dark:text-text-secondary">This app is made just for you, with love 💖</p>
             </div>
             <div className="pt-4">
               <button 
                 onClick={handleNextStep}
-                className="w-full p-4 bg-electric-indigo text-white rounded-2xl font-bold shadow-lg shadow-electric-indigo/20 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full p-4 bg-rose-gold text-white rounded-2xl font-bold shadow-lg shadow-rose-gold/20 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Get Started <ArrowRight className="w-5 h-5" />
               </button>
@@ -324,7 +325,7 @@ const Onboarding = ({
           <div className="space-y-6">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold">Tanha, what do you do every day? 🗓️</h2>
-              <p className="text-gray-500 dark:text-gray-400">Add your daily habits and I'll remind you every day 💕</p>
+              <p className="text-text-secondary dark:text-text-secondary">Add your daily habits and I'll remind you every day 💕</p>
             </div>
             
             <div className="space-y-3 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
@@ -335,13 +336,13 @@ const Onboarding = ({
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    className="p-4 rounded-2xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-800 flex items-center justify-between"
+                    className="p-4 rounded-2xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/5 flex items-center justify-between"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{a.emoji}</span>
                       <div>
                         <div className="font-bold">{a.name}</div>
-                        {a.time && <div className="text-xs text-gray-500">{a.time}</div>}
+                        {a.time && <div className="text-xs text-text-secondary">{a.time}</div>}
                       </div>
                     </div>
                     <button onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setAnchors(anchors.filter(x => x.id !== a.id)); }} className="text-red-400 p-2">
@@ -351,7 +352,7 @@ const Onboarding = ({
                 ))}
               </AnimatePresence>
               {anchors.length === 0 && !isAdding && (
-                <div className="text-center py-8 text-gray-400 italic">
+                <div className="text-center py-8 text-text-secondary italic">
                   No habits added yet...
                 </div>
               )}
@@ -361,12 +362,12 @@ const Onboarding = ({
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-6 rounded-3xl bg-white dark:bg-navy-800 border-2 border-electric-indigo space-y-4 shadow-xl"
+                className="p-6 rounded-3xl bg-white dark:bg-plum-card border-2 border-rose-gold space-y-4 shadow-xl"
               >
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setShowEmojiPicker(!showEmojiPicker); }}
-                    className="w-14 h-14 rounded-2xl bg-gray-100 dark:bg-navy-900 flex items-center justify-center text-3xl hover:bg-gray-200 transition-all"
+                    className="w-14 h-14 rounded-2xl bg-rose-card dark:bg-deep-plum flex items-center justify-center text-3xl hover:bg-rose-card/80 transition-all"
                   >
                     {newTask.emoji}
                   </button>
@@ -375,13 +376,13 @@ const Onboarding = ({
                       autoFocus
                       type="text" 
                       placeholder="Task name (e.g. Gym)"
-                      className="w-full bg-transparent border-b border-gray-200 dark:border-gray-700 outline-none p-1 font-bold"
+                      className="w-full bg-transparent border-b border-rose-gold/20 dark:border-white/10 outline-none p-1 font-bold"
                       value={newTask.name}
                       onChange={(e) => handleNameChange(e.target.value)}
                     />
                     <input 
                       type="time" 
-                      className="w-full bg-transparent border-b border-gray-200 dark:border-gray-700 outline-none p-1 text-xs text-gray-500"
+                      className="w-full bg-transparent border-b border-rose-gold/20 dark:border-white/10 outline-none p-1 text-xs text-text-secondary"
                       value={newTask.time}
                       onChange={(e) => setNewTask(prev => ({ ...prev, time: e.target.value }))}
                     />
@@ -389,12 +390,12 @@ const Onboarding = ({
                 </div>
 
                 {showEmojiPicker && (
-                  <div className="grid grid-cols-6 gap-2 p-2 bg-gray-50 dark:bg-navy-900 rounded-xl max-h-32 overflow-y-auto">
+                  <div className="grid grid-cols-6 gap-2 p-2 bg-rose-card dark:bg-deep-plum rounded-xl max-h-32 overflow-y-auto">
                     {EMOJI_OPTIONS.map(e => (
                       <button 
                         key={e} 
                         onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setNewTask(prev => ({ ...prev, emoji: e })); setShowEmojiPicker(false); }}
-                        className="p-2 text-xl hover:bg-white dark:hover:bg-navy-800 rounded-lg transition-all"
+                        className="p-2 text-xl hover:bg-white dark:hover:bg-white/5 rounded-lg transition-all"
                       >
                         {e}
                       </button>
@@ -403,14 +404,14 @@ const Onboarding = ({
                 )}
 
                 <div className="flex gap-2">
-                  <button onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setIsAdding(false); }} className="flex-1 p-3 rounded-xl bg-gray-100 dark:bg-navy-900 font-bold">Cancel</button>
-                  <button onClick={saveNewAnchor} className="flex-1 p-3 rounded-xl bg-electric-indigo text-white font-bold">Add</button>
+                  <button onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setIsAdding(false); }} className="flex-1 p-3 rounded-xl bg-rose-card dark:bg-deep-plum font-bold">Cancel</button>
+                  <button onClick={saveNewAnchor} className="flex-1 p-3 rounded-xl bg-rose-gold text-white font-bold">Add</button>
                 </div>
               </motion.div>
             ) : (
               <button 
                 onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); setIsAdding(true); }}
-                className="w-full p-4 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl text-gray-400 font-bold flex items-center justify-center gap-2 hover:border-electric-indigo hover:text-electric-indigo transition-all"
+                className="w-full p-4 border-2 border-dashed border-rose-gold/20 dark:border-white/5 rounded-2xl text-text-secondary font-bold flex items-center justify-center gap-2 hover:border-rose-gold hover:text-rose-gold transition-all"
               >
                 <Plus className="w-5 h-5" /> Add Anchor Task
               </button>
@@ -418,7 +419,7 @@ const Onboarding = ({
 
             <button 
               onClick={handleFinish}
-              className="w-full p-4 bg-electric-indigo text-white rounded-2xl font-bold shadow-lg shadow-electric-indigo/20 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="w-full p-4 bg-rose-gold text-white rounded-2xl font-bold shadow-lg shadow-rose-gold/20 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               Let's go, Tanha! 💖 <Check className="w-5 h-5" />
             </button>
@@ -435,7 +436,7 @@ const WelcomePopup = ({ onDismiss, soundEnabled }: { onDismiss: () => void, soun
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-white dark:bg-navy-800 rounded-[40px] p-10 max-w-sm w-full text-center space-y-8 shadow-2xl relative overflow-hidden"
+        className="bg-white dark:bg-plum-card rounded-[40px] p-10 max-w-sm w-full text-center space-y-8 shadow-2xl relative overflow-hidden"
       >
         {/* Floating Hearts */}
         <div className="absolute inset-0 pointer-events-none">
@@ -453,7 +454,7 @@ const WelcomePopup = ({ onDismiss, soundEnabled }: { onDismiss: () => void, soun
                 repeat: Infinity,
                 delay: i * 0.5
               }}
-              className="absolute bottom-0 text-sky-400/40"
+              className="absolute bottom-0 text-pink-400/40"
             >
               <Heart className="w-10 h-10 fill-current" />
             </motion.div>
@@ -463,19 +464,19 @@ const WelcomePopup = ({ onDismiss, soundEnabled }: { onDismiss: () => void, soun
         <div className="relative z-10 space-y-6">
           <div className="text-6xl">🥺💌</div>
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold dark:text-white leading-tight">
+            <h2 className="text-3xl font-bold dark:text-text-dark-primary leading-tight">
               Your app is ready, Tanha!
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+            <p className="text-text-primary dark:text-text-secondary text-lg leading-relaxed">
               Someone who loves you very much made this just for you 🥺💌
               <br />
-              <span className="font-bold text-sky-500">Now go be the amazing person you already are 💖</span>
+              <span className="font-bold text-pink-500">Now go be the amazing person you already are 💖</span>
             </p>
           </div>
 
           <button 
             onClick={() => { playSound(SOUNDS.CLICK, soundEnabled); onDismiss(); }}
-            className="w-full p-5 bg-gradient-to-r from-sky-400 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+            className="w-full p-5 bg-rose-gold text-white rounded-2xl font-bold shadow-xl shadow-accent/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
           >
             Aww, thank you! 🥰
           </button>
@@ -525,22 +526,22 @@ const AddTaskModal = ({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-blue-300/20"
+        className="bg-white dark:bg-plum-card w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-accent-light/20"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold dark:text-white handwriting">New Task 🌸</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all">
+          <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">New Task 🌸</h2>
+          <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
             <X className="w-6 h-6" />
           </button>
         </div>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-black text-blue-300 uppercase tracking-widest ml-1">What's the plan, Tanha? ✨</label>
+            <label className="text-xs font-black text-accent uppercase tracking-[1.5px] ml-1">What's the plan, Tanha? ✨</label>
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="w-16 h-16 rounded-[24px] bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0 shadow-sm border border-blue-300/5"
+                className="w-16 h-16 rounded-[24px] bg-rose-card dark:bg-deep-plum flex items-center justify-center text-3xl hover:scale-105 transition-all shrink-0 shadow-sm border border-accent-light/5"
               >
                 {emoji}
               </button>
@@ -549,8 +550,8 @@ const AddTaskModal = ({
                 type="text" 
                 placeholder="e.g. Drink water 💧"
                 className={cn(
-                  "flex-1 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all font-bold dark:text-white text-lg",
-                  error ? "border-red-400" : "border-transparent focus:border-blue-300 shadow-inner"
+                  "flex-1 p-5 rounded-[24px] bg-rose-card dark:bg-deep-plum outline-none border-2 transition-all font-bold dark:text-text-dark-primary text-lg",
+                  error ? "border-red-400" : "border-transparent focus:border-accent-light shadow-inner"
                 )}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
@@ -563,13 +564,13 @@ const AddTaskModal = ({
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="grid grid-cols-6 gap-2 p-4 bg-gray-50 dark:bg-navy-900 rounded-[32px] max-h-48 overflow-y-auto custom-scrollbar border border-blue-300/5"
+              className="grid grid-cols-6 gap-2 p-4 bg-rose-card dark:bg-deep-plum rounded-[32px] max-h-48 overflow-y-auto custom-scrollbar border border-accent-light/5"
             >
               {EMOJI_OPTIONS.map(e => (
                 <button 
                   key={e} 
                   onClick={() => { setEmoji(e); setShowEmojiPicker(false); }}
-                  className="p-3 text-2xl hover:bg-white dark:hover:bg-navy-800 rounded-2xl transition-all hover:scale-110"
+                  className="p-3 text-2xl hover:bg-white dark:hover:bg-white/5 rounded-2xl transition-all hover:scale-110"
                 >
                   {e}
                 </button>
@@ -578,12 +579,12 @@ const AddTaskModal = ({
           )}
 
           <div className="space-y-2">
-            <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Reminder Time ⏰</label>
-            <div className="flex items-center gap-3 p-5 rounded-[24px] bg-gray-50 dark:bg-navy-900 border border-transparent focus-within:border-blue-300 transition-all">
-              <Clock className="w-5 h-5 text-blue-300" />
+            <label className="text-xs font-black text-text-secondary uppercase tracking-widest ml-1">Reminder Time ⏰</label>
+            <div className="flex items-center gap-3 p-5 rounded-[24px] bg-rose-card dark:bg-deep-plum border border-transparent focus-within:border-accent-light transition-all">
+              <Clock className="w-5 h-5 text-accent" />
               <input 
                 type="time" 
-                className="bg-transparent outline-none flex-1 dark:text-white font-bold"
+                className="bg-transparent outline-none flex-1 dark:text-text-dark-primary font-bold"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
@@ -594,13 +595,13 @@ const AddTaskModal = ({
         <div className="flex flex-col gap-3 pt-4">
           <button 
             onClick={handleConfirm}
-            className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-[24px] font-black shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg"
+            className="w-full p-5 bg-rose-gold text-white rounded-[24px] font-black shadow-xl shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg"
           >
             Add Task 💖
           </button>
           <button 
             onClick={onClose}
-            className="w-full p-4 text-gray-400 dark:text-gray-500 font-bold hover:text-blue-300 transition-all"
+            className="w-full p-4 text-text-secondary dark:text-text-secondary font-bold hover:text-accent transition-all"
           >
             Cancel
           </button>
@@ -726,17 +727,17 @@ const AppTour = ({ onComplete, soundEnabled }: { onComplete: () => void, soundEn
               coords.top + coords.height + 24 > window.innerHeight - 200 ? "-bottom-2" : "-top-2"
             )} />
             
-            <p className="text-gray-800 text-lg leading-relaxed handwriting font-bold">
+            <p className="text-text-primary text-lg leading-relaxed handwriting font-bold">
               {steps[step].message}
             </p>
 
             <div className="flex items-center justify-between pt-2">
-              <span className="text-xs font-bold text-gray-400">
+              <span className="text-xs font-bold text-text-secondary">
                 {step + 1} / {steps.length}
               </span>
               <button 
                 onClick={handleNext}
-                className="px-6 py-2 bg-electric-indigo text-white rounded-full font-bold text-sm shadow-lg shadow-electric-indigo/20 hover:scale-105 active:scale-95 transition-all"
+                className="px-6 py-2 bg-rose-gold text-white rounded-full font-bold text-sm shadow-lg shadow-rose-gold/20 hover:scale-105 active:scale-95 transition-all"
               >
                 {step === steps.length - 1 ? "Finish! 🌟" : "Next 💕"}
               </button>
@@ -758,8 +759,8 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
     >
       {/* Atmospheric Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-900/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-300/10 blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-white/5 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-accent-light/10 blur-[120px]" />
         <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] rounded-full bg-purple-900/10 blur-[100px]" />
       </div>
 
@@ -784,7 +785,7 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute text-blue-200/20"
+            className="absolute text-rose-gold/40/20"
           >
             {i % 3 === 0 ? <Heart className="w-6 h-6 fill-current" /> : i % 3 === 1 ? "🌸" : "✨"}
           </motion.div>
@@ -803,10 +804,10 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
           transition={{ delay: 0.8, duration: 1.2 }}
           className="mb-12"
         >
-          <span className="text-xs font-black tracking-[0.3em] text-blue-400 uppercase mb-4 block">A Special Addition</span>
+          <span className="text-xs font-black tracking-[0.3em] text-rose-gold uppercase mb-4 block">A Special Addition</span>
           <h1 className="text-6xl md:text-8xl font-display text-white leading-none tracking-tighter uppercase italic">
             For My <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-300">Lokki Bou</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-gold to-accent-light">Lokki Bou</span>
           </h1>
         </motion.div>
 
@@ -816,11 +817,11 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
           transition={{ delay: 1.5, duration: 1 }}
           className="max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 md:p-12 shadow-2xl relative"
         >
-          <div className="absolute -top-6 -left-6 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg rotate-[-12deg]">
+          <div className="absolute -top-6 -left-6 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white shadow-lg rotate-[-12deg]">
             <Heart className="w-6 h-6 fill-current" />
           </div>
 
-          <p className="text-lg md:text-xl text-blue-100/80 font-serif italic leading-relaxed mb-8">
+          <p className="text-lg md:text-xl text-rose-gold/80/80 font-serif italic leading-relaxed mb-8">
             "I know how much your cycle affects your energy and mood, Tanha. So I built this little space just for you. It's here to support you every day, to help us understand your body better, and to remind you that you're cared for in every phase. Because you deserve to feel supported, always, amar lokki 💖"
           </p>
           
@@ -831,7 +832,7 @@ const PeriodTrackerReveal = ({ onShowMe, onSkip }: { onShowMe: () => void, onSki
             >
               <span className="relative z-10">Enter My Cycle 🌸</span>
               <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-blue-200 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute inset-0 bg-gradient-to-r from-rose-gold/40 to-accent-light opacity-0 group-hover:opacity-100 transition-opacity"
               />
             </button>
             
@@ -974,17 +975,17 @@ const PeriodTrackerTour = ({ onComplete, soundEnabled }: { onComplete: () => voi
               )} />
             )}
             
-            <p className="text-gray-800 text-lg leading-relaxed handwriting font-bold whitespace-pre-line">
+            <p className="text-text-primary text-lg leading-relaxed handwriting font-bold whitespace-pre-line">
               {steps[step].message}
             </p>
 
             <div className="flex items-center justify-between pt-2">
-              <span className="text-xs font-bold text-gray-400">
+              <span className="text-xs font-bold text-text-secondary">
                 {step + 1} / {steps.length}
               </span>
               <button 
                 onClick={handleNext}
-                className="px-6 py-2 bg-blue-300 text-white rounded-full font-bold text-sm shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
+                className="px-6 py-2 bg-accent-light text-white rounded-full font-bold text-sm shadow-lg shadow-accent/20 hover:scale-105 active:scale-95 transition-all"
               >
                 {step === steps.length - 1 ? "Thank you 🥺💖" : "Next 💕"}
               </button>
@@ -1029,7 +1030,7 @@ const FocusMode = ({ task, onExit }: { task: Task, onExit: () => void }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] bg-navy-900 text-white flex flex-col items-center justify-center p-8"
+      className="fixed inset-0 z-[60] bg-deep-plum text-white flex flex-col items-center justify-center p-8"
     >
       <button onClick={onExit} className="absolute top-8 right-8 p-2 hover:bg-white/10 rounded-full transition-all">
         <X className="w-8 h-8" />
@@ -1066,7 +1067,7 @@ const FocusMode = ({ task, onExit }: { task: Task, onExit: () => void }) => {
         <div className="flex items-center justify-center gap-6">
           <button 
             onClick={() => setIsActive(!isActive)}
-            className="w-20 h-20 rounded-full bg-electric-indigo flex items-center justify-center shadow-2xl shadow-electric-indigo/40 hover:scale-105 active:scale-95 transition-all"
+            className="w-20 h-20 rounded-full bg-rose-gold flex items-center justify-center shadow-2xl shadow-rose-gold/40 hover:scale-105 active:scale-95 transition-all"
           >
             {isActive ? <X className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
           </button>
@@ -1096,11 +1097,11 @@ const ReflectionModal = ({
       <motion.div 
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white dark:bg-navy-800 rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-blue-300/20"
+        className="bg-white dark:bg-plum-card rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-accent-light/20"
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold dark:text-white handwriting">Daily Reflection</h2>
-          <p className="text-gray-500 dark:text-gray-400">How was your day, {userName}? 🌸</p>
+          <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Daily Reflection</h2>
+          <p className="text-text-secondary dark:text-text-secondary">How was your day, {userName}? 🌸</p>
         </div>
 
         <div className="flex justify-center gap-2">
@@ -1110,7 +1111,7 @@ const ReflectionModal = ({
               onClick={() => setRating(r)}
               className={cn(
                 "w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all",
-                rating >= r ? "bg-blue-300 text-white scale-110 shadow-lg" : "bg-gray-100 dark:bg-gray-700 text-gray-400"
+                rating >= r ? "bg-accent-light text-white scale-110 shadow-lg" : "bg-rose-card dark:bg-white/10 text-text-secondary"
               )}
             >
               <Star className={cn("w-6 h-6", rating >= r && "fill-current")} />
@@ -1120,7 +1121,7 @@ const ReflectionModal = ({
 
         <button 
           onClick={() => rating > 0 && onSave(rating)}
-          className="w-full p-4 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-lg shadow-sky-500/20"
+          className="w-full p-4 bg-rose-gold text-white rounded-2xl font-bold shadow-lg shadow-accent/20"
         >
           Save Reflection 💖
         </button>
@@ -1177,7 +1178,7 @@ const WishBoxModal = ({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 relative overflow-hidden"
+        className="bg-white dark:bg-plum-card w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 relative overflow-hidden"
       >
         <AnimatePresence mode="wait">
           {!isSent ? (
@@ -1190,11 +1191,11 @@ const WishBoxModal = ({
             >
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-bold dark:text-white handwriting">What's on your mind, Tanha? 🌸</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">A problem? A wish? Anything at all — just say it 💕</p>
+                  <h2 className="text-2xl font-bold text-[#2C1810] dark:text-text-dark-primary handwriting">What's on your mind, Tanha? 🌸</h2>
+                  <p className="text-sm text-[#8B3A52] dark:text-accent-light font-medium">A problem? A wish? Anything at all — just say it 💕</p>
                 </div>
-                <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all">
-                  <X className="w-6 h-6" />
+                <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
+                  <X className="w-6 h-6 text-[#2C1810] dark:text-text-dark-primary" />
                 </button>
               </div>
 
@@ -1203,8 +1204,8 @@ const WishBoxModal = ({
                   autoFocus
                   placeholder="Type anything here... I'm listening 🥺"
                   className={cn(
-                    "w-full h-40 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 transition-all resize-none dark:text-white text-lg leading-relaxed",
-                    error ? "border-red-400" : "border-transparent focus:border-blue-300"
+                    "w-full h-40 p-6 rounded-[32px] bg-rose-card dark:bg-deep-plum outline-none border-2 transition-all resize-none text-[#2C1810] dark:text-text-dark-primary text-lg leading-relaxed",
+                    error ? "border-red-400" : "border-transparent focus:border-[#B76E79]"
                   )}
                   value={message}
                   onChange={(e) => { setMessage(e.target.value); setError(''); }}
@@ -1215,7 +1216,7 @@ const WishBoxModal = ({
               <button 
                 onClick={handleSend}
                 disabled={isSending}
-                className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                className="w-full p-5 bg-[#B76E79] text-white rounded-2xl font-bold shadow-xl shadow-[#B76E79]/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
               >
                 {isSending ? "Sending... 💌" : "Send 💌"}
               </button>
@@ -1243,7 +1244,7 @@ const WishBoxModal = ({
                       repeat: Infinity,
                       delay: i * 0.2
                     }}
-                    className="absolute bottom-0 text-sky-400/40"
+                    className="absolute bottom-0 text-pink-400/40"
                   >
                     <Heart className="w-8 h-8 fill-current" />
                   </motion.div>
@@ -1252,10 +1253,10 @@ const WishBoxModal = ({
 
               <div className="relative z-10 space-y-4">
                 <div className="text-6xl">💖🌸🥺</div>
-                <h2 className="text-3xl font-bold dark:text-white handwriting">Sent! 💖</h2>
+                <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">Sent! 💖</h2>
                 <div className="space-y-2">
-                  <p className="text-lg text-gray-600 dark:text-gray-300">Your message is on its way 🌸</p>
-                  <p className="text-sm font-medium text-sky-500 italic">Someone who loves you is listening, always 🥺</p>
+                  <p className="text-lg text-text-primary dark:text-text-secondary">Your message is on its way 🌸</p>
+                  <p className="text-sm font-medium text-pink-500 italic">Someone who loves you is listening, always 🥺</p>
                 </div>
               </div>
             </motion.div>
@@ -1325,8 +1326,8 @@ const CycleWheel = ({ day, phase }: { day: number, phase: CyclePhase }) => {
         >
           {currentPhase.emoji}
         </motion.div>
-        <div className="text-sm font-black text-gray-400 uppercase tracking-widest">Day {day}</div>
-        <div className="text-xl font-bold text-gray-800" style={{ color: currentPhase.color }}>
+        <div className="text-sm font-black text-text-secondary uppercase tracking-widest">Day {day}</div>
+        <div className="text-xl font-bold text-text-primary" style={{ color: currentPhase.color }}>
           {currentPhase.name}
         </div>
       </div>
@@ -1381,21 +1382,21 @@ const LogSheet = ({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-lg rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-8 max-h-[90vh] overflow-y-auto custom-scrollbar relative"
+        className="bg-white dark:bg-plum-card w-full max-w-lg rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-8 max-h-[90vh] overflow-y-auto custom-scrollbar relative"
       >
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold dark:text-white handwriting">Log for {format(selectedDate, 'MMM do')} 🌸</h2>
-            <p className="text-xs text-gray-400 font-medium">How are you feeling, Tanha? 💕</p>
+            <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Log for {format(selectedDate, 'MMM do')} 🌸</h2>
+            <p className="text-xs text-text-secondary font-medium">How are you feeling, Tanha? 💕</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all">
+          <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Flow */}
         <div className="space-y-4">
-          <label className="text-xs font-black text-gray-400 uppercase tracking-widest">🩸 Flow Intensity</label>
+          <label className="text-xs font-black text-text-secondary uppercase tracking-widest">🩸 Flow Intensity</label>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {(['none', 'spotting', 'light', 'medium', 'heavy', 'very_heavy'] as const).map(f => (
               <button 
@@ -1404,11 +1405,11 @@ const LogSheet = ({
                 className={cn(
                   "p-3 rounded-2xl text-[10px] font-bold transition-all border-2",
                   flow === f 
-                    ? "bg-blue-300 border-blue-300 text-white shadow-lg" 
-                    : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
+                    ? "bg-accent-light border-accent-light text-white shadow-lg" 
+                    : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
                 )}
               >
-                <Droplets className={cn("w-5 h-5 mx-auto mb-1", flow === f ? "text-white" : "text-gray-300")} />
+                <Droplets className={cn("w-5 h-5 mx-auto mb-1", flow === f ? "text-white" : "text-text-secondary")} />
                 {f.replace('_', ' ')}
               </button>
             ))}
@@ -1417,7 +1418,7 @@ const LogSheet = ({
 
         {/* Moods */}
         <div className="space-y-4" id="tour-mood-chips">
-          <label className="text-xs font-black text-gray-400 uppercase tracking-widest">😊 Mood Tracker</label>
+          <label className="text-xs font-black text-text-secondary uppercase tracking-widest">😊 Mood Tracker</label>
           <div className="flex flex-wrap gap-2">
             {MOODS.map(m => (
               <button 
@@ -1426,8 +1427,8 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   moods.includes(m.label)
-                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
-                    : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
+                    ? "bg-accent-light/10 border-accent-light text-accent"
+                    : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
                 )}
               >
                 {m.emoji} {m.label}
@@ -1438,7 +1439,7 @@ const LogSheet = ({
 
         {/* Symptoms */}
         <div className="space-y-4">
-          <label className="text-xs font-black text-gray-400 uppercase tracking-widest">🌡️ Symptoms</label>
+          <label className="text-xs font-black text-text-secondary uppercase tracking-widest">🌡️ Symptoms</label>
           <div className="flex flex-wrap gap-2">
             {SYMPTOMS.map(s => (
               <button 
@@ -1447,8 +1448,8 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   symptoms.includes(s)
-                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
-                    : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
+                    ? "bg-accent-light/10 border-accent-light text-accent"
+                    : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
                 )}
               >
                 {s}
@@ -1460,12 +1461,12 @@ const LogSheet = ({
         {/* Medication & Notes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <label className="text-xs font-black text-gray-400 uppercase tracking-widest">💊 Medication</label>
+            <label className="text-xs font-black text-text-secondary uppercase tracking-widest">💊 Medication</label>
             <button 
               onClick={() => setMedication(!medication)}
               className={cn(
                 "w-full p-4 rounded-2xl font-bold flex items-center justify-between transition-all border-2",
-                medication ? "bg-blue-300 border-blue-300 text-white" : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400"
+                medication ? "bg-accent-light border-accent-light text-white" : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
               )}
             >
               <span>Pain relief today?</span>
@@ -1473,15 +1474,15 @@ const LogSheet = ({
             </button>
           </div>
           <div className="space-y-4">
-            <label className="text-xs font-black text-gray-400 uppercase tracking-widest">💧 Water Intake</label>
-            <div className="p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 space-y-2">
-              <div className="flex justify-between text-xs font-bold text-blue-300">
+            <label className="text-xs font-black text-text-secondary uppercase tracking-widest">💧 Water Intake</label>
+            <div className="p-4 rounded-2xl bg-rose-card dark:bg-deep-plum space-y-2">
+              <div className="flex justify-between text-xs font-bold text-accent">
                 <span>{water} Liters</span>
                 <span>3L+</span>
               </div>
               <input 
                 type="range" min="0" max="3" step="0.5"
-                className="w-full accent-blue-300"
+                className="w-full accent-accent-light"
                 value={water}
                 onChange={(e) => setWater(parseFloat(e.target.value))}
               />
@@ -1490,7 +1491,7 @@ const LogSheet = ({
         </div>
 
         <div className="space-y-4">
-          <label className="text-xs font-black text-gray-400 uppercase tracking-widest">✨ Self Care</label>
+          <label className="text-xs font-black text-text-secondary uppercase tracking-widest">✨ Self Care</label>
           <div className="flex flex-wrap gap-2">
             {SELF_CARE.map(sc => (
               <button 
@@ -1499,8 +1500,8 @@ const LogSheet = ({
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-bold transition-all border-2",
                   selfCare.includes(sc.label)
-                    ? "bg-blue-300/10 border-blue-300 text-blue-300"
-                    : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-500"
+                    ? "bg-accent-light/10 border-accent-light text-accent"
+                    : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary"
                 )}
               >
                 {sc.emoji} {sc.label}
@@ -1510,10 +1511,10 @@ const LogSheet = ({
         </div>
 
         <div className="space-y-4">
-          <label className="text-xs font-black text-gray-400 uppercase tracking-widest">🌸 Anything else, Tanha?</label>
+          <label className="text-xs font-black text-text-secondary uppercase tracking-widest">🌸 Anything else, Tanha?</label>
           <textarea 
             placeholder="How are you feeling today? Tell me everything..."
-            className="w-full h-32 p-6 rounded-[32px] bg-gray-50 dark:bg-navy-900 outline-none border-2 border-transparent focus:border-blue-300 transition-all resize-none dark:text-white"
+            className="w-full h-32 p-6 rounded-[32px] bg-rose-card dark:bg-deep-plum outline-none border-2 border-transparent focus:border-accent-light transition-all resize-none dark:text-text-dark-primary"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
@@ -1521,7 +1522,7 @@ const LogSheet = ({
 
         <button 
           onClick={handleSave}
-          className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          className="w-full p-5 bg-rose-gold text-white rounded-2xl font-bold shadow-xl shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           Logged 💕
         </button>
@@ -1572,10 +1573,10 @@ const CalendarView = ({
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold handwriting">{format(currentMonth, 'MMMM yyyy')}</h3>
         <div className="flex gap-2">
-          <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full">
+          <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full">
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full">
+          <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
@@ -1583,7 +1584,7 @@ const CalendarView = ({
 
       <div className="grid grid-cols-7 gap-1">
         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
-          <div key={d} className="text-center text-[10px] font-black text-gray-400 py-2">{d}</div>
+          <div key={d} className="text-center text-[10px] font-black text-text-secondary py-2">{d}</div>
         ))}
         {days.map(day => {
           const type = getDayType(day);
@@ -1597,16 +1598,16 @@ const CalendarView = ({
               className={cn(
                 "aspect-square rounded-xl flex flex-col items-center justify-center relative transition-all",
                 !isCurrentMonth && "opacity-20",
-                isTodayDate && "ring-2 ring-blue-300 ring-offset-2 dark:ring-offset-navy-900"
+                isTodayDate && "ring-2 ring-accent-light ring-offset-2 dark:ring-offset-deep-plum"
               )}
             >
-              <span className={cn("text-sm font-bold", isTodayDate ? "text-blue-300" : "text-gray-600 dark:text-gray-300")}>
+              <span className={cn("text-sm font-bold", isTodayDate ? "text-accent" : "text-text-primary dark:text-text-secondary")}>
                 {format(day, 'd')}
               </span>
               <div className={cn(
                 "w-1.5 h-1.5 rounded-full mt-1",
-                type === 'period' && "bg-blue-600",
-                type === 'predicted' && "bg-blue-300",
+                type === 'period' && "bg-accent",
+                type === 'predicted' && "bg-accent-light",
                 type === 'ovulation' && "bg-yellow-400",
                 type === 'fertile' && "bg-green-400",
                 type === 'pms' && "bg-purple-400",
@@ -1617,9 +1618,9 @@ const CalendarView = ({
         })}
       </div>
 
-      <div className="flex flex-wrap gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest justify-center">
-        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-600" /> Logged</div>
-        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-blue-300" /> Predicted</div>
+      <div className="flex flex-wrap gap-4 text-[10px] font-bold text-text-secondary uppercase tracking-widest justify-center">
+        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-accent" /> Logged</div>
+        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-accent-light" /> Predicted</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-yellow-400" /> Ovulation</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-green-400" /> Fertile</div>
         <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-purple-400" /> PMS</div>
@@ -1663,14 +1664,14 @@ const StartTrackingSheet = ({
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        className="bg-white dark:bg-navy-800 w-full max-w-md rounded-[40px] p-10 shadow-2xl relative overflow-hidden"
+        className="bg-white dark:bg-plum-card w-full max-w-md rounded-[40px] p-10 shadow-2xl relative overflow-hidden"
       >
         {/* Progress Bar */}
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-gray-100 dark:bg-navy-900">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-rose-card dark:bg-deep-plum">
           <motion.div 
             initial={{ width: "33.33%" }}
             animate={{ width: `${(step / 3) * 100}%` }}
-            className="h-full bg-blue-500"
+            className="h-full bg-accent"
           />
         </div>
 
@@ -1686,20 +1687,20 @@ const StartTrackingSheet = ({
             {step === 1 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 01</span>
-                  <h2 className="text-3xl font-bold dark:text-white handwriting">When did it start? 🌸</h2>
-                  <p className="text-gray-500 text-sm">I want to make sure the predictions are perfect for you, amar lokki. Tell me the first day of your last cycle 💕</p>
+                  <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 01</span>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">When did it start? 🌸</h2>
+                  <p className="text-text-secondary text-sm">I want to make sure the predictions are perfect for you, amar lokki. Tell me the first day of your last cycle 💕</p>
                 </div>
 
                 <div className="relative group">
                   <input 
                     type="date" 
                     max={format(new Date(), 'yyyy-MM-dd')}
-                    className="w-full p-6 rounded-[28px] bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-400 outline-none font-bold dark:text-white text-xl transition-all text-center"
+                    className="w-full p-6 rounded-[28px] bg-rose-card dark:bg-deep-plum border-2 border-transparent focus:border-rose-400 outline-none font-bold dark:text-text-dark-primary text-xl transition-all text-center"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                   />
-                  <Calendar className="absolute right-8 top-1/2 -translate-y-1/2 w-6 h-6 text-blue-400 pointer-events-none opacity-50 group-focus-within:opacity-100 transition-opacity" />
+                  <Calendar className="absolute right-8 top-1/2 -translate-y-1/2 w-6 h-6 text-rose-gold pointer-events-none opacity-50 group-focus-within:opacity-100 transition-opacity" />
                 </div>
               </div>
             )}
@@ -1707,24 +1708,24 @@ const StartTrackingSheet = ({
             {step === 2 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 02</span>
-                  <h2 className="text-3xl font-bold dark:text-white handwriting">Your Beautiful Rhythm 🗓️</h2>
-                  <p className="text-gray-500 text-sm">Every body is unique, Tanha. How many days does your cycle usually last? This helps me know when to be extra gentle with you 💕</p>
+                  <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 02</span>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">Your Beautiful Rhythm 🗓️</h2>
+                  <p className="text-text-secondary text-sm">Every body is unique, Tanha. How many days does your cycle usually last? This helps me know when to be extra gentle with you 💕</p>
                 </div>
 
                 <div className="space-y-6">
                   <div className="flex justify-center">
-                    <span className="text-6xl font-black text-blue-500">{cycleLength}</span>
-                    <span className="text-xl font-bold text-gray-400 mt-auto mb-2 ml-2">days</span>
+                    <span className="text-6xl font-black text-rose-gold">{cycleLength}</span>
+                    <span className="text-xl font-bold text-text-secondary mt-auto mb-2 ml-2">days</span>
                   </div>
                   
                   <input 
                     type="range" min="21" max="35" 
-                    className="w-full h-3 bg-gray-100 dark:bg-navy-900 rounded-full appearance-none cursor-pointer accent-blue-500"
+                    className="w-full h-3 bg-rose-card dark:bg-deep-plum rounded-full appearance-none cursor-pointer accent-accent"
                     value={cycleLength}
                     onChange={(e) => setCycleLength(parseInt(e.target.value))}
                   />
-                  <div className="flex justify-between text-[10px] font-black text-gray-300 uppercase tracking-widest px-2">
+                  <div className="flex justify-between text-[10px] font-black text-text-secondary uppercase tracking-widest px-2">
                     <span>Short (21)</span>
                     <span>Average (28)</span>
                     <span>Long (35)</span>
@@ -1736,9 +1737,9 @@ const StartTrackingSheet = ({
             {step === 3 && (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">Step 03</span>
-                  <h2 className="text-3xl font-bold dark:text-white handwriting">The Duration 🩸</h2>
-                  <p className="text-gray-500 text-sm">And how many days does your period usually last? I'll use this to help you prepare for those days, amar lokki 💖</p>
+                  <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 03</span>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">The Duration 🩸</h2>
+                  <p className="text-text-secondary text-sm">And how many days does your period usually last? I'll use this to help you prepare for those days, amar lokki 💖</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
@@ -1749,15 +1750,15 @@ const StartTrackingSheet = ({
                       className={cn(
                         "h-16 rounded-2xl font-black text-xl transition-all border-2",
                         periodDuration === d 
-                          ? "bg-blue-500 border-blue-500 text-white shadow-xl shadow-blue-500/20 scale-105" 
-                          : "bg-gray-50 dark:bg-navy-900 border-transparent text-gray-400 hover:bg-gray-100"
+                          ? "bg-accent border-accent text-white shadow-xl shadow-accent/20 scale-105" 
+                          : "bg-rose-card dark:bg-deep-plum border-transparent text-text-secondary hover:bg-rose-card"
                       )}
                     >
                       {d}
                     </button>
                   ))}
                 </div>
-                <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">Select number of days</p>
+                <p className="text-center text-[10px] font-bold text-text-secondary uppercase tracking-widest">Select number of days</p>
               </div>
             )}
           </motion.div>
@@ -1767,14 +1768,14 @@ const StartTrackingSheet = ({
           {step > 1 ? (
             <button 
               onClick={prevStep}
-              className="flex-1 p-5 bg-gray-100 dark:bg-navy-900 text-gray-500 rounded-[24px] font-bold transition-all hover:bg-gray-200"
+              className="flex-1 p-5 bg-rose-card dark:bg-deep-plum text-text-secondary rounded-[24px] font-bold transition-all hover:bg-rose-card/80"
             >
               Back
             </button>
           ) : (
             <button 
               onClick={onClose}
-              className="flex-1 p-5 text-gray-400 font-bold hover:text-blue-500 transition-all"
+              className="flex-1 p-5 text-text-secondary font-bold hover:text-rose-gold transition-all"
             >
               Cancel
             </button>
@@ -1782,7 +1783,7 @@ const StartTrackingSheet = ({
 
           <button 
             onClick={step === 3 ? handleConfirm : nextStep}
-            className="flex-[2] p-5 bg-blue-500 text-white rounded-[24px] font-black shadow-xl shadow-blue-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex-[2] p-5 bg-accent text-white rounded-[24px] font-black shadow-xl shadow-accent/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             {step === 3 ? "Complete 💕" : "Next Step"}
           </button>
@@ -1823,13 +1824,13 @@ const PeriodTracker = ({
   }, [cycleDay]);
 
   const statusInfo = useMemo(() => {
-    if (currentPhase === 'menstrual') return { text: "Period is here 🩸", color: "text-blue-600" };
+    if (currentPhase === 'menstrual') return { text: "Period is here 🩸", color: "text-accent" };
     if (currentPhase === 'ovulation') return { text: "You're likely ovulating today ✨", color: "text-yellow-500" };
     if (cycleDay >= 12 && cycleDay <= 16) return { text: `Fertile window: next ${16 - cycleDay + 1} days 🌱`, color: "text-green-500" };
     if (cycleDay >= 24) return { text: "PMS zone — be gentle with yourself 🌙", color: "text-purple-500" };
     
     const daysToPeriod = data.settings.cycleLength - cycleDay + 1;
-    return { text: `Period expected in ${daysToPeriod} days 🔴`, color: "text-blue-400" };
+    return { text: `Period expected in ${daysToPeriod} days 🔴`, color: "text-rose-gold" };
   }, [currentPhase, cycleDay, data.settings.cycleLength]);
 
   const handleSaveLog = (log: CycleLog) => {
@@ -1848,17 +1849,17 @@ const PeriodTracker = ({
     return (
       <div className="min-h-[80vh] flex flex-col">
         {/* Editorial Header */}
-        <section className="relative h-[40vh] flex items-center justify-center overflow-hidden rounded-[40px] bg-[#F0F8FF] dark:bg-navy-900/50 mb-12">
+        <section className="relative h-[40vh] flex items-center justify-center overflow-hidden rounded-[40px] bg-[#F0F8FF] dark:bg-deep-plum/50 mb-12">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-200/30 blur-[80px]" />
-            <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-300/20 blur-[80px]" />
+            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-rose-gold/30/30 blur-[80px]" />
+            <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-accent-light/20 blur-[80px]" />
           </div>
           
           <div className="relative z-10 text-center space-y-4 px-6">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[10px] font-black tracking-[0.4em] text-blue-400 uppercase block"
+              className="text-[10px] font-black tracking-[0.4em] text-rose-gold uppercase block"
             >
               A space built with love for you
             </motion.span>
@@ -1866,10 +1867,10 @@ const PeriodTracker = ({
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-5xl md:text-7xl font-display text-gray-900 dark:text-white uppercase leading-none"
+              className="text-5xl md:text-7xl font-display text-text-primary dark:text-text-dark-primary uppercase leading-none"
             >
               Tanha's <br />
-              <span className="italic font-serif text-blue-500">Health Space</span>
+              <span className="italic font-serif text-rose-gold">Health Space</span>
             </motion.h1>
           </div>
         </section>
@@ -1881,13 +1882,13 @@ const PeriodTracker = ({
               title: "Smart Predictions", 
               desc: "Never be caught off guard again. I'll help you stay ahead of your cycle so you can plan your best days, amar lokki.",
               icon: "🗓️",
-              color: "bg-blue-50 dark:bg-blue-900/10"
+              color: "bg-rose-gold/10 dark:bg-white/5"
             },
             { 
               title: "Mood & Symptoms", 
               desc: "Your moods and energy levels matter. Let's track them so we can take better care of you when you need it most.",
               icon: "✨",
-              color: "bg-blue-300/10 dark:bg-blue-300/5"
+              color: "bg-accent-light/10 dark:bg-accent-light/5"
             },
             { 
               title: "Partner Notes", 
@@ -1904,8 +1905,8 @@ const PeriodTracker = ({
               className={cn("p-8 rounded-[32px] space-y-4", feature.color)}
             >
               <div className="text-3xl">{feature.icon}</div>
-              <h3 className="text-xl font-bold dark:text-white">{feature.title}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
+              <h3 className="text-xl font-bold dark:text-text-dark-primary">{feature.title}</h3>
+              <p className="text-sm text-text-secondary dark:text-text-secondary leading-relaxed">{feature.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -1919,16 +1920,16 @@ const PeriodTracker = ({
             className="space-y-8 max-w-md"
           >
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold dark:text-white handwriting">Let's look after you, Tanha 🌸</h2>
-              <p className="text-gray-500">By tracking your cycle, we can better understand your needs and make sure you're always feeling your best. Let's start this journey together, amar lokki 💕</p>
+              <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Let's look after you, Tanha 🌸</h2>
+              <p className="text-text-secondary">By tracking your cycle, we can better understand your needs and make sure you're always feeling your best. Let's start this journey together, amar lokki 💕</p>
             </div>
             
             <button 
               onClick={() => setShowStartTracking(true)}
-              className="group relative w-full p-6 bg-blue-500 text-white rounded-[24px] font-black text-xl shadow-2xl shadow-blue-500/30 overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="group relative w-full p-6 bg-accent text-white rounded-[24px] font-black text-xl shadow-2xl shadow-accent/30 overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="relative z-10">Start Tracking 🌸</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-accent-light opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           </motion.div>
         </div>
@@ -1954,13 +1955,13 @@ const PeriodTracker = ({
 
       {/* Status Card */}
       <section className="px-6" id="tour-status-card">
-        <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+        <div className="p-6 rounded-[32px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className={cn("w-12 h-12 rounded-2xl bg-gray-50 dark:bg-navy-900 flex items-center justify-center", statusInfo.color)}>
+            <div className={cn("w-12 h-12 rounded-2xl bg-rose-card dark:bg-deep-plum flex items-center justify-center", statusInfo.color)}>
               <Activity className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-xs font-black text-gray-400 uppercase tracking-widest">Status</div>
+              <div className="text-xs font-black text-text-secondary uppercase tracking-widest">Status</div>
               <div className={cn("text-lg font-bold", statusInfo.color)}>{statusInfo.text}</div>
             </div>
           </div>
@@ -1970,7 +1971,7 @@ const PeriodTracker = ({
               setSelectedDate(new Date());
               setShowLog(true);
             }}
-            className="p-4 bg-blue-300 text-white rounded-2xl font-bold shadow-lg shadow-sky-500/20 hover:scale-105 active:scale-95 transition-all"
+            className="p-4 bg-accent-light text-white rounded-2xl font-bold shadow-lg shadow-accent/20 hover:scale-105 active:scale-95 transition-all"
           >
             Log Today 🌸
           </button>
@@ -1979,18 +1980,18 @@ const PeriodTracker = ({
 
       {/* Predictions */}
       <section className="px-6 grid grid-cols-1 sm:grid-cols-2 gap-4" id="tour-predictions">
-        <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-2">
-          <div className="text-xs font-black text-gray-400 uppercase tracking-widest">Next Period 🗓️</div>
-          <div className="text-lg font-bold dark:text-white">
+        <div className="p-6 rounded-[32px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-2">
+          <div className="text-xs font-black text-text-secondary uppercase tracking-widest">Next Period 🗓️</div>
+          <div className="text-lg font-bold dark:text-text-dark-primary">
             {format(addDays(parseISO(data.settings.lastPeriodStart), data.settings.cycleLength), 'MMM do')}
           </div>
-          <div className="text-sm text-blue-300 font-medium">
+          <div className="text-sm text-accent font-medium">
             {data.settings.cycleLength - cycleDay + 1} days away
           </div>
         </div>
-        <div className="p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-2">
-          <div className="text-xs font-black text-gray-400 uppercase tracking-widest">Fertile Window 🌱</div>
-          <div className="text-lg font-bold dark:text-white">
+        <div className="p-6 rounded-[32px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-2">
+          <div className="text-xs font-black text-text-secondary uppercase tracking-widest">Fertile Window 🌱</div>
+          <div className="text-lg font-bold dark:text-text-dark-primary">
             {format(addDays(parseISO(data.settings.lastPeriodStart), 11), 'MMM d')} - {format(addDays(parseISO(data.settings.lastPeriodStart), 15), 'MMM d')}
           </div>
           <div className="text-sm text-green-500 font-medium">Ovulation likely: {format(addDays(parseISO(data.settings.lastPeriodStart), 13), 'MMM do')} ✨</div>
@@ -1999,15 +2000,15 @@ const PeriodTracker = ({
 
       {/* Partner Notes */}
       <section className="px-6" id="tour-partner-notes">
-        <div className="p-8 rounded-[40px] bg-gradient-to-br from-blue-300/5 to-blue-400/5 border-2 border-blue-300/10 space-y-4 relative overflow-hidden">
-          <div className="absolute top-4 right-6 text-blue-300/20">
+        <div className="p-8 rounded-[40px] bg-gradient-to-br from-rose-gold/5 to-rose-gold/5 border-2 border-accent-light/10 space-y-4 relative overflow-hidden">
+          <div className="absolute top-4 right-6 text-accent/20">
             <Heart className="w-12 h-12 fill-current" />
           </div>
-          <div className="flex items-center gap-2 text-[10px] font-black text-blue-300 uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-2 text-[10px] font-black text-accent uppercase tracking-[1.5px]">
             <Heart className="w-3 h-3 fill-current" />
             From him 💌
           </div>
-          <p className="text-xl font-serif italic text-gray-800 dark:text-gray-100 leading-relaxed handwriting">
+          <p className="text-xl font-serif italic text-text-primary dark:text-text-dark-primary leading-relaxed handwriting">
             {PARTNER_NOTES[currentPhase]}
           </p>
         </div>
@@ -2015,7 +2016,7 @@ const PeriodTracker = ({
 
       {/* Calendar */}
       <section className="px-6" id="tour-calendar">
-        <div className="p-8 rounded-[40px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50">
+        <div className="p-8 rounded-[40px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50">
           <CalendarView 
             logs={data.logs} 
             settings={data.settings} 
@@ -2030,7 +2031,7 @@ const PeriodTracker = ({
       {/* Phase Guide */}
       <section className="px-6 space-y-4" id="tour-phase-guide">
         <h3 className="text-xl font-bold flex items-center gap-2 px-2">
-          <Info className="w-5 h-5 text-blue-300" />
+          <Info className="w-5 h-5 text-accent" />
           Know Your Cycle, Tanha 💕
         </h3>
         <div className="flex gap-4 overflow-x-auto pb-4 px-2 custom-scrollbar snap-x">
@@ -2040,8 +2041,8 @@ const PeriodTracker = ({
               layout
               onClick={() => setExpandedPhase(expandedPhase === key ? null : key)}
               className={cn(
-                "min-w-[280px] p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-4 snap-center cursor-pointer transition-all",
-                expandedPhase === key && "ring-2 ring-blue-300/30"
+                "min-w-[280px] p-6 rounded-[32px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-4 snap-center cursor-pointer transition-all",
+                expandedPhase === key && "ring-2 ring-accent-light/30"
               )}
             >
               <div className="flex items-center justify-between">
@@ -2054,10 +2055,10 @@ const PeriodTracker = ({
                 <motion.div
                   animate={{ rotate: expandedPhase === key ? 180 : 0 }}
                 >
-                  <ChevronRight className="w-5 h-5 text-gray-300" />
+                  <ChevronRight className="w-5 h-5 text-text-secondary" />
                 </motion.div>
               </div>
-              <p className="text-sm text-gray-500 leading-relaxed">{phase.description}</p>
+              <p className="text-sm text-text-secondary leading-relaxed">{phase.description}</p>
               
               <AnimatePresence>
                 {expandedPhase === key && (
@@ -2065,21 +2066,21 @@ const PeriodTracker = ({
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden space-y-4 pt-4 border-t border-gray-50 dark:border-navy-900"
+                    className="overflow-hidden space-y-4 pt-4 border-t border-rose-gold/5 dark:border-white/5"
                   >
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Energy ⚡</div>
-                        <div className="text-xs font-bold text-gray-700 dark:text-gray-200">{phase.energy}</div>
+                        <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">Energy ⚡</div>
+                        <div className="text-xs font-bold text-text-primary dark:text-text-dark-primary">{phase.energy}</div>
                       </div>
                       <div className="space-y-1">
-                        <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Mood 🎭</div>
-                        <div className="text-xs font-bold text-gray-700 dark:text-gray-200">{phase.mood}</div>
+                        <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">Mood 🎭</div>
+                        <div className="text-xs font-bold text-text-primary dark:text-text-dark-primary">{phase.mood}</div>
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Eat 🥗</div>
-                      <div className="text-xs font-medium text-gray-600 dark:text-gray-300">{phase.foods}</div>
+                      <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">Eat 🥗</div>
+                      <div className="text-xs font-medium text-text-primary dark:text-text-secondary">{phase.foods}</div>
                     </div>
                   </motion.div>
                 )}
@@ -2094,18 +2095,18 @@ const PeriodTracker = ({
         <button 
           id="tour-cycle-settings"
           onClick={() => setShowSettings(true)}
-          className="w-full p-6 rounded-[32px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex items-center justify-between group hover:border-blue-300/30 transition-all"
+          className="w-full p-6 rounded-[32px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 flex items-center justify-between group hover:border-accent-light/30 transition-all"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-navy-900 flex items-center justify-center text-blue-300 group-hover:bg-blue-300 group-hover:text-white transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-rose-card dark:bg-deep-plum flex items-center justify-center text-accent group-hover:bg-accent-light group-hover:text-white transition-all">
               <Settings className="w-6 h-6" />
             </div>
             <div className="text-left">
-              <div className="text-xs font-black text-gray-400 uppercase tracking-widest">Preferences</div>
-              <div className="text-lg font-bold dark:text-white">Cycle Settings 🌸</div>
+              <div className="text-xs font-black text-text-secondary uppercase tracking-widest">Preferences</div>
+              <div className="text-lg font-bold dark:text-text-dark-primary">Cycle Settings 🌸</div>
             </div>
           </div>
-          <ChevronRight className="w-6 h-6 text-gray-300 group-hover:text-blue-300 transition-all" />
+          <ChevronRight className="w-6 h-6 text-text-secondary group-hover:text-accent transition-all" />
         </button>
       </section>
 
@@ -2125,41 +2126,41 @@ const PeriodTracker = ({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white dark:bg-navy-800 rounded-[40px] p-8 max-w-md w-full space-y-8 shadow-2xl relative"
+              className="bg-white dark:bg-plum-card rounded-[40px] p-8 max-w-md w-full space-y-8 shadow-2xl relative"
             >
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold dark:text-white handwriting">Cycle Settings 🌸</h2>
-                <button onClick={() => setShowSettings(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full">
+                <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Cycle Settings 🌸</h2>
+                <button onClick={() => setShowSettings(false)} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full">
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Last Period Start Date</label>
+                  <label className="text-xs font-black text-text-secondary uppercase tracking-widest">Last Period Start Date</label>
                   <input 
                     type="date" 
                     max={format(new Date(), 'yyyy-MM-dd')}
-                    className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
+                    className="w-full p-4 rounded-2xl bg-rose-card dark:bg-deep-plum border-2 border-transparent focus:border-accent-light outline-none font-bold dark:text-text-dark-primary"
                     value={data.settings.lastPeriodStart}
                     onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, lastPeriodStart: e.target.value } })}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Cycle Length</label>
+                    <label className="text-xs font-black text-text-secondary uppercase tracking-widest">Cycle Length</label>
                     <input 
                       type="number" min="21" max="35"
-                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
+                      className="w-full p-4 rounded-2xl bg-rose-card dark:bg-deep-plum border-2 border-transparent focus:border-accent-light outline-none font-bold dark:text-text-dark-primary"
                       value={data.settings.cycleLength}
                       onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, cycleLength: parseInt(e.target.value) || 28 } })}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Period Duration</label>
+                    <label className="text-xs font-black text-text-secondary uppercase tracking-widest">Period Duration</label>
                     <input 
                       type="number" min="2" max="10"
-                      className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-navy-900 border-2 border-transparent focus:border-blue-300 outline-none font-bold dark:text-white"
+                      className="w-full p-4 rounded-2xl bg-rose-card dark:bg-deep-plum border-2 border-transparent focus:border-accent-light outline-none font-bold dark:text-text-dark-primary"
                       value={data.settings.periodDuration}
                       onChange={(e) => onUpdate({ ...data, settings: { ...data.settings, periodDuration: parseInt(e.target.value) || 5 } })}
                     />
@@ -2172,7 +2173,7 @@ const PeriodTracker = ({
                   setShowSettings(false);
                   setSnackbar("Settings saved, Tanha 💕");
                 }}
-                className="w-full p-5 bg-gradient-to-r from-blue-300 to-blue-400 text-white rounded-2xl font-bold shadow-xl shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full p-5 bg-rose-gold text-white rounded-2xl font-bold shadow-xl shadow-accent/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Save Settings 💕
               </button>
@@ -2231,7 +2232,7 @@ export default function App() {
     };
   });
 
-  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more' | 'diary'>('home');
+  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more' | 'diary' | 'watchworld'>('home');
   const [activeTab, setActiveTab] = useState<'day' | 'cycle' | 'more'>('day');
   
   const [hairCareLogs, setHairCareLogs] = useState<HairCareLog[]>(() => {
@@ -2631,7 +2632,7 @@ export default function App() {
   };
 
   return (
-    <div className={cn("min-h-screen transition-colors duration-500", settings.darkMode ? "bg-navy-900 text-white" : "bg-warm-white text-gray-900")}>
+    <div className={cn("min-h-screen transition-colors duration-500", settings.darkMode ? "bg-deep-plum text-white" : "bg-warm-white text-text-primary")}>
       <AnimatePresence>
         {showCycleReveal && (
           <PeriodTrackerReveal 
@@ -2694,7 +2695,7 @@ export default function App() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[90] px-6 py-3 bg-navy-800 text-white rounded-full shadow-xl border border-white/10 font-medium flex items-center gap-2"
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[90] px-6 py-3 bg-plum-card text-white rounded-full shadow-xl border border-white/10 font-medium flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4 text-yellow-400" />
             {snackbar}
@@ -2706,22 +2707,22 @@ export default function App() {
       <header className="max-w-2xl mx-auto pt-12 px-6 space-y-8">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 id="tour-greeting" className="text-3xl font-bold serif italic tracking-tight">
+            <h1 id="tour-greeting" className="text-3xl font-bold serif italic tracking-tight drop-shadow-md">
               {greeting()}
             </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+            <p className="text-sm text-text-secondary dark:text-text-secondary font-medium drop-shadow-sm">
               {format(new Date(), 'EEEE, MMMM do')}
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <div id="tour-streak" className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-500 font-bold text-sm">
+            <div id="tour-streak" className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-500/10 text-text-primary dark:text-text-dark-primary font-bold text-sm">
               <Flame className="w-4 h-4 fill-current" />
               {settings.streak}
             </div>
             <button 
               id="tour-settings"
               onClick={() => setView('settings')}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-all"
+              className="p-2 rounded-full hover:bg-rose-card dark:hover:bg-white/10 transition-all"
             >
               <Settings className="w-6 h-6" />
             </button>
@@ -2730,29 +2731,29 @@ export default function App() {
 
         {/* Quote & Progress */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-          <div className="md:col-span-3 p-8 rounded-[40px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 flex flex-col justify-between min-h-[180px] relative overflow-hidden group">
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-300/5 rounded-full blur-2xl group-hover:bg-blue-300/10 transition-all duration-700" />
+          <div className="md:col-span-3 p-8 rounded-[40px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 flex flex-col justify-between min-h-[180px] relative overflow-hidden group">
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent-light/5 rounded-full blur-2xl group-hover:bg-accent-light/10 transition-all duration-700" />
             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-sakura/10 rounded-full blur-3xl" />
             
             <div className="relative z-10 space-y-4">
-              <div className="flex items-center gap-2 text-[10px] font-black text-blue-300 uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-2 text-[10px] font-black text-accent uppercase tracking-[1.5px]">
                 <Heart className="w-3 h-3 fill-current" />
                 Daily Love Note
               </div>
-              <p className="text-xl font-serif italic text-gray-800 dark:text-gray-100 leading-relaxed handwriting">
+              <p className="text-xl font-serif italic text-text-primary dark:text-text-dark-primary leading-relaxed handwriting">
                 "{quote}"
               </p>
             </div>
             
             <div className="relative z-10 flex items-center gap-2 mt-6">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-300 to-blue-400 flex items-center justify-center text-white shadow-lg">
+              <div className="w-8 h-8 rounded-full bg-rose-gold flex items-center justify-center text-white shadow-lg">
                 <Sparkles className="w-4 h-4" />
               </div>
-              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Just for you, Tanha 🌸</span>
+              <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">Just for you, Tanha 🌸</span>
             </div>
           </div>
           
-          <div id="tour-progress" className="md:col-span-2 p-8 rounded-[40px] bg-gradient-to-br from-blue-300 to-blue-400 text-white shadow-xl shadow-sky-500/20 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
+          <div id="tour-progress" className="md:col-span-2 p-8 rounded-[40px] bg-rose-gold text-white shadow-xl shadow-accent/20 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
             <div className="relative w-24 h-24">
               <svg className="w-full h-full -rotate-90">
@@ -2789,7 +2790,7 @@ export default function App() {
       {/* Main Content */}
       <main className={cn(
         "max-w-2xl mx-auto py-8 px-6 pb-32 space-y-10",
-        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare') && "bg-[#F0F8FF] dark:bg-navy-900 min-h-screen"
+        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare' || view === 'watchworld') && "bg-[#F0F8FF] dark:bg-deep-plum min-h-screen"
       )}>
         {view === 'home' ? (
           activeTab === 'day' ? (
@@ -2798,11 +2799,11 @@ export default function App() {
               <section className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-electric-indigo" />
+                    <TrendingUp className="w-5 h-5 text-rose-gold" />
                     Weekly Momentum
                   </h2>
                 </div>
-                <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 h-48">
+                <div className="p-6 rounded-3xl bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 h-48">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={weeklyData}>
                       <XAxis 
@@ -2816,7 +2817,7 @@ export default function App() {
                         content={({ active, payload }) => {
                           if (active && payload && payload.length) {
                             return (
-                              <div className="bg-navy-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                              <div className="bg-deep-plum text-white px-3 py-1.5 rounded-lg text-xs font-bold">
                                 {payload[0].value}% Complete
                               </div>
                             );
@@ -2841,7 +2842,7 @@ export default function App() {
               <section id="tour-anchors" className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <Award className="w-5 h-5 text-electric-indigo" />
+                    <Award className="w-5 h-5 text-rose-gold" />
                     Anchor Tasks
                   </h2>
                 </div>
@@ -2854,7 +2855,7 @@ export default function App() {
                       />
                       <button 
                         onClick={() => { setFocusTask(task); setView('focus'); }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-electric-indigo hover:text-white transition-all"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-rose-card dark:bg-white/5 hover:bg-rose-gold hover:text-white transition-all"
                       >
                         <Timer className="w-4 h-4" />
                       </button>
@@ -2867,7 +2868,7 @@ export default function App() {
               <section id="tour-today" className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-electric-indigo" />
+                    <Calendar className="w-5 h-5 text-rose-gold" />
                     Today's Tasks
                   </h2>
                 </div>
@@ -2885,8 +2886,8 @@ export default function App() {
                   </AnimatePresence>
                   
                   {tasks.filter(t => !t.isAnchor).length === 0 && (
-                    <div className="p-8 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl">
-                      <p className="text-gray-400 text-sm">No extra tasks for today. Add one below!</p>
+                    <div className="p-8 text-center border-2 border-dashed border-rose-gold/20 dark:border-white/5 rounded-3xl">
+                      <p className="text-text-secondary text-sm">No extra tasks for today. Add one below!</p>
                     </div>
                   )}
                 </div>
@@ -2913,7 +2914,7 @@ export default function App() {
           <div className="space-y-6">
             <button 
               onClick={() => setView('home')}
-              className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-blue-300 transition-colors"
+              className="flex items-center gap-2 text-sm font-bold text-text-secondary hover:text-accent transition-colors"
             >
               <ChevronLeft className="w-4 h-4" /> Back to Home
             </button>
@@ -2962,6 +2963,9 @@ export default function App() {
                 onOpenWishBox={() => setShowWishBox(true)}
               />
             )}
+            {view === 'watchworld' && (
+              <WatchWorld />
+            )}
           </div>
         )}
       </main>
@@ -2974,13 +2978,13 @@ export default function App() {
             whileHover={{ scale: 1.2, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setShowWishBox(true); }}
-            className="absolute -top-16 right-4 w-12 h-12 rounded-full bg-white dark:bg-navy-800 shadow-xl flex items-center justify-center text-blue-300 border-2 border-blue-300/20 animate-float"
+            className="absolute -top-16 right-4 w-12 h-12 rounded-full bg-white dark:bg-plum-card shadow-xl flex items-center justify-center text-accent border-2 border-accent-light/20 animate-float"
           >
             <Heart className="w-6 h-6 fill-current" />
             <motion.div 
               animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute inset-0 rounded-full border-2 border-blue-300"
+              className="absolute inset-0 rounded-full border-2 border-accent-light"
             />
           </motion.button>
 
@@ -2988,7 +2992,7 @@ export default function App() {
             onClick={() => { setView('home'); setActiveTab('day'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              (activeTab === 'day' && view === 'home') ? "bg-gradient-to-r from-blue-300 to-blue-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'day' && view === 'home') ? "bg-rose-gold text-white shadow-lg" : "text-text-secondary"
             )}
           >
             <Home className="w-5 h-5" />
@@ -2998,7 +3002,7 @@ export default function App() {
           <button 
             id="tour-add-task"
             onClick={() => setShowAddTask(true)}
-            className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-300 to-blue-400 text-white flex items-center justify-center shadow-xl shadow-sky-500/40 hover:scale-110 transition-all border-4 border-white/20"
+            className="w-14 h-14 rounded-full bg-rose-gold text-white flex items-center justify-center shadow-xl shadow-accent/40 hover:scale-110 transition-all border-4 border-white/20"
           >
             <Plus className="w-7 h-7" strokeWidth={3} />
           </button>
@@ -3007,7 +3011,7 @@ export default function App() {
             onClick={() => { setView('home'); setActiveTab('more'); }}
             className={cn(
               "flex-1 py-3 rounded-full flex items-center justify-center gap-2 transition-all", 
-              (activeTab === 'more' && view === 'home') ? "bg-gradient-to-r from-blue-300 to-blue-400 text-white shadow-lg" : "text-gray-500"
+              (activeTab === 'more' && view === 'home') ? "bg-rose-gold text-white shadow-lg" : "text-text-secondary"
             )}
           >
             <Grid className="w-5 h-5" />
@@ -3023,44 +3027,44 @@ export default function App() {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            className="fixed inset-0 z-50 bg-warm-white dark:bg-navy-900 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-warm-white dark:bg-deep-plum overflow-y-auto"
           >
             <div className="max-w-2xl mx-auto p-6 space-y-12 pb-32">
               <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-bold serif italic">TANHA CHATTERJEE</h2>
-                <button onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setView('home'); }} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10">
+                <button onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setView('home'); }} className="p-2 rounded-full hover:bg-rose-card dark:hover:bg-white/10">
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
               {/* Profile */}
               <section className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Profile</h3>
-                <div className="p-6 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Profile</h3>
+                <div className="p-6 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 space-y-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-gray-500">Your Name</label>
-                    <div className="w-full p-4 rounded-xl bg-gray-50 dark:bg-navy-900 font-bold text-lg dark:text-white flex items-center gap-2">
+                    <label className="text-xs font-medium text-text-secondary">Your Name</label>
+                    <div className="w-full p-4 rounded-xl bg-rose-card dark:bg-deep-plum font-bold text-lg dark:text-text-dark-primary flex items-center gap-2">
                       Tanha 🌸
                     </div>
-                    <p className="text-[10px] text-gray-400 italic">This app is made just for you! 💕</p>
+                    <p className="text-[10px] text-text-secondary italic">This app is made just for you! 💕</p>
                   </div>
                 </div>
               </section>
 
               {/* Preferences */}
               <section className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Preferences</h3>
-                <div className="p-2 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 divide-y divide-gray-100 dark:divide-gray-700">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Preferences</h3>
+                <div className="p-2 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 divide-y divide-gray-100 dark:divide-gray-700">
                   <div className="flex items-center justify-between p-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-500">
+                      <div className="p-2 rounded-xl bg-fuchsia-500/10 text-fuchsia-500">
                         {settings.darkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                       </div>
                       <span className="font-medium">Dark Mode</span>
                     </div>
                     <button 
                       onClick={() => setSettings(s => ({ ...s, darkMode: !s.darkMode }))}
-                      className={cn("w-12 h-6 rounded-full transition-all relative", settings.darkMode ? "bg-electric-indigo" : "bg-gray-200")}
+                      className={cn("w-12 h-6 rounded-full transition-all relative", settings.darkMode ? "bg-rose-gold" : "bg-rose-gold/20")}
                     >
                       <div className={cn("absolute top-1 w-4 h-4 rounded-full bg-white transition-all", settings.darkMode ? "right-1" : "left-1")} />
                     </button>
@@ -3074,7 +3078,7 @@ export default function App() {
                     </div>
                     <button 
                       onClick={() => setSettings(s => ({ ...s, soundEnabled: !s.soundEnabled }))}
-                      className={cn("w-12 h-6 rounded-full transition-all relative", settings.soundEnabled ? "bg-electric-indigo" : "bg-gray-200")}
+                      className={cn("w-12 h-6 rounded-full transition-all relative", settings.soundEnabled ? "bg-rose-gold" : "bg-rose-gold/20")}
                     >
                       <div className={cn("absolute top-1 w-4 h-4 rounded-full bg-white transition-all", settings.soundEnabled ? "right-1" : "left-1")} />
                     </button>
@@ -3084,11 +3088,11 @@ export default function App() {
 
               {/* Cycle Tracker Settings */}
               <section className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Cycle Tracker</h3>
-                <div className="p-2 rounded-3xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50 divide-y divide-gray-100 dark:divide-gray-700">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Cycle Tracker</h3>
+                <div className="p-2 rounded-3xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50 divide-y divide-gray-100 dark:divide-gray-700">
                   <div className="flex items-center justify-between p-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-sky-500/10 text-sky-500">
+                      <div className="p-2 rounded-xl bg-pink-500/10 text-pink-500">
                         <Droplets className="w-5 h-5" />
                       </div>
                       <span className="font-medium">Cycle Reminders</span>
@@ -3104,7 +3108,7 @@ export default function App() {
                           } 
                         } 
                       }))}
-                      className={cn("w-12 h-6 rounded-full transition-all relative", cycleData.settings.remindersEnabled.periodDue ? "bg-blue-300" : "bg-gray-200")}
+                      className={cn("w-12 h-6 rounded-full transition-all relative", cycleData.settings.remindersEnabled.periodDue ? "bg-accent-light" : "bg-rose-gold/20")}
                     >
                       <div className={cn("absolute top-1 w-4 h-4 rounded-full bg-white transition-all", cycleData.settings.remindersEnabled.periodDue ? "right-1" : "left-1")} />
                     </button>
@@ -3116,7 +3120,7 @@ export default function App() {
                         setView('home');
                         setActiveTab('cycle');
                       }}
-                      className="w-full p-4 rounded-2xl bg-blue-300/10 text-blue-300 font-bold flex items-center justify-center gap-2 hover:bg-blue-300/20 transition-all"
+                      className="w-full p-4 rounded-2xl bg-accent-light/10 text-accent font-bold flex items-center justify-center gap-2 hover:bg-accent-light/20 transition-all"
                     >
                       Take the tour again 🌸
                     </button>
@@ -3139,7 +3143,7 @@ export default function App() {
                           setSnackbar("Cycle data cleared 🌸");
                         }
                       }}
-                      className="w-full p-4 rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-500 font-bold hover:bg-blue-100 transition-all"
+                      className="w-full p-4 rounded-2xl bg-rose-gold/10 dark:bg-accent/10 text-rose-gold font-bold hover:bg-rose-gold/20 transition-all"
                     >
                       Clear Cycle Data 🗑️
                     </button>
@@ -3149,10 +3153,10 @@ export default function App() {
 
               {/* Manage Anchors */}
               <section className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400">Anchor Tasks</h3>
+                <h3 className="text-sm font-bold uppercase tracking-widest text-text-secondary">Anchor Tasks</h3>
                 <div className="space-y-3">
                   {settings.anchorTasks.map(at => (
-                    <div key={at.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-navy-800 border border-gray-100 dark:border-gray-700/50">
+                    <div key={at.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-plum-card border border-rose-gold/10 dark:border-white/10/50">
                       <div className="flex items-center gap-3">
                         <span className="text-xl">{at.emoji}</span>
                         <span className="font-medium">{at.name}</span>
@@ -3176,7 +3180,7 @@ export default function App() {
                         }));
                       }
                     }}
-                    className="w-full p-4 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl text-gray-400 font-bold flex items-center justify-center gap-2 hover:border-electric-indigo hover:text-electric-indigo transition-all"
+                    className="w-full p-4 border-2 border-dashed border-rose-gold/20 dark:border-white/5 rounded-2xl text-text-secondary font-bold flex items-center justify-center gap-2 hover:border-rose-gold hover:text-rose-gold transition-all"
                   >
                     <Plus className="w-5 h-5" /> Add New Anchor
                   </button>

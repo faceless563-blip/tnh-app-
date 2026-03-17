@@ -66,7 +66,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                       delay: Math.random() * 5,
                       ease: "linear"
                     }}
-                    className="absolute bottom-0 text-blue-300"
+                    className="absolute bottom-0 text-accent-light"
                   >
                     <Heart className="w-4 h-4 fill-current" />
                   </motion.div>
@@ -96,42 +96,42 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                   </motion.span>
                 </motion.div>
 
-                <h2 className="text-4xl font-bold text-blue-500 serif italic">
+                <h2 className="text-4xl font-bold text-accent serif italic">
                   Hey Tanha! 🌸
                 </h2>
 
-                <div className="space-y-6 text-gray-800 font-medium text-sm leading-relaxed text-left">
-                  <p className="text-center text-base font-bold text-blue-400">
+                <div className="space-y-6 text-text-primary font-medium text-sm leading-relaxed text-left">
+                  <p className="text-center text-base font-bold text-accent">
                     Your app just got even better,<br/>
                     and it was all made just for you 💕
                   </p>
 
                   <div className="space-y-4 bg-white/40 p-5 rounded-2xl">
-                    <p className="font-bold text-blue-500 mb-2 text-center">Here's what's new:</p>
+                    <p className="font-bold text-accent mb-2 text-center">Here's what's new:</p>
                     
                     <div>
-                      <h3 className="font-bold text-gray-900">💆 Hair Care Tracker</h3>
-                      <p className="text-gray-600 text-xs">Track your shampoo and oil routine every week — your hair goals, sorted!</p>
+                      <h3 className="font-bold text-text-primary">💆 Hair Care Tracker</h3>
+                      <p className="text-text-primary text-xs">Track your shampoo and oil routine every week — your hair goals, sorted!</p>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-gray-900">📅 Important Dates</h3>
-                      <p className="text-gray-600 text-xs">Mark birthdays, anniversaries, and special moments so you never forget 🥹</p>
+                      <h3 className="font-bold text-text-primary">📅 Important Dates</h3>
+                      <p className="text-text-primary text-xs">Mark birthdays, anniversaries, and special moments so you never forget 🥹</p>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-gray-900">🛒 Shopping List</h3>
-                      <p className="text-gray-600 text-xs">Add everything you need to buy, organized and always with you 🛍️</p>
+                      <h3 className="font-bold text-text-primary">🛒 Shopping List</h3>
+                      <p className="text-text-primary text-xs">Add everything you need to buy, organized and always with you 🛍️</p>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-gray-900">🛁 Self Care Tracker</h3>
-                      <p className="text-gray-600 text-xs">Your daily bath and self care routine, all in one beautiful space 🌸</p>
+                      <h3 className="font-bold text-text-primary">🛁 Self Care Tracker</h3>
+                      <p className="text-text-primary text-xs">Your daily bath and self care routine, all in one beautiful space 🌸</p>
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-gray-900">💌 Something Hidden...</h3>
-                      <p className="text-gray-600 text-xs">There is something very special hidden somewhere in this app 🥺 Explore and you just might find it...</p>
+                      <h3 className="font-bold text-text-primary">💌 Something Hidden...</h3>
+                      <p className="text-text-primary text-xs">There is something very special hidden somewhere in this app 🥺 Explore and you just might find it...</p>
                     </div>
                   </div>
 
@@ -145,7 +145,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                       added, or fixed —<br/>
                       your husband is always there for you 💖
                     </p>
-                    <p className="font-bold text-blue-500 italic">
+                    <p className="font-bold text-accent italic">
                       This app is yours. Forever. 🌙
                     </p>
                   </div>
@@ -157,13 +157,13 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
             <div className="p-6 pt-2 bg-gradient-to-t from-[#E4F0FF] to-transparent relative z-10 space-y-3">
               <button
                 onClick={handleDismiss}
-                className="w-full py-4 rounded-2xl bg-blue-500 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full py-4 rounded-2xl bg-accent text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-accent/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Explore Now! 🌸
               </button>
               <button
                 onClick={handleWishBox}
-                className="w-full py-3 rounded-2xl text-blue-500 font-bold text-sm hover:bg-blue-500/10 transition-all"
+                className="w-full py-3 rounded-2xl text-accent font-bold text-sm hover:bg-accent/10 transition-all"
               >
                 Tell your husband something 💌
               </button>

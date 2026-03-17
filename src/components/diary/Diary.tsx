@@ -97,12 +97,12 @@ export const Diary: React.FC<DiaryProps> = ({
   if (view === 'lock') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-8">
-        <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-500 shadow-xl shadow-blue-500/20">
+        <div className="w-24 h-24 bg-rose-gold/20 dark:bg-white/10 rounded-full flex items-center justify-center text-accent shadow-xl shadow-accent/20">
           <Lock className="w-10 h-10" />
         </div>
         <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold serif italic text-gray-800 dark:text-gray-100">Tanha's Private Space 🔒🌸</h2>
-          <p className="text-gray-500">Enter your PIN to unlock your diary</p>
+          <h2 className="text-3xl font-bold serif italic text-text-primary dark:text-text-dark-primary">Tanha's Private Space 🔒🌸</h2>
+          <p className="text-text-secondary">Enter your PIN to unlock your diary</p>
         </div>
         
         <div className="flex gap-4">
@@ -111,7 +111,7 @@ export const Diary: React.FC<DiaryProps> = ({
               key={i}
               className={cn(
                 "w-4 h-4 rounded-full transition-all duration-300",
-                pinInput.length > i ? "bg-blue-500 scale-110" : "bg-gray-200 dark:bg-gray-700",
+                pinInput.length > i ? "bg-accent scale-110" : "bg-rose-gold/20 dark:bg-white/10",
                 pinError && "bg-red-500 animate-bounce"
               )}
             />
@@ -129,7 +129,7 @@ export const Diary: React.FC<DiaryProps> = ({
                   if (newPin.length === 4) handleUnlock(newPin);
                 }
               }}
-              className="h-16 rounded-2xl bg-white dark:bg-navy-800 shadow-sm text-2xl font-bold text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-500 transition-all active:scale-95"
+              className="h-16 rounded-2xl bg-white dark:bg-plum-card shadow-sm text-2xl font-bold text-text-primary dark:text-text-dark-primary hover:bg-rose-gold/10 dark:hover:bg-white/5 hover:text-accent transition-all active:scale-95"
             >
               {num}
             </button>
@@ -143,13 +143,13 @@ export const Diary: React.FC<DiaryProps> = ({
                 if (newPin.length === 4) handleUnlock(newPin);
               }
             }}
-            className="h-16 rounded-2xl bg-white dark:bg-navy-800 shadow-sm text-2xl font-bold text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-500 transition-all active:scale-95"
+            className="h-16 rounded-2xl bg-white dark:bg-plum-card shadow-sm text-2xl font-bold text-text-primary dark:text-text-dark-primary hover:bg-rose-gold/10 dark:hover:bg-white/5 hover:text-accent transition-all active:scale-95"
           >
             0
           </button>
           <button
             onClick={() => setPinInput(prev => prev.slice(0, -1))}
-            className="h-16 rounded-2xl bg-white dark:bg-navy-800 shadow-sm text-xl font-bold text-gray-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-500 transition-all active:scale-95 flex items-center justify-center"
+            className="h-16 rounded-2xl bg-white dark:bg-plum-card shadow-sm text-xl font-bold text-text-secondary hover:bg-rose-gold/10 dark:hover:bg-white/5 hover:text-accent transition-all active:scale-95 flex items-center justify-center"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -267,31 +267,31 @@ const DiaryHome: React.FC<{
       {/* Header */}
       <div className="flex items-center justify-between px-2">
         <div>
-          <h2 className="text-3xl font-bold serif italic text-blue-500">Tanha's Diary 📖</h2>
-          <p className="text-sm text-gray-500 font-medium">Your thoughts, your feelings, your world 🌸</p>
+          <h2 className="text-3xl font-bold serif italic text-accent">Tanha's Diary 📖</h2>
+          <p className="text-sm text-text-secondary font-medium">Your thoughts, your feelings, your world 🌸</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={onLock} className="p-2 rounded-xl bg-gray-100 dark:bg-navy-800 text-gray-500 hover:text-blue-500 transition-all">
+          <button onClick={onLock} className="p-2 rounded-xl bg-rose-card dark:bg-plum-card text-text-secondary hover:text-accent transition-all">
             <Lock className="w-5 h-5" />
           </button>
-          <button onClick={onOpenSettings} className="p-2 rounded-xl bg-gray-100 dark:bg-navy-800 text-gray-500 hover:text-blue-500 transition-all">
+          <button onClick={onOpenSettings} className="p-2 rounded-xl bg-rose-card dark:bg-plum-card text-text-secondary hover:text-accent transition-all">
             <Settings className="w-5 h-5" />
           </button>
         </div>
       </div>
 
       {/* Hero Prompt */}
-      <div className="p-8 rounded-[32px] bg-gradient-to-br from-[#F0F8FF] to-[#E4F0FF] dark:from-[#0F172A] dark:to-[#020617] shadow-lg shadow-blue-500/10 text-center space-y-6 relative overflow-hidden">
+      <div className="p-8 rounded-[32px] bg-gradient-to-br from-[#F0F8FF] to-[#E4F0FF] dark:from-[#0F172A] dark:to-[#020617] shadow-lg shadow-accent/10 text-center space-y-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4 opacity-10">
           <Book className="w-24 h-24" />
         </div>
         <div className="relative z-10 space-y-4">
-          <p className="text-lg font-bold text-gray-800 dark:text-gray-200 serif italic leading-relaxed">
+          <p className="text-lg font-bold text-text-primary dark:text-text-dark-primary serif italic leading-relaxed">
             "{dailyPrompt}"
           </p>
           <button 
             onClick={onNewEntry}
-            className="px-8 py-4 rounded-full bg-blue-500 text-white font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 mx-auto"
+            className="px-8 py-4 rounded-full bg-accent text-white font-black text-sm uppercase tracking-widest shadow-xl shadow-accent/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 mx-auto"
           >
             <Edit3 className="w-4 h-4" /> Write Today's Entry ✍️
           </button>
@@ -300,7 +300,7 @@ const DiaryHome: React.FC<{
 
       {/* Mood Strip */}
       <div className="space-y-3">
-        <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Last 7 Days</h3>
+        <h3 className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary">Last 7 Days</h3>
         <div className="flex justify-between px-2">
           {last7Days.map((day, i) => (
             <button 
@@ -308,14 +308,14 @@ const DiaryHome: React.FC<{
               onClick={() => day.entry && onEditEntry(day.entry)}
               className="flex flex-col items-center gap-2"
             >
-              <div className="text-xs font-bold text-gray-400">{format(day.date, 'EEEE').charAt(0)}</div>
+              <div className="text-xs font-bold text-text-secondary">{format(day.date, 'EEEE').charAt(0)}</div>
               <div className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center text-lg transition-all",
-                day.entry ? "bg-white dark:bg-navy-800 shadow-sm border border-blue-100 dark:border-blue-900/30" : "bg-gray-50 dark:bg-navy-900 opacity-50"
+                day.entry ? "bg-white dark:bg-plum-card shadow-sm border border-rose-gold/20 dark:border-rose-900/30" : "bg-rose-card dark:bg-deep-plum opacity-50"
               )}>
                 {day.entry ? day.entry.mood || '📝' : ''}
               </div>
-              {day.entry && <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]" />}
+              {day.entry && <div className="w-1.5 h-1.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]" />}
             </button>
           ))}
         </div>
@@ -324,13 +324,13 @@ const DiaryHome: React.FC<{
       {/* Search & Filter */}
       <div className="space-y-4 px-2">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
           <input 
             type="text"
             placeholder="Search your thoughts..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-navy-800 border-none font-medium text-sm focus:ring-2 focus:ring-blue-200 transition-all shadow-sm"
+            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-plum-card border-none font-medium text-sm focus:ring-2 focus:ring-rose-gold/40 transition-all shadow-sm"
           />
         </div>
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
@@ -340,7 +340,7 @@ const DiaryHome: React.FC<{
               onClick={() => setFilter(f as any)}
               className={cn(
                 "px-4 py-2 rounded-full text-xs font-bold capitalize whitespace-nowrap transition-all",
-                filter === f ? "bg-blue-500 text-white shadow-md shadow-blue-500/20" : "bg-white dark:bg-navy-800 text-gray-500 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                filter === f ? "bg-accent text-white shadow-md shadow-accent/20" : "bg-white dark:bg-plum-card text-text-secondary hover:bg-rose-gold/10 dark:hover:bg-white/5"
               )}
             >
               {f === 'favorites' ? 'Favorites ⭐' : f === 'locked' ? 'Locked 🔒' : f}
@@ -352,11 +352,11 @@ const DiaryHome: React.FC<{
       {/* Entries List */}
       <div className="space-y-4 px-2">
         {filteredEntries.length === 0 ? (
-          <div className="p-12 text-center border-2 border-dashed border-blue-100 dark:border-blue-900/30 rounded-[32px] space-y-4">
-            <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto text-blue-400">
+          <div className="p-12 text-center border-2 border-dashed border-rose-gold/20 dark:border-rose-900/30 rounded-[32px] space-y-4">
+            <div className="w-16 h-16 bg-rose-gold/10 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto text-accent">
               <Book className="w-8 h-8" />
             </div>
-            <p className="text-gray-500 font-medium">No entries found 🌸</p>
+            <p className="text-text-secondary font-medium">No entries found 🌸</p>
           </div>
         ) : (
           filteredEntries.map(entry => (
@@ -364,24 +364,24 @@ const DiaryHome: React.FC<{
               key={entry.id}
               layout
               onClick={() => onEditEntry(entry)}
-              className="p-5 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-gray-50 dark:border-gray-800 flex gap-4 cursor-pointer hover:shadow-md hover:border-blue-100 transition-all relative overflow-hidden group"
+              className="p-5 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/5 dark:border-white/5 flex gap-4 cursor-pointer hover:shadow-md hover:border-rose-gold/20 transition-all relative overflow-hidden group"
             >
-              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-300" />
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-accent-light" />
               <div className="text-3xl">{entry.mood || '📝'}</div>
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-gray-800 dark:text-gray-200 truncate pr-2">
+                  <h4 className="font-bold text-text-primary dark:text-text-dark-primary truncate pr-2">
                     {entry.title || format(new Date(entry.date), 'EEEE, MMMM d 🌸')}
                   </h4>
-                  {entry.isLocked && <Lock className="w-3 h-3 text-gray-400 flex-shrink-0" />}
+                  {entry.isLocked && <Lock className="w-3 h-3 text-text-secondary flex-shrink-0" />}
                 </div>
-                <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+                <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">
                   {entry.isLocked ? "This entry is locked 🔒" : entry.body || "Empty entry..."}
                 </p>
                 <div className="flex items-center gap-3 pt-2">
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{entry.wordCount} words 📝</span>
+                  <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">{entry.wordCount} words 📝</span>
                   {entry.type !== 'normal' && (
-                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-accent uppercase tracking-wider bg-rose-gold/10 dark:bg-white/5 px-2 py-0.5 rounded-full">
                       {DIARY_TYPES.find(t => t.id === entry.type)?.label.split(' ')[0]}
                     </span>
                   )}
@@ -395,26 +395,26 @@ const DiaryHome: React.FC<{
       {/* Insights & Stats */}
       {entries.length > 0 && (
         <div className="px-2 pt-8 space-y-4">
-          <h3 className="text-xl font-bold serif italic text-gray-800 dark:text-gray-200">Diary Insights ✨</h3>
+          <h3 className="text-xl font-bold serif italic text-text-primary dark:text-text-dark-primary">Diary Insights ✨</h3>
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-blue-100 dark:border-blue-900/30 flex flex-col items-center justify-center text-center space-y-2">
-              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500">
+            <div className="p-4 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/20 dark:border-rose-900/30 flex flex-col items-center justify-center text-center space-y-2">
+              <div className="w-10 h-10 rounded-full bg-rose-gold/10 dark:bg-white/5 flex items-center justify-center text-accent">
                 <Book className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl font-black text-gray-800 dark:text-gray-200">{entries.length}</p>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Total Entries</p>
+                <p className="text-2xl font-black text-text-primary dark:text-text-dark-primary">{entries.length}</p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">Total Entries</p>
               </div>
             </div>
-            <div className="p-4 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-blue-100 dark:border-blue-900/30 flex flex-col items-center justify-center text-center space-y-2">
-              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-500">
+            <div className="p-4 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/20 dark:border-rose-900/30 flex flex-col items-center justify-center text-center space-y-2">
+              <div className="w-10 h-10 rounded-full bg-rose-gold/10 dark:bg-white/5 flex items-center justify-center text-accent">
                 <Type className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl font-black text-gray-800 dark:text-gray-200">
+                <p className="text-2xl font-black text-text-primary dark:text-text-dark-primary">
                   {entries.reduce((acc, e) => acc + (e.wordCount || 0), 0)}
                 </p>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Words Written</p>
+                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">Words Written</p>
               </div>
             </div>
           </div>
@@ -490,18 +490,18 @@ const DiaryEditor: React.FC<{
       className={cn("fixed inset-0 z-50 flex flex-col", getBgColor())}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white/50 dark:bg-black/20 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+      <div className="flex items-center justify-between p-4 bg-white/50 dark:bg-black/20 backdrop-blur-md border-b border-rose-gold/20/50 dark:border-white/5/50">
         <button onClick={onClose} className="p-2 rounded-full hover:bg-black/5 transition-all">
-          <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+          <ChevronLeft className="w-6 h-6 text-text-primary dark:text-text-secondary" />
         </button>
         <div className="flex items-center gap-2">
           <button onClick={() => setIsFavorite(!isFavorite)} className="p-2 rounded-full hover:bg-black/5 transition-all">
-            <Star className={cn("w-5 h-5", isFavorite ? "fill-yellow-400 text-yellow-400" : "text-gray-400")} />
+            <Star className={cn("w-5 h-5", isFavorite ? "fill-yellow-400 text-yellow-400" : "text-text-secondary")} />
           </button>
           <button onClick={() => setIsLocked(!isLocked)} className="p-2 rounded-full hover:bg-black/5 transition-all">
-            {isLocked ? <Lock className="w-5 h-5 text-blue-500" /> : <Unlock className="w-5 h-5 text-gray-400" />}
+            {isLocked ? <Lock className="w-5 h-5 text-accent" /> : <Unlock className="w-5 h-5 text-text-secondary" />}
           </button>
-          <button onClick={handleSave} className="px-4 py-1.5 rounded-full bg-blue-500 text-white font-bold text-sm shadow-md shadow-blue-500/20">
+          <button onClick={handleSave} className="px-4 py-1.5 rounded-full bg-accent text-white font-bold text-sm shadow-md shadow-accent/20">
             Save 💕
           </button>
         </div>
@@ -510,10 +510,10 @@ const DiaryEditor: React.FC<{
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Meta Info */}
         <div className="space-y-1">
-          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+          <p className="text-sm font-bold text-text-secondary uppercase tracking-widest">
             {format(entry ? new Date(entry.date) : new Date(), 'EEEE, MMMM d, yyyy')}
           </p>
-          <p className="text-xs text-gray-400">Written at {format(entry ? new Date(entry.createdAt) : new Date(), 'h:mm a')}</p>
+          <p className="text-xs text-text-secondary">Written at {format(entry ? new Date(entry.createdAt) : new Date(), 'h:mm a')}</p>
         </div>
 
         {/* Title */}
@@ -522,13 +522,13 @@ const DiaryEditor: React.FC<{
           placeholder="Give this entry a title... (optional) 🌸"
           value={title}
           onChange={e => setTitle(e.target.value)}
-          className="w-full bg-transparent border-none text-2xl font-bold serif italic text-gray-800 dark:text-gray-200 placeholder:text-gray-300 focus:ring-0 p-0"
+          className="w-full bg-transparent border-none text-2xl font-bold serif italic text-text-primary dark:text-text-dark-primary placeholder:text-text-secondary focus:ring-0 p-0"
         />
 
         {/* Mood & Weather Selectors */}
-        <div className="flex flex-col gap-4 py-4 border-y border-gray-200/50 dark:border-gray-800/50">
+        <div className="flex flex-col gap-4 py-4 border-y border-rose-gold/20/50 dark:border-white/5/50">
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">How are you feeling? 🌸</p>
+            <p className="text-xs font-bold text-text-secondary uppercase tracking-widest">How are you feeling? 🌸</p>
             <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
               {DIARY_MOODS.map(m => (
                 <button
@@ -536,7 +536,7 @@ const DiaryEditor: React.FC<{
                   onClick={() => setMood(m)}
                   className={cn(
                     "text-2xl p-2 rounded-full transition-all flex-shrink-0",
-                    mood === m ? "bg-white dark:bg-navy-800 shadow-md scale-110" : "opacity-50 hover:opacity-100 hover:scale-110"
+                    mood === m ? "bg-white dark:bg-plum-card shadow-md scale-110" : "opacity-50 hover:opacity-100 hover:scale-110"
                   )}
                 >
                   {m}
@@ -546,7 +546,7 @@ const DiaryEditor: React.FC<{
           </div>
           
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Weather 🌤️</p>
+            <p className="text-xs font-bold text-text-secondary uppercase tracking-widest">Weather 🌤️</p>
             <div className="flex gap-2">
               {DIARY_WEATHER.map(w => (
                 <button
@@ -554,7 +554,7 @@ const DiaryEditor: React.FC<{
                   onClick={() => setWeather(w.id as WeatherType)}
                   className={cn(
                     "px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1",
-                    weather === w.id ? "bg-white dark:bg-navy-800 shadow-sm text-gray-800 dark:text-gray-200" : "text-gray-400 hover:bg-black/5"
+                    weather === w.id ? "bg-white dark:bg-plum-card shadow-sm text-text-primary dark:text-text-dark-primary" : "text-text-secondary hover:bg-black/5"
                   )}
                 >
                   {w.emoji} {w.label}
@@ -577,7 +577,7 @@ const DiaryEditor: React.FC<{
               }}
               className={cn(
                 "px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border",
-                type === t.id ? "bg-blue-500 text-white border-blue-500 shadow-md shadow-blue-500/20" : "bg-transparent border-gray-200 dark:border-gray-700 text-gray-500"
+                type === t.id ? "bg-accent text-white border-accent shadow-md shadow-accent/20" : "bg-transparent border-rose-gold/20 dark:border-white/10 text-text-secondary"
               )}
             >
               {t.label}
@@ -600,14 +600,14 @@ const DiaryEditor: React.FC<{
       </div>
 
       {/* Footer / Toolbar */}
-      <div className="p-4 bg-white/80 dark:bg-black/50 backdrop-blur-md border-t border-gray-200/50 dark:border-gray-800/50 flex items-center justify-between">
-        <div className="flex items-center gap-4 text-gray-400">
-          <button className="hover:text-blue-500 transition-colors"><ImageIcon className="w-5 h-5" /></button>
-          <button className="hover:text-blue-500 transition-colors"><Type className="w-5 h-5" /></button>
-          <button className="hover:text-blue-500 transition-colors"><List className="w-5 h-5" /></button>
-          <button className="hover:text-blue-500 transition-colors"><Quote className="w-5 h-5" /></button>
+      <div className="p-4 bg-white/80 dark:bg-black/50 backdrop-blur-md border-t border-rose-gold/20/50 dark:border-white/5/50 flex items-center justify-between">
+        <div className="flex items-center gap-4 text-text-secondary">
+          <button className="hover:text-accent transition-colors"><ImageIcon className="w-5 h-5" /></button>
+          <button className="hover:text-accent transition-colors"><Type className="w-5 h-5" /></button>
+          <button className="hover:text-accent transition-colors"><List className="w-5 h-5" /></button>
+          <button className="hover:text-accent transition-colors"><Quote className="w-5 h-5" /></button>
         </div>
-        <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <div className="text-xs font-bold text-text-secondary uppercase tracking-widest">
           {wordCount} words
         </div>
       </div>
@@ -620,7 +620,7 @@ const DiaryEditor: React.FC<{
               handleSave();
               onOpenWishBox();
             }}
-            className="w-full py-3 rounded-2xl bg-gradient-to-r from-blue-400 to-sky-500 text-white font-bold shadow-lg shadow-sky-500/30 flex items-center justify-center gap-2 animate-bounce"
+            className="w-full py-3 rounded-2xl bg-rose-gold text-white font-bold shadow-lg shadow-accent/30 flex items-center justify-center gap-2 animate-bounce"
           >
             <MessageCircle className="w-5 h-5" /> Send this to him? 💌
           </button>
@@ -643,20 +643,20 @@ const DiarySettingsView: React.FC<{
   return (
     <div className="space-y-8 pb-32 px-4">
       <div className="flex items-center gap-4">
-        <button onClick={onClose} className="p-2 rounded-full bg-gray-100 dark:bg-navy-800 text-gray-500 hover:text-blue-500 transition-all">
+        <button onClick={onClose} className="p-2 rounded-full bg-rose-card dark:bg-plum-card text-text-secondary hover:text-accent transition-all">
           <ChevronLeft className="w-5 h-5" />
         </button>
         <h2 className="text-2xl font-bold serif italic">Diary Settings ⚙️</h2>
       </div>
 
       <div className="space-y-6">
-        <div className="p-6 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-4">
-          <h3 className="font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-            <Lock className="w-5 h-5 text-blue-500" /> Security
+        <div className="p-6 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-4">
+          <h3 className="font-bold text-text-primary dark:text-text-dark-primary flex items-center gap-2">
+            <Lock className="w-5 h-5 text-accent" /> Security
           </h3>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-500">Set Diary PIN (4 digits)</label>
+            <label className="text-sm font-medium text-text-secondary">Set Diary PIN (4 digits)</label>
             <div className="flex gap-2">
               <input 
                 type="password" 
@@ -664,7 +664,7 @@ const DiarySettingsView: React.FC<{
                 value={newPin}
                 onChange={e => setNewPin(e.target.value.replace(/\D/g, ''))}
                 placeholder={settings.pin ? "****" : "Enter new PIN"}
-                className="flex-1 p-3 rounded-xl bg-gray-50 dark:bg-navy-900 border-none focus:ring-2 focus:ring-blue-200"
+                className="flex-1 p-3 rounded-xl bg-rose-card dark:bg-deep-plum border-none focus:ring-2 focus:ring-rose-gold/40"
               />
               <button 
                 onClick={() => {
@@ -676,7 +676,7 @@ const DiarySettingsView: React.FC<{
                     alert("PIN must be 4 digits 🌸");
                   }
                 }}
-                className="px-4 py-2 rounded-xl bg-blue-500 text-white font-bold text-sm"
+                className="px-4 py-2 rounded-xl bg-accent text-white font-bold text-sm"
               >
                 Save
               </button>
@@ -694,17 +694,17 @@ const DiarySettingsView: React.FC<{
           </div>
         </div>
 
-        <div className="p-6 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-4">
-          <h3 className="font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-            <Type className="w-5 h-5 text-blue-500" /> Preferences
+        <div className="p-6 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-4">
+          <h3 className="font-bold text-text-primary dark:text-text-dark-primary flex items-center gap-2">
+            <Type className="w-5 h-5 text-accent" /> Preferences
           </h3>
           
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-500">Font Size</span>
+            <span className="text-sm font-medium text-text-secondary">Font Size</span>
             <select 
               value={settings.fontSize}
               onChange={e => onUpdateSettings(s => ({ ...s, fontSize: e.target.value as any }))}
-              className="p-2 rounded-lg bg-gray-50 dark:bg-navy-900 border-none text-sm font-bold"
+              className="p-2 rounded-lg bg-rose-card dark:bg-deep-plum border-none text-sm font-bold"
             >
               <option value="small">Small</option>
               <option value="medium">Medium</option>
@@ -713,21 +713,21 @@ const DiarySettingsView: React.FC<{
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-500">Auto-save Drafts</span>
+            <span className="text-sm font-medium text-text-secondary">Auto-save Drafts</span>
             <button 
               onClick={() => onUpdateSettings(s => ({ ...s, autoSave: !s.autoSave }))}
-              className={cn("w-12 h-6 rounded-full transition-colors relative", settings.autoSave ? "bg-blue-500" : "bg-gray-200 dark:bg-gray-700")}
+              className={cn("w-12 h-6 rounded-full transition-colors relative", settings.autoSave ? "bg-accent" : "bg-rose-gold/20 dark:bg-white/10")}
             >
               <div className={cn("absolute top-1 w-4 h-4 rounded-full bg-white transition-all", settings.autoSave ? "right-1" : "left-1")} />
             </button>
           </div>
         </div>
 
-        <div className="p-6 rounded-[24px] bg-white dark:bg-navy-800 shadow-sm border border-gray-100 dark:border-gray-700/50 space-y-4">
-          <h3 className="font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-            <Download className="w-5 h-5 text-blue-500" /> Data
+        <div className="p-6 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-4">
+          <h3 className="font-bold text-text-primary dark:text-text-dark-primary flex items-center gap-2">
+            <Download className="w-5 h-5 text-accent" /> Data
           </h3>
-          <button className="w-full p-3 rounded-xl bg-gray-50 dark:bg-navy-900 text-gray-700 dark:text-gray-200 font-bold text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-all">
+          <button className="w-full p-3 rounded-xl bg-rose-card dark:bg-deep-plum text-text-primary dark:text-text-dark-primary font-bold text-sm flex items-center justify-center gap-2 hover:bg-rose-card transition-all">
             <Download className="w-4 h-4" /> Export My Diary 📖
           </button>
           <button 
