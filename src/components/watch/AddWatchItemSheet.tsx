@@ -249,7 +249,7 @@ export const AddWatchItemSheet: React.FC<AddWatchItemSheetProps> = ({ item, onCl
               <select 
                 value={formData.platform}
                 onChange={e => setFormData({ ...formData, platform: e.target.value })}
-                className="w-full p-3 bg-rose-card dark:bg-plum-card border border-rose-gold/20 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-accent"
+                className="w-full p-3 bg-rose-card dark:bg-plum-card border border-rose-gold/20 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-accent accent-rose-gold"
               >
                 {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
               </select>
@@ -259,7 +259,7 @@ export const AddWatchItemSheet: React.FC<AddWatchItemSheetProps> = ({ item, onCl
               <select 
                 value={formData.language}
                 onChange={e => setFormData({ ...formData, language: e.target.value })}
-                className="w-full p-3 bg-rose-card dark:bg-plum-card border border-rose-gold/20 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-accent"
+                className="w-full p-3 bg-rose-card dark:bg-plum-card border border-rose-gold/20 dark:border-white/10 rounded-xl outline-none focus:ring-2 focus:ring-accent accent-rose-gold"
               >
                 {LANGUAGES.map(l => <option key={l} value={l}>{l}</option>)}
               </select>

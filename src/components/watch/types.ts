@@ -27,12 +27,12 @@ export const GENRES = [
   'Romance 💕', 'Thriller 😱', 'Comedy 😂', 'Drama 🎭', 
   'Horror 👻', 'Action 💥', 'Sci-Fi 🚀', 'Fantasy 🧙', 
   'Animation 🎨', 'Documentary 🎙️', 'Mystery 🔍', 'Crime 🕵️', 
-  'Historical 📜', 'K-Drama 🇰🇷', 'Bollywood 🎵', 'Hollywood 🌟', 
+  'Historical 📜', 'K-Drama 🇰🇷', 'C-Drama 🇨🇳', 'Bollywood 🎵', 'Hollywood 🌟', 
   'Turkish 🌙', 'Bengali 🌿'
 ];
 
 export const LANGUAGES = [
-  'Bangla 🇧🇩', 'English 🇬🇧', 'Hindi 🇮🇳', 'Korean 🇰🇷', 'Turkish 🇹🇷', 'Other 🌍'
+  'Bangla 🇧🇩', 'English 🇬🇧', 'Hindi 🇮🇳', 'Korean 🇰🇷', 'Chinese 🇨🇳', 'Turkish 🇹🇷', 'Other 🌍'
 ];
 
 export const PLATFORMS = [
