@@ -35,7 +35,7 @@ export const WatchWorld: React.FC = () => {
 
   const filteredItems = useMemo(() => {
     switch (activeTab) {
-      case 'watchlist': return items.filter(i => i.status === 'want_to_watch');
+      case 'watchlist': return items.filter(i => i.status === 'want_to_watch' || i.status === 'not_released');
       case 'watching': return items.filter(i => i.status === 'watching');
       case 'watched': return items.filter(i => i.status === 'finished');
       case 'favorites': return items.filter(i => i.isFavorite);
@@ -121,38 +121,69 @@ export const WatchWorld: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={cn(
-              "grid gap-4",
-              (activeTab === 'watchlist' || activeTab === 'watched' || activeTab === 'favorites') 
-                ? "grid-cols-2" 
-                : "grid-cols-1"
-            )}
+            className="space-y-8"
           >
             {filteredItems.length === 0 ? (
-              <div className="col-span-full py-12 text-center text-text-secondary">
+              <div className="py-12 text-center text-text-secondary">
                 <Film className="w-12 h-12 mx-auto mb-3 opacity-20" />
                 <p>Nothing here yet, lokki amar 💕</p>
               </div>
             ) : (
-              filteredItems.map(item => (
-                activeTab === 'watching' ? (
-                  <WatchingItemCard 
-                    key={item.id} 
-                    item={item} 
-                    onUpdate={(updates) => handleUpdate(item.id, updates)}
-                    onClick={() => setSelectedItem(item)}
-                  />
-                ) : (
-                  <WatchItemCard 
-                    key={item.id} 
-                    item={item} 
-                    onUpdate={(updates) => handleUpdate(item.id, updates)}
-                    onDelete={() => handleDelete(item.id)}
-                    onEdit={() => { setEditingItem(item); setIsAdding(true); }}
-                    onClick={() => setSelectedItem(item)}
-                  />
-                )
-              ))
+              <>
+                {activeTab === 'watchlist' && filteredItems.some(i => i.status === 'not_released') && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-bold text-[#FFB74D] flex items-center gap-2 px-1">
+                      <Calendar className="w-5 h-5" /> Coming Soon 🗓️
+                    </h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {filteredItems.filter(i => i.status === 'not_released').map(item => (
+                        <WatchItemCard 
+                          key={item.id} 
+                          item={item} 
+                          onUpdate={(updates) => handleUpdate(item.id, updates)}
+                          onDelete={() => handleDelete(item.id)}
+                          onEdit={() => { setEditingItem(item); setIsAdding(true); }}
+                          onClick={() => setSelectedItem(item)}
+                        />
+                      ))}
+                    </div>
+                    {filteredItems.some(i => i.status === 'want_to_watch') && (
+                      <h3 className="text-lg font-bold text-accent flex items-center gap-2 px-1 pt-4">
+                        <Bookmark className="w-5 h-5" /> Ready to Watch
+                      </h3>
+                    )}
+                  </div>
+                )}
+                
+                <div className={cn(
+                  "grid gap-4",
+                  (activeTab === 'watchlist' || activeTab === 'watched' || activeTab === 'favorites') 
+                    ? "grid-cols-2" 
+                    : "grid-cols-1"
+                )}>
+                  {filteredItems
+                    .filter(item => activeTab === 'watchlist' ? item.status === 'want_to_watch' : true)
+                    .map(item => (
+                      activeTab === 'watching' ? (
+                        <WatchingItemCard 
+                          key={item.id} 
+                          item={item} 
+                          onUpdate={(updates) => handleUpdate(item.id, updates)}
+                          onClick={() => setSelectedItem(item)}
+                        />
+                      ) : (
+                        <WatchItemCard 
+                          key={item.id} 
+                          item={item} 
+                          onUpdate={(updates) => handleUpdate(item.id, updates)}
+                          onDelete={() => handleDelete(item.id)}
+                          onEdit={() => { setEditingItem(item); setIsAdding(true); }}
+                          onClick={() => setSelectedItem(item)}
+                        />
+                      )
+                    ))}
+                </div>
+              </>
             )}
           </motion.div>
         </AnimatePresence>

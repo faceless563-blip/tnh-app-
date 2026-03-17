@@ -6,7 +6,7 @@ export interface WatchItem {
   genres: string[];
   language: string;
   platform: string;
-  status: 'want_to_watch' | 'watching' | 'finished' | 'on_hold' | 'dropped';
+  status: 'want_to_watch' | 'not_released' | 'watching' | 'finished' | 'on_hold' | 'dropped';
   seasonsTotal?: number;
   episodesTotal?: number;
   currentSeason?: number;

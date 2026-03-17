@@ -165,6 +165,7 @@ export const AddWatchItemSheet: React.FC<AddWatchItemSheetProps> = ({ item, onCl
             <div className="flex flex-wrap gap-2">
               {[
                 { id: 'want_to_watch', label: '🔖 Want to Watch' },
+                { id: 'not_released', label: '🗓️ Not Released Yet' },
                 { id: 'watching', label: '▶️ Currently Watching' },
                 { id: 'finished', label: '✅ Finished' },
                 { id: 'on_hold', label: '⏸️ On Hold' },

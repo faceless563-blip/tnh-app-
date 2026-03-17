@@ -89,6 +89,7 @@ export const WatchItemDetail: React.FC<WatchItemDetailProps> = ({ item, onClose,
                 item.status === 'finished' ? "bg-green-100 text-green-700" :
                 item.status === 'watching' ? "bg-rose-gold/20 text-rose-700" :
                 item.status === 'want_to_watch' ? "bg-purple-100 text-purple-700" :
+                item.status === 'not_released' ? "bg-[#FFB74D]/20 text-[#FFB74D]" :
                 "bg-rose-gold/20 text-text-primary"
               )}>
                 {item.status.replace('_', ' ').toUpperCase()}

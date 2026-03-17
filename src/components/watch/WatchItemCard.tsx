@@ -52,6 +52,11 @@ export const WatchItemCard: React.FC<WatchItemCardProps> = ({ item, onUpdate, on
                 <Flame className="w-3 h-3" /> Urgent
               </span>
             )}
+            {item.status === 'not_released' && (
+              <span className="px-2 py-1 bg-[#FFB74D] backdrop-blur-md rounded-md text-[10px] font-bold text-white flex items-center gap-1">
+                Coming Soon 🗓️
+              </span>
+            )}
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); onUpdate({ isFavorite: !item.isFavorite }); }}
