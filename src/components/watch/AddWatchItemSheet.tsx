@@ -78,7 +78,7 @@ export const AddWatchItemSheet: React.FC<AddWatchItemSheetProps> = ({ item, onCl
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-rose-gold/10 dark:border-white/5">
-          <h2 className="text-2xl font-dancing text-accent dark:text-accent-light">
+          <h2 className="text-2xl font-serif text-accent dark:text-accent-light">
             {item ? 'Edit Entry 🎬' : 'Add to Watch World 💕'}
           </h2>
           <button onClick={onClose} className="p-2 bg-rose-card dark:bg-plum-card rounded-full text-text-secondary hover:text-accent transition-colors">

@@ -31,6 +31,7 @@ import {
 import { NewFeaturesPopup } from './components/NewFeaturesPopup';
 import { Diary } from './components/diary/Diary';
 import { WatchWorld } from './components/watch/WatchWorld';
+import { MedicineTracker } from './components/MedicineTracker';
 import { 
   Task, AnchorTaskTemplate, UserSettings, DailyReflection,
   CycleLog, CycleSettings, PeriodTrackerData, CyclePhase,
@@ -232,7 +233,7 @@ const CelebrationPopup = ({
         </motion.div>
         
         <h2 className={cn(
-          "text-3xl font-bold text-text-primary leading-tight handwriting",
+          "text-3xl font-bold text-text-primary leading-tight accent italic",
           isFinale ? "text-4xl" : "text-3xl"
         )}>
           {message}
@@ -529,7 +530,7 @@ const AddTaskModal = ({
         className="bg-white dark:bg-plum-card w-full max-w-md rounded-t-[40px] sm:rounded-[40px] p-8 shadow-2xl space-y-6 border-t-4 border-accent-light/20"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">New Task 🌸</h2>
+          <h2 className="text-2xl font-bold dark:text-text-dark-primary accent italic">New Task 🌸</h2>
           <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
             <X className="w-6 h-6" />
           </button>
@@ -727,7 +728,7 @@ const AppTour = ({ onComplete, soundEnabled }: { onComplete: () => void, soundEn
               coords.top + coords.height + 24 > window.innerHeight - 200 ? "-bottom-2" : "-top-2"
             )} />
             
-            <p className="text-text-primary text-lg leading-relaxed handwriting font-bold">
+            <p className="text-text-primary text-lg leading-relaxed accent italic font-bold">
               {steps[step].message}
             </p>
 
@@ -975,7 +976,7 @@ const PeriodTrackerTour = ({ onComplete, soundEnabled }: { onComplete: () => voi
               )} />
             )}
             
-            <p className="text-text-primary text-lg leading-relaxed handwriting font-bold whitespace-pre-line">
+            <p className="text-text-primary text-lg leading-relaxed accent italic font-bold whitespace-pre-line">
               {steps[step].message}
             </p>
 
@@ -1042,7 +1043,7 @@ const FocusMode = ({ task, onExit }: { task: Task, onExit: () => void }) => {
             {mode === 'work' ? <Brain className="w-4 h-4" /> : <Coffee className="w-4 h-4" />}
             {mode === 'work' ? 'Focusing on' : 'Break Time'}
           </div>
-          <h2 className="text-4xl font-bold serif italic">{task.name}</h2>
+          <h2 className="text-4xl font-bold font-serif italic">{task.name}</h2>
         </div>
 
         <div className="relative w-72 h-72 mx-auto flex items-center justify-center">
@@ -1100,7 +1101,7 @@ const ReflectionModal = ({
         className="bg-white dark:bg-plum-card rounded-[40px] p-8 max-w-sm w-full text-center space-y-8 shadow-2xl border-4 border-accent-light/20"
       >
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Daily Reflection</h2>
+          <h2 className="text-2xl font-bold dark:text-text-dark-primary accent italic">Daily Reflection</h2>
           <p className="text-text-secondary dark:text-text-secondary">How was your day, {userName}? 🌸</p>
         </div>
 
@@ -1191,7 +1192,7 @@ const WishBoxModal = ({
             >
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-bold text-[#2C1810] dark:text-text-dark-primary handwriting">What's on your mind, Tanha? 🌸</h2>
+                  <h2 className="text-2xl font-bold text-[#2C1810] dark:text-text-dark-primary accent italic">What's on your mind, Tanha? 🌸</h2>
                   <p className="text-sm text-[#8B3A52] dark:text-accent-light font-medium">A problem? A wish? Anything at all — just say it 💕</p>
                 </div>
                 <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
@@ -1253,7 +1254,7 @@ const WishBoxModal = ({
 
               <div className="relative z-10 space-y-4">
                 <div className="text-6xl">💖🌸🥺</div>
-                <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">Sent! 💖</h2>
+                <h2 className="text-3xl font-bold dark:text-text-dark-primary accent italic">Sent! 💖</h2>
                 <div className="space-y-2">
                   <p className="text-lg text-text-primary dark:text-text-secondary">Your message is on its way 🌸</p>
                   <p className="text-sm font-medium text-pink-500 italic">Someone who loves you is listening, always 🥺</p>
@@ -1386,7 +1387,7 @@ const LogSheet = ({
       >
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Log for {format(selectedDate, 'MMM do')} 🌸</h2>
+            <h2 className="text-2xl font-bold dark:text-text-dark-primary accent italic">Log for {format(selectedDate, 'MMM do')} 🌸</h2>
             <p className="text-xs text-text-secondary font-medium">How are you feeling, Tanha? 💕</p>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full transition-all">
@@ -1571,7 +1572,7 @@ const CalendarView = ({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold handwriting">{format(currentMonth, 'MMMM yyyy')}</h3>
+        <h3 className="text-xl font-bold accent italic">{format(currentMonth, 'MMMM yyyy')}</h3>
         <div className="flex gap-2">
           <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full">
             <ChevronLeft className="w-5 h-5" />
@@ -1688,7 +1689,7 @@ const StartTrackingSheet = ({
               <div className="space-y-8">
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 01</span>
-                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">When did it start? 🌸</h2>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary accent italic">When did it start? 🌸</h2>
                   <p className="text-text-secondary text-sm">I want to make sure the predictions are perfect for you, amar lokki. Tell me the first day of your last cycle 💕</p>
                 </div>
 
@@ -1709,7 +1710,7 @@ const StartTrackingSheet = ({
               <div className="space-y-8">
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 02</span>
-                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">Your Beautiful Rhythm 🗓️</h2>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary accent italic">Your Beautiful Rhythm 🗓️</h2>
                   <p className="text-text-secondary text-sm">Every body is unique, Tanha. How many days does your cycle usually last? This helps me know when to be extra gentle with you 💕</p>
                 </div>
 
@@ -1738,7 +1739,7 @@ const StartTrackingSheet = ({
               <div className="space-y-8">
                 <div className="space-y-2">
                   <span className="text-[10px] font-black tracking-widest text-rose-gold uppercase">Step 03</span>
-                  <h2 className="text-3xl font-bold dark:text-text-dark-primary handwriting">The Duration 🩸</h2>
+                  <h2 className="text-3xl font-bold dark:text-text-dark-primary accent italic">The Duration 🩸</h2>
                   <p className="text-text-secondary text-sm">And how many days does your period usually last? I'll use this to help you prepare for those days, amar lokki 💖</p>
                 </div>
 
@@ -1920,7 +1921,7 @@ const PeriodTracker = ({
             className="space-y-8 max-w-md"
           >
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Let's look after you, Tanha 🌸</h2>
+              <h2 className="text-2xl font-bold dark:text-text-dark-primary accent italic">Let's look after you, Tanha 🌸</h2>
               <p className="text-text-secondary">By tracking your cycle, we can better understand your needs and make sure you're always feeling your best. Let's start this journey together, amar lokki 💕</p>
             </div>
             
@@ -2129,7 +2130,7 @@ const PeriodTracker = ({
               className="bg-white dark:bg-plum-card rounded-[40px] p-8 max-w-md w-full space-y-8 shadow-2xl relative"
             >
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold dark:text-text-dark-primary handwriting">Cycle Settings 🌸</h2>
+                <h2 className="text-2xl font-bold dark:text-text-dark-primary accent italic">Cycle Settings 🌸</h2>
                 <button onClick={() => setShowSettings(false)} className="p-2 hover:bg-rose-card dark:hover:bg-white/10 rounded-full">
                   <X className="w-6 h-6" />
                 </button>
@@ -2232,7 +2233,7 @@ export default function App() {
     };
   });
 
-  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more' | 'diary' | 'watchworld'>('home');
+  const [view, setView] = useState<'home' | 'focus' | 'settings' | 'cycle' | 'hair' | 'dates' | 'shopping' | 'selfcare' | 'more' | 'diary' | 'watchworld' | 'medicines'>('home');
   const [activeTab, setActiveTab] = useState<'day' | 'cycle' | 'more'>('day');
   
   const [hairCareLogs, setHairCareLogs] = useState<HairCareLog[]>(() => {
@@ -2707,7 +2708,7 @@ export default function App() {
       <header className="max-w-2xl mx-auto pt-12 px-6 space-y-8">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 id="tour-greeting" className="text-3xl font-bold serif italic tracking-tight drop-shadow-md">
+            <h1 id="tour-greeting" className="text-3xl font-bold font-serif italic tracking-tight drop-shadow-md">
               {greeting()}
             </h1>
             <p className="text-sm text-text-secondary dark:text-text-secondary font-medium drop-shadow-sm">
@@ -2790,7 +2791,7 @@ export default function App() {
       {/* Main Content */}
       <main className={cn(
         "max-w-2xl mx-auto py-8 px-6 pb-32 space-y-10",
-        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare' || view === 'watchworld') && "bg-[#F0F8FF] dark:bg-deep-plum min-h-screen"
+        (activeTab === 'cycle' || view === 'hair' || view === 'dates' || view === 'shopping' || view === 'selfcare' || view === 'watchworld' || view === 'medicines') && "bg-[#F0F8FF] dark:bg-deep-plum min-h-screen"
       )}>
         {view === 'home' ? (
           activeTab === 'day' ? (
@@ -2966,6 +2967,9 @@ export default function App() {
             {view === 'watchworld' && (
               <WatchWorld />
             )}
+            {view === 'medicines' && (
+              <MedicineTracker />
+            )}
           </div>
         )}
       </main>
@@ -3031,7 +3035,7 @@ export default function App() {
           >
             <div className="max-w-2xl mx-auto p-6 space-y-12 pb-32">
               <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-bold serif italic">TANHA CHATTERJEE</h2>
+                <h2 className="text-3xl font-bold font-serif italic">TANHA CHATTERJEE</h2>
                 <button onClick={() => { playSound(SOUNDS.CLICK, settings.soundEnabled); setView('home'); }} className="p-2 rounded-full hover:bg-rose-card dark:hover:bg-white/10">
                   <X className="w-6 h-6" />
                 </button>

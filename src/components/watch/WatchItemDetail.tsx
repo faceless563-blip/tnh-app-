@@ -56,7 +56,7 @@ export const WatchItemDetail: React.FC<WatchItemDetailProps> = ({ item, onClose,
                 <Heart className={cn("w-5 h-5", item.isFavorite && "fill-accent text-accent")} />
               </button>
             </div>
-            <h1 className="text-4xl font-dancing font-bold text-white drop-shadow-lg leading-tight">
+            <h1 className="text-4xl font-serif font-bold text-white drop-shadow-lg leading-tight">
               {item.title}
             </h1>
           </div>

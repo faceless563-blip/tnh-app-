@@ -66,7 +66,7 @@ export const WatchingItemCard: React.FC<WatchingItemCardProps> = ({ item, onUpda
       <div className="flex-1 flex flex-col justify-between py-1">
         <div>
           <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className="font-dancing text-2xl font-bold text-text-primary dark:text-text-dark-primary leading-tight line-clamp-2">
+            <h3 className="font-serif text-2xl font-bold text-text-primary dark:text-text-dark-primary leading-tight line-clamp-2">
               {item.title}
             </h3>
             <span className="px-2 py-1 bg-rose-card dark:bg-deep-plum rounded-md text-[10px] font-bold text-text-secondary uppercase tracking-wider flex items-center gap-1 flex-shrink-0">

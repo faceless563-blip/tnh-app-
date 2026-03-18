@@ -96,7 +96,7 @@ export const NewFeaturesPopup: React.FC<NewFeaturesPopupProps> = ({ isOpen, onCl
                   </motion.span>
                 </motion.div>
 
-                <h2 className="text-4xl font-bold text-accent serif italic">
+                <h2 className="text-4xl font-bold text-accent font-serif italic">
                   Hey Tanha! 🌸
                 </h2>
 

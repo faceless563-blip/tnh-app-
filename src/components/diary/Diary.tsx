@@ -101,7 +101,7 @@ export const Diary: React.FC<DiaryProps> = ({
           <Lock className="w-10 h-10" />
         </div>
         <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold serif italic text-text-primary dark:text-text-dark-primary">Tanha's Private Space 🔒🌸</h2>
+          <h2 className="text-3xl font-bold font-serif italic text-text-primary dark:text-text-dark-primary">Tanha's Private Space 🔒🌸</h2>
           <p className="text-text-secondary">Enter your PIN to unlock your diary</p>
         </div>
         
@@ -267,7 +267,7 @@ const DiaryHome: React.FC<{
       {/* Header */}
       <div className="flex items-center justify-between px-2">
         <div>
-          <h2 className="text-3xl font-bold serif italic text-accent">Tanha's Diary 📖</h2>
+          <h2 className="text-3xl font-bold font-serif italic text-accent">Tanha's Diary 📖</h2>
           <p className="text-sm text-text-secondary font-medium">Your thoughts, your feelings, your world 🌸</p>
         </div>
         <div className="flex gap-2">
@@ -286,7 +286,7 @@ const DiaryHome: React.FC<{
           <Book className="w-24 h-24" />
         </div>
         <div className="relative z-10 space-y-4">
-          <p className="text-lg font-bold text-text-primary dark:text-text-dark-primary serif italic leading-relaxed">
+          <p className="text-lg font-bold text-text-primary dark:text-text-dark-primary font-serif italic leading-relaxed">
             "{dailyPrompt}"
           </p>
           <button 
@@ -395,7 +395,7 @@ const DiaryHome: React.FC<{
       {/* Insights & Stats */}
       {entries.length > 0 && (
         <div className="px-2 pt-8 space-y-4">
-          <h3 className="text-xl font-bold serif italic text-text-primary dark:text-text-dark-primary">Diary Insights ✨</h3>
+          <h3 className="text-xl font-bold font-serif italic text-text-primary dark:text-text-dark-primary">Diary Insights ✨</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-[24px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/20 dark:border-rose-900/30 flex flex-col items-center justify-center text-center space-y-2">
               <div className="w-10 h-10 rounded-full bg-rose-gold/10 dark:bg-white/5 flex items-center justify-center text-accent">
@@ -517,13 +517,13 @@ const DiaryEditor: React.FC<{
         </div>
 
         {/* Title */}
-        <input
-          type="text"
-          placeholder="Give this entry a title... (optional) 🌸"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          className="w-full bg-transparent border-none text-2xl font-bold serif italic text-text-primary dark:text-text-dark-primary placeholder:text-text-secondary focus:ring-0 p-0"
-        />
+          <input
+            type="text"
+            placeholder="Give this entry a title... (optional) 🌸"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="w-full bg-transparent border-none text-2xl font-bold font-serif italic text-text-primary dark:text-text-dark-primary placeholder:text-text-secondary focus:ring-0 p-0"
+          />
 
         {/* Mood & Weather Selectors */}
         <div className="flex flex-col gap-4 py-4 border-y border-rose-gold/20/50 dark:border-white/5/50">
@@ -587,15 +587,15 @@ const DiaryEditor: React.FC<{
 
         {/* Writing Area */}
         <div className="relative flex-1 min-h-[300px]">
-          <textarea
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            placeholder={`Start writing, Tanha... this is your safe space 🌸\nNo judgment. No rules. Just you. 💕\n\nPrompt: ${dailyPrompt}`}
-            className={cn(
-              "w-full h-full min-h-[300px] bg-transparent border-none resize-none focus:ring-0 p-0 text-[#1E293B] dark:text-[#E2E8F0] serif leading-[1.8]",
-              settings.fontSize === 'small' ? 'text-sm' : settings.fontSize === 'large' ? 'text-xl' : 'text-base'
-            )}
-          />
+            <textarea
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              placeholder={`Start writing, Tanha... this is your safe space 🌸\nNo judgment. No rules. Just you. 💕\n\nPrompt: ${dailyPrompt}`}
+              className={cn(
+                "w-full h-full min-h-[300px] bg-transparent border-none resize-none focus:ring-0 p-0 text-[#2C1810] dark:text-[#E2E8F0] font-serif leading-[1.8]",
+                settings.fontSize === 'small' ? 'text-sm' : settings.fontSize === 'large' ? 'text-xl' : 'text-[17px]'
+              )}
+            />
         </div>
       </div>
 
@@ -646,7 +646,7 @@ const DiarySettingsView: React.FC<{
         <button onClick={onClose} className="p-2 rounded-full bg-rose-card dark:bg-plum-card text-text-secondary hover:text-accent transition-all">
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h2 className="text-2xl font-bold serif italic">Diary Settings ⚙️</h2>
+        <h2 className="text-2xl font-bold font-serif italic">Diary Settings ⚙️</h2>
       </div>
 
       <div className="space-y-6">

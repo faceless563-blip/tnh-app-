@@ -6,7 +6,7 @@ import {
   ChevronLeft, ChevronRight, MoreHorizontal, 
   AlertCircle, Share2, Filter, Star, Bath, 
   CheckSquare, Square, Info, Settings as SettingsIcon,
-  Flame, TrendingUp, Gift, PartyPopper, Bell, Book, Film
+  Flame, TrendingUp, Gift, PartyPopper, Bell, Book, Film, Pill
 } from 'lucide-react';
 import { 
   format, addDays, subDays, startOfWeek, endOfWeek, 
@@ -78,7 +78,7 @@ export const HairCareTracker: React.FC<HairCareTrackerProps> = ({
   return (
     <div className="space-y-8 pb-20">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold serif italic">Tanha's Hair Care 🌸</h2>
+        <h2 className="text-2xl font-bold font-serif italic">Tanha's Hair Care 🌸</h2>
         <button 
           onClick={() => setShowSettings(!showSettings)}
           className="p-2 rounded-full hover:bg-rose-card dark:hover:bg-white/10 transition-all"
@@ -282,7 +282,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
   return (
     <div className="space-y-8 pb-20">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold serif italic">Important Dates 📅</h2>
+        <h2 className="text-2xl font-bold font-serif italic">Important Dates 📅</h2>
         <button 
           onClick={() => setShowAddModal(true)}
           className="p-2 rounded-full bg-accent-light text-white shadow-lg hover:scale-110 transition-all"
@@ -329,7 +329,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
       {/* Calendar View */}
       <div className="p-6 rounded-[40px] bg-white dark:bg-plum-card shadow-sm border border-rose-gold/10 dark:border-white/10/50 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold serif italic text-xl">{format(currentMonth, 'MMMM yyyy')}</h3>
+          <h3 className="font-bold font-serif italic text-xl">{format(currentMonth, 'MMMM yyyy')}</h3>
           <div className="flex gap-2">
             <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-rose-card dark:hover:bg-white/10"><ChevronLeft className="w-5 h-5" /></button>
             <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 rounded-xl hover:bg-rose-card dark:hover:bg-white/10"><ChevronRight className="w-5 h-5" /></button>
@@ -416,7 +416,7 @@ export const ImportantDatesCalendar: React.FC<ImportantDatesProps> = ({ dates, o
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               className="relative w-full max-w-sm bg-white dark:bg-plum-card rounded-[40px] p-8 shadow-2xl space-y-6"
             >
-              <h3 className="text-xl font-bold serif italic">Add Important Date 🌸</h3>
+              <h3 className="text-xl font-bold font-serif italic">Add Important Date 🌸</h3>
               
               <div className="space-y-4">
                 <div className="space-y-1">
@@ -531,7 +531,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
   return (
     <div className="space-y-8 pb-32">
       <div className="flex items-center justify-between px-2">
-        <h2 className="text-2xl font-bold serif italic">Shopping List 🛍️</h2>
+        <h2 className="text-2xl font-bold font-serif italic">Shopping List 🛍️</h2>
         <div className="flex gap-2">
           <button 
             onClick={() => setShowConfirmClear(true)}
@@ -767,7 +767,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = ({ items, onAdd, onTogg
                 <div className="w-16 h-16 bg-accent-light/10 rounded-full flex items-center justify-center mx-auto text-accent-light mb-4">
                   <Trash2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold serif italic">Clear bought items, Tanha? 🛒</h3>
+                <h3 className="text-xl font-bold font-serif italic">Clear bought items, Tanha? 🛒</h3>
                 <p className="text-text-secondary text-sm">This will remove all items you've already picked up.</p>
               </div>
               <div className="space-y-3">
@@ -846,7 +846,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
   return (
     <div className="space-y-8 pb-20">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold serif italic">Self Care Space ✨</h2>
+        <h2 className="text-2xl font-bold font-serif italic">Self Care Space ✨</h2>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-500 font-bold text-xs">
           <Flame className="w-4 h-4 fill-current" />
           {streak} Day Streak
@@ -868,7 +868,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
         </div>
         <div className="relative z-10 space-y-6">
           <div className="space-y-2">
-            <h3 className="text-xl font-bold serif italic">Daily Bath Log 🛁</h3>
+            <h3 className="text-xl font-bold font-serif italic">Daily Bath Log 🛁</h3>
             <p className={cn("text-sm", hasBathedToday ? "text-rose-50" : "text-text-secondary")}>
               {hasBathedToday 
                 ? "You're all fresh and clean, Tanha! 🌸✨" 
@@ -965,7 +965,7 @@ export const SelfCareTracker: React.FC<SelfCareProps> = ({ logs, onLog, onLogBat
 // --- More Menu (Grid) ---
 
 interface MoreMenuProps {
-  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox' | 'diary' | 'watchworld') => void;
+  onNavigate: (view: 'hair' | 'dates' | 'shopping' | 'selfcare' | 'cycle' | 'wishbox' | 'diary' | 'watchworld' | 'medicines') => void;
 }
 
 export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
@@ -978,11 +978,12 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ onNavigate }) => {
     { id: 'selfcare', name: 'Self Care', icon: Bath, color: 'bg-[#CE93D8]', emoji: '🛁' },
     { id: 'diary', name: 'My Diary', icon: Book, color: 'bg-[#8B3A52]', emoji: '📖' },
     { id: 'watchworld', name: 'Watch World', icon: Film, color: 'bg-accent', emoji: '🎬' },
+    { id: 'medicines', name: 'Medicines 💊', icon: Pill, color: 'bg-[#F8BBD9]', emoji: '💊' },
   ];
 
   return (
     <div className="space-y-8 pb-[100px] min-h-screen -mx-6 -mt-6 px-6 pt-12 bg-gradient-to-br from-[#FFE4EC] via-[#FCE4EC] to-[#FDFAF7] dark:from-[#2C1810] dark:via-[#3D2C2C] dark:to-[#1A1114]">
-      <h2 className="text-[32px] font-dancing text-[#B76E79] pt-5">Explore More 🌸</h2>
+      <h2 className="text-[32px] font-serif text-[#B76E79] pt-5">Explore More 🌸</h2>
       <div className="grid grid-cols-2 gap-4">
         {menuItems.map((item, index) => (
           <motion.button

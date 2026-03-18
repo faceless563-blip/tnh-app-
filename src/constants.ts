@@ -249,3 +249,15 @@ export const DIARY_TYPES = [
   { id: 'letter_to_him', label: 'Letter to Him 💕' },
   { id: 'rant', label: 'Rant (private) 😤' }
 ];
+
+export const DOCTOR_SPECIALIZATIONS = [
+  "General", "Gynecologist", "Cardiologist", "Dermatologist", 
+  "Neurologist", "Dentist", "Orthopedic", "Pediatrician", "Other"
+];
+
+export const REPORT_TYPES = [
+  "Blood Test", "Urine Test", "X-Ray", "MRI", "CT Scan", 
+  "Ultrasound", "ECG", "Thyroid Panel", "Hormone Panel", 
+  "Lipid Profile", "Liver Function", "Kidney Function", 
+  "Vitamin Levels", "COVID Test", "Pregnancy Test", "Other"
+];

@@ -73,7 +73,7 @@ export const WatchWorld: React.FC = () => {
     <div className="min-h-screen bg-[#FDF8FA] dark:bg-[#1A1114] pb-24 -mx-6 -mt-8 pt-8">
       {/* Hero Header */}
       <div className="pt-12 px-6 pb-6 bg-gradient-to-b from-accent/10 to-transparent">
-        <h1 className="text-4xl font-dancing text-accent dark:text-accent-light text-center mb-2">
+        <h1 className="text-4xl font-serif text-accent dark:text-accent-light text-center mb-2">
           Tanha's Watch World 🎬
         </h1>
         <p className="text-center text-[#880E4F] dark:text-[#F48FB1] text-sm font-medium opacity-80">

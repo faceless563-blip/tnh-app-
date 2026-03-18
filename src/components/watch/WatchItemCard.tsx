@@ -78,7 +78,7 @@ export const WatchItemCard: React.FC<WatchItemCardProps> = ({ item, onUpdate, on
               ))}
             </div>
           )}
-          <h3 className="text-white font-dancing text-xl leading-tight line-clamp-2 drop-shadow-md">
+          <h3 className="text-white font-serif text-xl leading-tight line-clamp-2 drop-shadow-md">
             {item.title}
           </h3>
         </div>

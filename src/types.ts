@@ -138,3 +138,29 @@ export type DiarySettings = {
   defaultType: DiaryType;
   fontSize: 'small' | 'medium' | 'large';
 };
+
+export type Prescription = {
+  id: string;
+  doctorName: string;
+  specialization: string;
+  hospitalName: string;
+  date: string; // ISO string
+  diagnosis: string;
+  imagePaths: string[];
+  notes: string;
+  addedAt: string; // ISO string
+};
+
+export type MedicalReport = {
+  id: string;
+  reportType: string;
+  labName: string;
+  date: string; // ISO string
+  referringDoctor: string;
+  imagePaths: string[];
+  notes: string;
+  analysisResult: string | null;
+  analysisDate: string | null;
+  status: 'not_analyzed' | 'normal' | 'abnormal';
+  addedAt: string; // ISO string
+};
